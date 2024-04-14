@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./MainPage.module.scss";
 import airyPicSrc from "./airy-pic.webp";
+import WebApp from "@twa-dev/sdk";
 export interface IMainPageProps {}
 
 /**
@@ -21,6 +22,20 @@ function MainPage(props: IMainPageProps) {
         alt="airy-helper image"
         src={airyPicSrc}
         className={styles.airyPic}
+        onClick={() =>
+          WebApp.showPopup({
+            title: "Airy",
+            message:
+              "Hello! I'm Airy, your friendly mental health assistant. How can I help you today?",
+            buttons: [
+              {
+                id: "get-started",
+                text: "Get Started",
+                type: "default",
+              },
+            ],
+          })
+        }
       />
     </div>
   );
