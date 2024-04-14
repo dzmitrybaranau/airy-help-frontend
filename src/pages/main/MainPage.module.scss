@@ -1,0 +1,24 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  h1 {
+    font-size: 4rem;
+    margin: 1rem;
+    color: rgba(0, 0, 0, 0.9);
+  }
+}
+
+.airyPic {
+  width: 400px;
+  height: 400px;
+}
+
+.description {
+  width: 500px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.57);
+}
