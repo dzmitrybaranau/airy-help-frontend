@@ -6,6 +6,7 @@
   height: 100%;
 
   h1 {
+    text-align: center;
     font-size: 4rem;
     margin: 1rem;
     color: rgba(0, 0, 0, 0.9);
@@ -13,12 +14,15 @@
 }
 
 .airyPic {
-  width: 400px;
-  height: 400px;
+  width: 90%;
+  height: 100%;
+  max-width: 400px;
+  max-height: 400px;
 }
 
 .description {
-  width: 500px;
+  width: 80%;
+  max-width: 500px;
   text-align: center;
   color: rgba(0, 0, 0, 0.57);
 }
