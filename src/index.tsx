@@ -5,7 +5,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import WebApp from "@twa-dev/sdk";
 
-WebApp.colorScheme = "light";
 WebApp.ready();
 
 const root = ReactDOM.createRoot(
