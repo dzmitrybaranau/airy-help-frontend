@@ -35,7 +35,8 @@ function CreateAccountModal(props: ICreateAccountFormProps) {
   const handleCreateAccount = async (values) => {
     // Add the user to Firestore
     try {
-      const chatId = WebApp.initDataUnsafe?.chat?.id;
+      console.log(WebApp.initDataUnsafe);
+      const chatId = WebApp.initDataUnsafe?.chat?.id || "123123";
       if (!chatId) {
         WebApp.showAlert("Chat ID is missing.");
         return;
