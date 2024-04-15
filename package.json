@@ -3,17 +3,40 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@firebase/firestore": "^4.6.0",
+    "@mantine/carousel": "^7.8.0",
+    "@mantine/charts": "^7.8.0",
+    "@mantine/code-highlight": "^7.8.0",
+    "@mantine/core": "^7.8.0",
+    "@mantine/dates": "^7.8.0",
+    "@mantine/dropzone": "^7.8.0",
+    "@mantine/form": "^7.8.0",
+    "@mantine/hooks": "^7.8.0",
+    "@mantine/modals": "^7.8.0",
+    "@mantine/notifications": "^7.8.0",
+    "@mantine/nprogress": "^7.8.0",
+    "@mantine/spotlight": "^7.8.0",
+    "@mantine/tiptap": "^7.8.0",
+    "@tabler/icons-react": "^3.2.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@tiptap/extension-link": "^2.3.0",
+    "@tiptap/react": "^2.3.0",
+    "@tiptap/starter-kit": "^2.3.0",
     "@twa-dev/sdk": "^7.0.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.96",
     "@types/react": "^18.2.78",
     "@types/react-dom": "^18.2.25",
+    "dayjs": "^1.11.10",
+    "embla-carousel-react": "^8.0.2",
+    "firebase": "^10.11.0",
+    "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "recharts": "^2.12.5",
     "sass": "^1.75.0",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
@@ -44,6 +67,9 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.57.0"
+    "eslint": "^8.57.0",
+    "postcss": "^8.4.38",
+    "postcss-preset-mantine": "^1.14.4",
+    "postcss-simple-vars": "^7.0.1"
   }
 }
