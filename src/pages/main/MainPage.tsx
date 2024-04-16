@@ -7,7 +7,7 @@ import {
   useFirestoreDocument,
   useFirestoreQuery,
 } from "@react-query-firebase/firestore";
-import { Loader } from "@mantine/core";
+import { Loader, Paper } from "@mantine/core";
 import { getTmaUserInfo } from "../../components/CreateAccountModal/CreateAccountModal";
 import { firestore } from "../../firebase/firebase-config";
 
@@ -18,19 +18,31 @@ export interface IMainPageProps {}
  */
 function MainPage(props: IMainPageProps) {
   const { id: userChatId } = getTmaUserInfo();
-  const ref = doc(collection(firestore, "users"), "344625069");
+  const ref = doc(collection(firestore, "users"), userChatId);
   const usersQuery = useFirestoreDocument(["users"], ref, { subscribe: true });
 
   if (usersQuery.isLoading) {
-    return <Loader />;
+    return (
+      <Paper
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Loader />
+      </Paper>
+    );
   }
 
-  console.log({ data: usersQuery.data.exists() });
   const userData = usersQuery.data.data();
+  const userExists = usersQuery.data.exists();
+
   return (
     <div className={styles.wrapper}>
       <h1>Meet Airy!</h1>
-      {usersQuery.data.exists() && (
+      {userExists && (
         <h2>
           Hey {userData.firstName} {userData.lastName}
         </h2>
@@ -46,7 +58,7 @@ function MainPage(props: IMainPageProps) {
         for people dealing with mental health issues. Always ready to listen and
         support, Airy is a beacon of hope and a true friend to all.
       </p>
-      <CreateAccountModal isOpen={!usersQuery.data.exists()} />
+      <CreateAccountModal isOpen={!userExists} />
     </div>
   );
 }
