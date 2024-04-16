@@ -42,11 +42,13 @@ function CreateAccountModal(props: ICreateAccountFormProps) {
         return;
       }
 
+      WebApp.showAlert(WebApp.initData);
+
       const userDocRef = doc(collection(db, "users"), chatId.toString());
       await setDoc(userDocRef, {
         ...values,
         birthday: values.birthday ? values.birthday.toISOString() : null,
-        chatId: WebApp.initDataUnsafe.chat.id,
+        chatId,
       });
       console.log("Document written with ID: ", chatId);
       WebApp.showAlert("Account created successfully!");
