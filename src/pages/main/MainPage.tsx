@@ -2,11 +2,8 @@ import React from "react";
 import styles from "./MainPage.module.scss";
 import airyPicSrc from "./airy-pic.webp";
 import CreateAccountModal from "../../components/CreateAccountModal";
-import { collection, doc, query } from "@firebase/firestore";
-import {
-  useFirestoreDocument,
-  useFirestoreQuery,
-} from "@react-query-firebase/firestore";
+import { collection, doc } from "@firebase/firestore";
+import { useFirestoreDocument } from "@react-query-firebase/firestore";
 import { Loader, Paper } from "@mantine/core";
 import { getTmaUserInfo } from "../../components/CreateAccountModal/CreateAccountModal";
 import { firestore } from "../../firebase/firebase-config";
@@ -18,7 +15,7 @@ export interface IMainPageProps {}
  */
 function MainPage(props: IMainPageProps) {
   const { id: userChatId } = getTmaUserInfo();
-  const ref = doc(collection(firestore, "users"), userChatId);
+  const ref = doc(collection(firestore, "users"), userChatId || "1");
   const usersQuery = useFirestoreDocument(["users"], ref, { subscribe: true });
 
   if (usersQuery.isLoading) {
@@ -26,11 +23,13 @@ function MainPage(props: IMainPageProps) {
       <Paper
         style={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
         }}
       >
+        {typeof userChatId === "object" && <>Chat ID is missing {userChatId}</>}
         <Loader />
       </Paper>
     );
