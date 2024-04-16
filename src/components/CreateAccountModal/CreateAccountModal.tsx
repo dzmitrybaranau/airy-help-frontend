@@ -54,7 +54,7 @@ function CreateAccountModal(props: ICreateAccountFormProps) {
       WebApp.showAlert("Account created successfully!");
     } catch (e) {
       console.error("Error adding document: ", e);
-      WebApp.showAlert("Error creating account.");
+      WebApp.showAlert("Error creating account.", e.toString());
     }
   };
 
