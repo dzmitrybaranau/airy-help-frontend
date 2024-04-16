@@ -31,7 +31,7 @@ function MainPage(props: IMainPageProps) {
   return (
     <div className={styles.wrapper}>
       <h1>Meet Airy!</h1>
-      <p>{WebApp.initData}</p>
+      <p className={styles.description}>{WebApp.initData}</p>
       <img
         alt="airy-helper image"
         src={airyPicSrc}
