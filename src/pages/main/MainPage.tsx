@@ -15,8 +15,15 @@ export interface IMainPageProps {}
  */
 function MainPage(props: IMainPageProps) {
   const { id: userChatId } = getTmaUserInfo();
-  const ref = doc(collection(firestore, "users"), userChatId);
-  const usersQuery = useFirestoreDocument(["users"], ref, { subscribe: true });
+  const ref = userChatId
+    ? doc(collection(firestore, "users"), userChatId)
+    : null;
+  const usersQuery = useFirestoreDocument(
+    ["users"],
+    ref,
+    { subscribe: true },
+    { enabled: !!userChatId },
+  );
 
   if (usersQuery.isLoading) {
     return (
@@ -35,8 +42,8 @@ function MainPage(props: IMainPageProps) {
     );
   }
 
-  const userData = usersQuery.data.data();
-  const userExists = usersQuery.data.exists();
+  const userData = usersQuery?.data?.data() ?? null;
+  const userExists = usersQuery?.data?.exists() ?? false;
 
   return (
     <div className={styles.wrapper}>

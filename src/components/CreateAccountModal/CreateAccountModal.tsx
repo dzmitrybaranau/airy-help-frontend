@@ -15,7 +15,7 @@ export function getTmaUserInfo(): { id: string } {
   const userJSON = params.get("user");
   if (userJSON) {
     const user = JSON.parse(decodeURIComponent(userJSON));
-    return { id: user.id };
+    return { ...user };
   }
   return { id: null };
 }
