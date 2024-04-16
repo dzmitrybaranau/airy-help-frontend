@@ -8,6 +8,16 @@ import WebApp from "@twa-dev/sdk";
 
 export interface ICreateAccountFormProps {}
 
+function parseQuery(query) {
+  const params = new URLSearchParams(query);
+  const userJSON = params.get("user");
+  if (userJSON) {
+    const user = JSON.parse(decodeURIComponent(userJSON));
+    return user.id; // Return the user ID, which is the chatId
+  }
+  return null;
+}
+
 /**
  *  Create account form
  */
@@ -35,14 +45,11 @@ function CreateAccountModal(props: ICreateAccountFormProps) {
   const handleCreateAccount = async (values) => {
     // Add the user to Firestore
     try {
-      console.log(WebApp.initDataUnsafe);
-      const chatId = WebApp.initDataUnsafe?.chat?.id || "123123";
+      const chatId = parseQuery(WebApp.initData);
       if (!chatId) {
         WebApp.showAlert("Chat ID is missing.");
         return;
       }
-
-      WebApp.showAlert(WebApp.initData);
 
       const userDocRef = doc(collection(db, "users"), chatId.toString());
       await setDoc(userDocRef, {

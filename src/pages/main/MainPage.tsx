@@ -16,7 +16,6 @@ function MainPage(props: IMainPageProps) {
     const fetchData = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "users"));
-        console.log({ querySnapshot });
         querySnapshot.forEach((doc) => {
           console.log(`${doc.id} => ${doc.data()}`);
         });
@@ -31,7 +30,6 @@ function MainPage(props: IMainPageProps) {
   return (
     <div className={styles.wrapper}>
       <h1>Meet Airy!</h1>
-      <p className={styles.description}>{WebApp.initData}</p>
       <img
         alt="airy-helper image"
         src={airyPicSrc}
