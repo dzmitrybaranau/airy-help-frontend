@@ -2,26 +2,28 @@ import React, { useState } from "react";
 import { Button, Input, Modal, ModalBody, SimpleGrid } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { useForm } from "@mantine/form";
-import { addDoc, collection, doc, setDoc } from "@firebase/firestore";
-import { db } from "../../firebase-config";
+import { collection, doc, setDoc } from "@firebase/firestore";
 import WebApp from "@twa-dev/sdk";
+import { firestore } from "../../firebase/firebase-config";
 
-export interface ICreateAccountFormProps {}
+export interface ICreateAccountFormProps {
+  isOpen?: boolean;
+}
 
-function parseQuery(query) {
-  const params = new URLSearchParams(query);
+export function getTmaUserInfo(): { id: string } {
+  const params = new URLSearchParams(WebApp.initData);
   const userJSON = params.get("user");
   if (userJSON) {
     const user = JSON.parse(decodeURIComponent(userJSON));
-    return user.id; // Return the user ID, which is the chatId
+    return { id: user.id };
   }
-  return null;
+  return { id: null };
 }
 
 /**
  *  Create account form
  */
-function CreateAccountModal(props: ICreateAccountFormProps) {
+function CreateAccountModal({ isOpen }: ICreateAccountFormProps) {
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -32,7 +34,7 @@ function CreateAccountModal(props: ICreateAccountFormProps) {
     },
   });
 
-  const [isSignInOpen, setIsSignInOpen] = useState(true);
+  const [isSignInOpen, setIsSignInOpen] = useState(isOpen);
 
   const handleOpen = () => {
     setIsSignInOpen(true);
@@ -45,13 +47,13 @@ function CreateAccountModal(props: ICreateAccountFormProps) {
   const handleCreateAccount = async (values) => {
     // Add the user to Firestore
     try {
-      const chatId = parseQuery(WebApp.initData);
+      const { id: chatId } = getTmaUserInfo();
       if (!chatId) {
         WebApp.showAlert("Chat ID is missing.");
         return;
       }
 
-      const userDocRef = doc(collection(db, "users"), chatId.toString());
+      const userDocRef = doc(collection(firestore, "users"), chatId.toString());
       await setDoc(userDocRef, {
         ...values,
         birthday: values.birthday ? values.birthday.toISOString() : null,

@@ -1,5 +1,3 @@
-// src/firebase-config.js
-
 import { initializeApp } from "@firebase/app";
 import { getFirestore } from "@firebase/firestore";
 
@@ -13,6 +11,6 @@ const firebaseConfig = {
   measurementId: "G-TK56VQX80N",
 };
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const firestore = getFirestore(app);
 
-export { app, db };
+export { app, firestore };

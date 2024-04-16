@@ -7,21 +7,28 @@ import WebApp from "@twa-dev/sdk";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import { createTheme, MantineProvider } from "@mantine/core";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 WebApp.ready();
-
 const theme = createTheme({
   /** Put your mantine theme override here */
 });
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
-    <MantineProvider theme={theme}>
-      <App />
-    </MantineProvider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <MantineProvider theme={theme}>
+          <App />
+        </MantineProvider>
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>,
 );
 
