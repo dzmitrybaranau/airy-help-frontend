@@ -15,7 +15,7 @@ export interface IMainPageProps {}
  */
 function MainPage(props: IMainPageProps) {
   const { id: userChatId } = getTmaUserInfo();
-  const ref = doc(collection(firestore, "users"), userChatId || "1");
+  const ref = doc(collection(firestore, "users"), userChatId);
   const usersQuery = useFirestoreDocument(["users"], ref, { subscribe: true });
 
   if (usersQuery.isLoading) {
