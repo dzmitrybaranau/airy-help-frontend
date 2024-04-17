@@ -17,15 +17,10 @@ export interface IMainPageProps {}
 function MainPage(props: IMainPageProps) {
   const { id: userChatId } = getTmaUserInfo();
 
-  const ref = doc(collection(firestore, "users"), userChatId);
-  const usersQuery = useFirestoreDocument(
-    ["users"],
-    ref,
-    {},
-    {
-      enabled: !!userChatId,
-    },
-  );
+  const ref = doc(collection(firestore, "users"), userChatId || "noid");
+  const usersQuery = useFirestoreDocument(["users"], ref, null, {
+    enabled: !!userChatId,
+  });
 
   if (usersQuery.isLoading) {
     return (
