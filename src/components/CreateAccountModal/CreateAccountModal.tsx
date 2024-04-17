@@ -80,7 +80,7 @@ function CreateAccountModal({ isOpen }: ICreateAccountFormProps) {
       </Button>
       <Modal
         size="sm"
-        title={<h1>Create Account</h1>}
+        title={<div>Create Account</div>}
         opened={isSignInOpen}
         onClose={handleClose}
       >
