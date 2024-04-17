@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./MainPage.module.scss";
 import airyPicSrc from "./airy-pic.webp";
 import CreateAccountModal from "../../components/CreateAccountModal";
@@ -7,6 +7,7 @@ import { useFirestoreDocument } from "@react-query-firebase/firestore";
 import { Loader, Paper } from "@mantine/core";
 import { getTmaUserInfo } from "../../components/CreateAccountModal/CreateAccountModal";
 import { firestore } from "../../firebase/firebase-config";
+import WebApp from "@twa-dev/sdk";
 
 export interface IMainPageProps {}
 
@@ -14,15 +15,19 @@ export interface IMainPageProps {}
  * Main page
  */
 function MainPage(props: IMainPageProps) {
-  // const { id: userChatId } = getTmaUserInfo();
-  const userChatId = "123123";
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    if (WebApp.initData) {
+      const { id } = getTmaUserInfo();
+      setUserId(id);
+    }
+  }, [WebApp.initData]);
 
-  let ref = userChatId ? doc(collection(firestore, "users"), userChatId) : null;
+  let ref = userId ? doc(collection(firestore, "users"), userId) : null;
   const usersQuery = useFirestoreDocument(["users"], ref, null, {
-    enabled: !!userChatId,
+    enabled: !!userId,
   });
 
-  console.log({ ref, usersQuery });
   if (usersQuery?.isLoading ?? true) {
     return (
       <Paper
