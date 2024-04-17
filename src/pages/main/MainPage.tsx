@@ -14,7 +14,8 @@ export interface IMainPageProps {}
  * Main page
  */
 function MainPage(props: IMainPageProps) {
-  const { id: userChatId } = getTmaUserInfo();
+  // const { id: userChatId } = getTmaUserInfo();
+  const userChatId = "123123";
 
   let ref = userChatId ? doc(collection(firestore, "users"), userChatId) : null;
   const usersQuery = useFirestoreDocument(["users"], ref, null, {
