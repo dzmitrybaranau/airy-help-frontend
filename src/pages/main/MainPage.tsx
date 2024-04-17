@@ -24,6 +24,7 @@ function MainPage(props: IMainPageProps) {
         // WebApp is ready and initData has changed
         // You can perform your operations here
         const { user } = JSON.parse(decodeURIComponent(WebApp.initData));
+        console.log({ user });
         setUserId(user.id);
       }
     };
@@ -37,6 +38,8 @@ function MainPage(props: IMainPageProps) {
     // Clean up the interval on component unmount
     return () => clearInterval(intervalId);
   }, [webAppData]);
+
+  console.log({ userId });
 
   let ref = userId ? doc(collection(firestore, "users"), userId) : null;
   const usersQuery = useFirestoreDocument(["users"], ref, null, {
@@ -58,6 +61,8 @@ function MainPage(props: IMainPageProps) {
       </Paper>
     );
   }
+
+  console.log({ usersQuery });
 
   const userData = usersQuery?.data?.data() ?? null;
   const userExists = usersQuery?.data?.exists() ?? false;
