@@ -2,10 +2,12 @@ import React, { useLayoutEffect, useState } from "react";
 import styles from "./MainPage.module.scss";
 import airyPicSrc from "./airy-pic.webp";
 import CreateAccountModal from "../../components/CreateAccountModal";
-import { doc, getDoc } from "@firebase/firestore";
+import { collection, doc } from "@firebase/firestore";
+import { useFirestoreDocument } from "@react-query-firebase/firestore";
 import { Loader, Paper } from "@mantine/core";
 import { getTmaUserInfo } from "../../components/CreateAccountModal/CreateAccountModal";
 import { firestore } from "../../firebase/firebase-config";
+import WebApp from "@twa-dev/sdk";
 
 export interface IMainPageProps {}
 
@@ -13,40 +15,19 @@ export interface IMainPageProps {}
  * Main page
  */
 function MainPage(props: IMainPageProps) {
-  const [userId, setUserId] = useState<string>(null);
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState(null);
 
   useLayoutEffect(() => {
     const { id } = getTmaUserInfo();
     setUserId(id);
   }, []);
 
-  useLayoutEffect(() => {
-    async function fetchUser() {
-      if (!userId) return;
+  let ref = userId ? doc(collection(firestore, "users"), userId) : null;
+  const usersQuery = useFirestoreDocument(["users"], ref, null, {
+    enabled: !!userId,
+  });
 
-      try {
-        const docRef = doc(firestore, "users", userId?.toString());
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          setUser(docSnap.data()); // Use data
-          setLoading(false);
-        } else {
-          console.log("No such document!");
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching user:", error);
-        setLoading(false);
-      }
-    }
-
-    fetchUser();
-  }, [userId]); // Re-run when userId changes
-
-  if (loading) {
+  if (usersQuery?.isLoading ?? true) {
     return (
       <Paper
         style={{
@@ -62,12 +43,15 @@ function MainPage(props: IMainPageProps) {
     );
   }
 
+  const userData = usersQuery?.data?.data() ?? null;
+  const userExists = usersQuery?.data?.exists() ?? false;
+
   return (
     <div className={styles.wrapper}>
       <h1>Meet Airy!</h1>
-      {userId && (
+      {userExists && (
         <h2>
-          Hey {user?.firstName} {user?.lastName}
+          Hey {userData.firstName} {userData.lastName}
         </h2>
       )}
       <img
@@ -81,7 +65,7 @@ function MainPage(props: IMainPageProps) {
         for people dealing with mental health issues. Always ready to listen and
         support, Airy is a beacon of hope and a true friend to all.
       </p>
-      <CreateAccountModal isOpen={!userId} />
+      <CreateAccountModal isOpen={!userExists} />
     </div>
   );
 }
