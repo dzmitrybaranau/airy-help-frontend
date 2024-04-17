@@ -7,7 +7,6 @@ import { useFirestoreDocument } from "@react-query-firebase/firestore";
 import { Loader, Paper } from "@mantine/core";
 import { getTmaUserInfo } from "../../components/CreateAccountModal/CreateAccountModal";
 import { firestore } from "../../firebase/firebase-config";
-import WebApp from "@twa-dev/sdk";
 
 export interface IMainPageProps {}
 
@@ -22,7 +21,8 @@ function MainPage(props: IMainPageProps) {
     enabled: !!userChatId,
   });
 
-  if (usersQuery.isLoading) {
+  console.log({ ref, usersQuery });
+  if (usersQuery?.isLoading ?? true) {
     return (
       <Paper
         style={{
@@ -33,7 +33,6 @@ function MainPage(props: IMainPageProps) {
           height: "100vh",
         }}
       >
-        {<>Chat ID: {userChatId}</>}
         <Loader />
       </Paper>
     );
