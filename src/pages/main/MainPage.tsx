@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import styles from "./MainPage.module.scss";
 import airyPicSrc from "./airy-pic.webp";
 import CreateAccountModal from "../../components/CreateAccountModal";
 import { collection, doc } from "@firebase/firestore";
 import { useFirestoreDocument } from "@react-query-firebase/firestore";
 import { Loader, Paper } from "@mantine/core";
+import { getTmaUserInfo } from "../../components/CreateAccountModal/CreateAccountModal";
 import { firestore } from "../../firebase/firebase-config";
 import WebApp from "@twa-dev/sdk";
 
@@ -15,31 +16,13 @@ export interface IMainPageProps {}
  */
 function MainPage(props: IMainPageProps) {
   const [userId, setUserId] = useState(null);
-  const [webAppData, setWebAppData] = useState(WebApp.initData);
 
-  useEffect(() => {
-    const checkWebApp = () => {
-      if (WebApp.initData !== webAppData) {
-        setWebAppData(WebApp.initData);
-        // WebApp is ready and initData has changed
-        // You can perform your operations here
-        const { user } = JSON.parse(decodeURIComponent(WebApp.initData));
-        console.log({ user });
-        setUserId(user.id);
-      }
-    };
-
-    // Check WebApp readiness immediately
-    checkWebApp();
-
-    // Set an interval to check WebApp readiness periodically
-    const intervalId = setInterval(checkWebApp, 1000); // Check every second
-
-    // Clean up the interval on component unmount
-    return () => clearInterval(intervalId);
-  }, [webAppData]);
-
-  console.log({ userId });
+  useLayoutEffect(() => {
+    console.log(WebApp.initData, WebApp.initDataUnsafe);
+    const { id } = getTmaUserInfo();
+    console.log({ id });
+    setUserId(id);
+  }, []);
 
   let ref = userId ? doc(collection(firestore, "users"), userId) : null;
   const usersQuery = useFirestoreDocument(["users"], ref, null, {
@@ -61,8 +44,6 @@ function MainPage(props: IMainPageProps) {
       </Paper>
     );
   }
-
-  console.log({ usersQuery });
 
   const userData = usersQuery?.data?.data() ?? null;
   const userExists = usersQuery?.data?.exists() ?? false;
