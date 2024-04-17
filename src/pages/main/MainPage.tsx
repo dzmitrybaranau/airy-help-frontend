@@ -5,7 +5,6 @@ import CreateAccountModal from "../../components/CreateAccountModal";
 import { collection, doc } from "@firebase/firestore";
 import { useFirestoreDocument } from "@react-query-firebase/firestore";
 import { Loader, Paper } from "@mantine/core";
-import { getTmaUserInfo } from "../../components/CreateAccountModal/CreateAccountModal";
 import { firestore } from "../../firebase/firebase-config";
 import WebApp from "@twa-dev/sdk";
 
@@ -16,12 +15,28 @@ export interface IMainPageProps {}
  */
 function MainPage(props: IMainPageProps) {
   const [userId, setUserId] = useState(null);
+  const [webAppData, setWebAppData] = useState(WebApp.initData);
+
   useEffect(() => {
-    if (WebApp.initData) {
-      const { id } = getTmaUserInfo();
-      setUserId(id);
-    }
-  }, [WebApp.initData]);
+    const checkWebApp = () => {
+      if (WebApp.initData !== webAppData) {
+        setWebAppData(WebApp.initData);
+        // WebApp is ready and initData has changed
+        // You can perform your operations here
+        const { user } = JSON.parse(decodeURIComponent(WebApp.initData));
+        setUserId(user.id);
+      }
+    };
+
+    // Check WebApp readiness immediately
+    checkWebApp();
+
+    // Set an interval to check WebApp readiness periodically
+    const intervalId = setInterval(checkWebApp, 1000); // Check every second
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [webAppData]);
 
   let ref = userId ? doc(collection(firestore, "users"), userId) : null;
   const usersQuery = useFirestoreDocument(["users"], ref, null, {
