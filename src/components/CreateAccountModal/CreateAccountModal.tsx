@@ -11,15 +11,20 @@ export interface ICreateAccountFormProps {
 }
 
 export function getTmaUserInfo(): { id: string } {
-  console.log("WebApp.initData:", WebApp.initData);
-  const params = new URLSearchParams(WebApp.initData);
-  const userJSON = params.get("user");
-  console.log("userJSON:", userJSON);
-  if (userJSON) {
-    const user = JSON.parse(decodeURIComponent(userJSON));
-    return { ...user };
+  try {
+    console.log("WebApp.initData:", WebApp.initData);
+    const params = new URLSearchParams(WebApp.initData);
+    const userJSON = params.get("user");
+    console.log("userJSON:", userJSON);
+    if (userJSON) {
+      const user = JSON.parse(decodeURIComponent(userJSON));
+      return { ...user };
+    }
+    return { id: null };
+  } catch (e) {
+    console.error("Error getting user info:", e);
+    return { id: null };
   }
-  return { id: null };
 }
 /**
  *  Create account form
