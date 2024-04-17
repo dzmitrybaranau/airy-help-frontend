@@ -14,11 +14,13 @@
     margin-top: 1rem;
     margin-bottom: 8px;
     opacity: 0.8;
+    color: var(--tg-theme-text-color);
   }
 }
 
 .userName {
   margin-bottom: 24px;
+  color: var(--tg-theme-text-color);
 }
 
 .airyPic {
@@ -38,4 +40,5 @@
   margin-bottom: 12px;
   font-size: 13px;
   line-height: 16px;
+  color: var(--tg-theme-text-color);
 }
