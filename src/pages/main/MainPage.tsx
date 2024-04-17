@@ -7,7 +7,6 @@ import { useFirestoreDocument } from "@react-query-firebase/firestore";
 import { Loader, Paper } from "@mantine/core";
 import { getTmaUserInfo } from "../../components/CreateAccountModal/CreateAccountModal";
 import { firestore } from "../../firebase/firebase-config";
-import WebApp from "@twa-dev/sdk";
 
 export interface IMainPageProps {}
 
@@ -65,7 +64,7 @@ function MainPage(props: IMainPageProps) {
         for people dealing with mental health issues. Always ready to listen and
         support, Airy is a beacon of hope and a true friend to all.
       </p>
-      <CreateAccountModal isOpen={!userExists} />
+      <CreateAccountModal userData={userData} isOpen={!userExists} />
     </div>
   );
 }

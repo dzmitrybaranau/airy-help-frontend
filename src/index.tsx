@@ -1,12 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./index.module.scss";
 import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 import WebApp from "@twa-dev/sdk";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
-import { createTheme, MantineProvider } from "@mantine/core";
+import {
+  createTheme,
+  MantineProvider,
+  TypographyStylesProvider,
+} from "@mantine/core";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -15,8 +19,9 @@ import eruda from "eruda";
 eruda.init();
 WebApp.ready();
 WebApp.expand();
+
 const theme = createTheme({
-  /** Put your mantine theme override here */
+
 });
 const queryClient = new QueryClient();
 
@@ -28,7 +33,9 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <MantineProvider theme={theme}>
-          <App />
+          <TypographyStylesProvider>
+            <App />
+          </TypographyStylesProvider>
         </MantineProvider>
       </Provider>
     </QueryClientProvider>
