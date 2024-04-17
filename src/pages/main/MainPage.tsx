@@ -49,7 +49,7 @@ function MainPage(props: IMainPageProps) {
     <div className={styles.wrapper}>
       <h1>Meet Airy!</h1>
       {userExists && (
-        <h2>
+        <h2 className={styles.userName}>
           Hey {userData.firstName} {userData.lastName}
         </h2>
       )}
@@ -64,7 +64,7 @@ function MainPage(props: IMainPageProps) {
         for people dealing with mental health issues. Always ready to listen and
         support, Airy is a beacon of hope and a true friend to all.
       </p>
-      <CreateAccountModal userData={userData} isOpen={!userExists} />
+      <CreateAccountModal isOpen={!userExists} />
     </div>
   );
 }

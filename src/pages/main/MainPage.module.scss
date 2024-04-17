@@ -12,9 +12,12 @@
     text-align: center;
     font-size: 4rem;
     margin: 1rem;
-    color: var(--tg-theme-text-color);
     opacity: 0.8;
   }
+}
+
+.userName {
+  margin-bottom: 24px;
 }
 
 .airyPic {
@@ -30,7 +33,6 @@
   width: 80%;
   max-width: 400px;
   text-align: center;
-  color: var(--tg-theme-text-color);
   opacity: 0.57;
   margin-bottom: 12px;
   font-size: 13px;

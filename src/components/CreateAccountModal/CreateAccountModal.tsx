@@ -8,14 +8,6 @@ import { firestore } from "../../firebase/firebase-config";
 
 export interface ICreateAccountFormProps {
   isOpen?: boolean;
-  userData: {
-    id: string;
-    chatId: number;
-    email: string;
-    firstName: string;
-    lastName: string;
-    birthday: string;
-  };
 }
 
 export const getTmaUserInfo = (): { id: string } => {
@@ -34,14 +26,14 @@ export const getTmaUserInfo = (): { id: string } => {
 }; /**
  *  Create account form
  */
-function CreateAccountModal({ isOpen, userData }: ICreateAccountFormProps) {
+function CreateAccountModal({ isOpen }: ICreateAccountFormProps) {
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
-      email: userData?.email || "",
-      firstName: userData?.firstName || "",
-      lastName: userData?.lastName || "",
-      birthday: userData?.birthday ? new Date(userData.birthday) : null,
+      email: "",
+      firstName: "",
+      lastName: "",
+      birthday: "",
     },
   });
 
@@ -81,7 +73,7 @@ function CreateAccountModal({ isOpen, userData }: ICreateAccountFormProps) {
   return (
     <>
       <Button mt={8} onClick={handleOpen}>
-        {userData?.email ? "Edit account" : "Create Account"}
+        Create Account
       </Button>
       <Modal
         size="sm"
