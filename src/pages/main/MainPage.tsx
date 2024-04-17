@@ -40,7 +40,7 @@ function MainPage(props: IMainPageProps) {
           height: "100vh",
         }}
       >
-        {typeof userChatId === "object" && <>Chat ID is missing {userChatId}</>}
+        {<>Chat ID: {userChatId}</>}
         <Loader />
       </Paper>
     );
