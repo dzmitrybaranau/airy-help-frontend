@@ -14,6 +14,7 @@ import eruda from "eruda";
 
 eruda.init();
 WebApp.ready();
+WebApp.expand();
 const theme = createTheme({
   /** Put your mantine theme override here */
 });
