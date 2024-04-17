@@ -13,7 +13,7 @@ export interface IMainPageProps {}
  * Main page
  */
 function MainPage(props: IMainPageProps) {
-  const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState<string>(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -27,7 +27,7 @@ function MainPage(props: IMainPageProps) {
       if (!userId) return;
 
       try {
-        const docRef = doc(firestore, "users", userId);
+        const docRef = doc(firestore, "users", userId?.toString());
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -67,7 +67,7 @@ function MainPage(props: IMainPageProps) {
       <h1>Meet Airy!</h1>
       {userId && (
         <h2>
-          Hey {user.firstName} {user.lastName}
+          Hey {user?.firstName} {user?.lastName}
         </h2>
       )}
       <img

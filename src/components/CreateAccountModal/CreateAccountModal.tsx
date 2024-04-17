@@ -16,7 +16,7 @@ export const getTmaUserInfo = (): { id: string } => {
     const userJSON = params.get("user");
     if (userJSON) {
       const user = JSON.parse(decodeURIComponent(userJSON));
-      return { ...user };
+      return { id: user.id?.toString() };
     }
     console.warn("User JSON not found in WebApp.initData");
   } catch (e) {
