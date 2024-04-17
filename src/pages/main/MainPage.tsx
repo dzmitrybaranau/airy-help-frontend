@@ -15,36 +15,39 @@ export interface IMainPageProps {}
  * Main page
  */
 function MainPage(props: IMainPageProps) {
-  // const { id: userChatId } = getTmaUserInfo();
-  // const ref = userChatId
-  //   ? doc(collection(firestore, "users"), userChatId)
-  //   : null;
-  // const usersQuery = useFirestoreDocument(
-  //   ["users"],
-  //   ref,
-  //   { subscribe: true },
-  //   { enabled: !!userChatId },
-  // );
-  //
-  // if (usersQuery.isLoading) {
-  //   return (
-  //     <Paper
-  //       style={{
-  //         display: "flex",
-  //         flexDirection: "column",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         height: "100vh",
-  //       }}
-  //     >
-  //       {typeof userChatId === "object" && <>Chat ID is missing {userChatId}</>}
-  //       <Loader />
-  //     </Paper>
-  //   );
-  // }
+  const { id: userChatId } = getTmaUserInfo();
 
-  const userData = null  // usersQuery?.data?.data() ?? null;
-  const userExists = false // usersQuery?.data?.exists() ?? false;
+  const ref = userChatId
+    ? doc(collection(firestore, "users"), userChatId)
+    : null;
+  const usersQuery = useFirestoreDocument(
+    ["users"],
+    ref,
+    {},
+    {
+      enabled: !!userChatId,
+    },
+  );
+
+  if (usersQuery.isLoading) {
+    return (
+      <Paper
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        {typeof userChatId === "object" && <>Chat ID is missing {userChatId}</>}
+        <Loader />
+      </Paper>
+    );
+  }
+
+  const userData = usersQuery?.data?.data() ?? null;
+  const userExists = usersQuery?.data?.exists() ?? false;
 
   return (
     <div className={styles.wrapper}>
