@@ -10,7 +10,9 @@ import { createTheme, MantineProvider } from "@mantine/core";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { QueryClient, QueryClientProvider } from "react-query";
+import eruda from "eruda";
 
+eruda.init();
 WebApp.ready();
 const theme = createTheme({
   /** Put your mantine theme override here */
