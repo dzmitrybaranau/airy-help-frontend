@@ -7,6 +7,7 @@ import { useFirestoreDocument } from "@react-query-firebase/firestore";
 import { Loader, Paper } from "@mantine/core";
 import { getTmaUserInfo } from "../../components/CreateAccountModal/CreateAccountModal";
 import { firestore } from "../../firebase/firebase-config";
+import { TonConnectButton } from "@tonconnect/ui-react";
 
 export interface IMainPageProps {}
 
@@ -53,6 +54,7 @@ function MainPage(props: IMainPageProps) {
           Hey {userData.firstName} {userData.lastName}
         </h2>
       )}
+      {userExists && <TonConnectButton />}
       <img
         alt="airy-helper image"
         src={airyPicSrc}

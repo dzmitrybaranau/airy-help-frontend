@@ -15,14 +15,13 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { QueryClient, QueryClientProvider } from "react-query";
 import eruda from "eruda";
+import { TonConnectUIProvider } from "@tonconnect/ui-react";
 
 eruda.init();
 WebApp.ready();
 WebApp.expand();
 
-const theme = createTheme({
-
-});
+const theme = createTheme({});
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
@@ -30,15 +29,23 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <MantineProvider theme={theme}>
-          <TypographyStylesProvider>
-            <App />
-          </TypographyStylesProvider>
-        </MantineProvider>
-      </Provider>
-    </QueryClientProvider>
+    <TonConnectUIProvider
+      manifestUrl={
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000/tonconnect-manifest.json"
+          : "https://airy-help.netlify.app/tonconnect-manifest.json"
+      }
+    >
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <MantineProvider theme={theme}>
+            <TypographyStylesProvider>
+              <App />
+            </TypographyStylesProvider>
+          </MantineProvider>
+        </Provider>
+      </QueryClientProvider>
+    </TonConnectUIProvider>
   </React.StrictMode>,
 );
 
