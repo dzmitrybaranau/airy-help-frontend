@@ -8,6 +8,7 @@ export interface UserAccount {
   email: string;
   birthday: string;
   threadId: string;
+  chatId: string;
 }
 
 interface UserState {

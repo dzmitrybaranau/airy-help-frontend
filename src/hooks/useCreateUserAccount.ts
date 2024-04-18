@@ -1,5 +1,5 @@
 import { useForm } from "@mantine/form";
-import { setIsSignUpOpen } from "../redux/userSlice";
+import { setIsSignUpOpen, setUserAccount } from "../redux/userSlice";
 import WebApp from "@twa-dev/sdk";
 import { collection, doc, setDoc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
@@ -40,12 +40,14 @@ export const useCreateUserAccount = () => {
         return;
       }
       const userDocRef = doc(collection(firestore, "users"), chatId.toString());
-      await setDoc(userDocRef, {
+      const newUserAcc = {
         ...values,
         birthday: values.birthday ? values.birthday.toISOString() : null,
         chatId,
-      });
+      };
+      await setDoc(userDocRef, newUserAcc);
       dispatch(setIsSignUpOpen(false));
+      dispatch(setUserAccount({ ...newUserAcc, id: chatId }));
     } catch (e) {
       WebApp.showAlert("Error creating account.", e.toString());
     }
@@ -56,6 +58,6 @@ export const useCreateUserAccount = () => {
     isSignUpOpen,
     handleSignInOpen,
     handleCreateAccount,
-    handleSignInClose
+    handleSignInClose,
   };
 };
