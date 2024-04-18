@@ -43,13 +43,9 @@ function MainPage(props: IMainPageProps) {
     );
   }
 
-  // const userData = usersQuery?.data?.data() ?? null;
-  const userExists = true; // usersQuery?.data?.exists() ?? false;
+  const userData = usersQuery?.data?.data() ?? null;
+  const userExists = usersQuery?.data?.exists() ?? false;
 
-  const userData = {
-    firstName: "John",
-    lastName: "Doe",
-  };
   return (
     <div className={styles.wrapper}>
       {userExists && (
