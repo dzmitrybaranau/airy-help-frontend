@@ -35,6 +35,9 @@ root.render(
           ? "http://localhost:3000/tonconnect-manifest.json"
           : "https://airy-help.netlify.app/tonconnect-manifest.json"
       }
+      actionsConfiguration={{
+        twaReturnUrl: "https://t.me/airy_help_bot",
+      }}
     >
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>

@@ -63,6 +63,7 @@ function CreateAccountModal({ isOpen }: ICreateAccountFormProps) {
         chatId,
       });
       console.log("Document written with ID: ", chatId);
+      setIsSignInOpen(false);
       WebApp.showAlert("Account created successfully!");
     } catch (e) {
       console.error("Error adding document: ", e);

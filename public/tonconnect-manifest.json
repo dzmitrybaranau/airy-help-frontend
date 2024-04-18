@@ -1,4 +1,5 @@
 {
-  "url": "https://airy-help.netlify.app/",
-  "name": "Airy Help"
+  "url": "https://airy-help.netlify.app",
+  "name": "Airy Help",
+  "iconUrl": "https://airy-help.netlify.app/logo512.png"
 }

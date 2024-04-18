@@ -43,18 +43,27 @@ function MainPage(props: IMainPageProps) {
     );
   }
 
-  const userData = usersQuery?.data?.data() ?? null;
-  const userExists = usersQuery?.data?.exists() ?? false;
+  // const userData = usersQuery?.data?.data() ?? null;
+  const userExists = true; // usersQuery?.data?.exists() ?? false;
 
+  const userData = {
+    firstName: "John",
+    lastName: "Doe",
+  };
   return (
     <div className={styles.wrapper}>
-      <h1>Meet Airy!</h1>
       {userExists && (
         <h2 className={styles.userName}>
           Hey {userData.firstName} {userData.lastName}
         </h2>
       )}
-      {userExists && <TonConnectButton />}
+
+      {userExists && (
+        <div className={styles.connectButton}>
+          <TonConnectButton />
+        </div>
+      )}
+      <h1>Meet Airy!</h1>
       <img
         alt="airy-helper image"
         src={airyPicSrc}
@@ -66,7 +75,7 @@ function MainPage(props: IMainPageProps) {
         for people dealing with mental health issues. Always ready to listen and
         support, Airy is a beacon of hope and a true friend to all.
       </p>
-      <CreateAccountModal isOpen={!userExists} />
+      {!userExists && <CreateAccountModal isOpen={!userExists} />}
     </div>
   );
 }

@@ -10,7 +10,7 @@
 
   h1 {
     text-align: center;
-    font-size: 4rem;
+    font-size: 2rem;
     margin-top: 1rem;
     margin-bottom: 8px;
     opacity: 0.8;
@@ -19,8 +19,15 @@
 }
 
 .userName {
-  margin-bottom: 24px;
+  margin-bottom: 12px !important;
+  margin-top: 24px !important;
+  font-size: 4rem;
+  opacity: 0.8;
   color: var(--tg-theme-text-color);
+}
+
+.connectButton {
+  margin-bottom: 24px;
 }
 
 .airyPic {
