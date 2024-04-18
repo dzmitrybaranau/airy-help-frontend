@@ -1,13 +1,14 @@
-import React, { useLayoutEffect, useState } from "react";
+import React from "react";
 import styles from "./MainPage.module.scss";
 import airyPicSrc from "./airy-pic.webp";
 import CreateAccountModal from "../../components/CreateAccountModal";
-import { collection, doc } from "@firebase/firestore";
-import { useFirestoreDocument } from "@react-query-firebase/firestore";
 import { Loader, Paper } from "@mantine/core";
-import { getTmaUserInfo } from "../../components/CreateAccountModal/CreateAccountModal";
-import { firestore } from "../../firebase/firebase-config";
-import { TonConnectButton } from "@tonconnect/ui-react";
+import {
+  TonConnectButton,
+  useTonAddress,
+  useTonWallet,
+} from "@tonconnect/ui-react";
+import useUserAccount from "../../hooks/useUserAccount";
 
 export interface IMainPageProps {}
 
@@ -15,50 +16,32 @@ export interface IMainPageProps {}
  * Main page
  */
 function MainPage(props: IMainPageProps) {
-  const [userId, setUserId] = useState(null);
+  const { account, device, provider, connectItems } = useTonWallet();
+  const userAddress = useTonAddress();
+  const { userAccount, isLoading, userExists } = useUserAccount();
 
-  useLayoutEffect(() => {
-    const { id } = getTmaUserInfo();
-    setUserId(id);
-  }, []);
+  console.log({ account, device, provider, connectItems, userAddress });
 
-  let ref = userId ? doc(collection(firestore, "users"), userId) : null;
-  const usersQuery = useFirestoreDocument(["users"], ref, null, {
-    enabled: !!userId,
-  });
-
-  if (usersQuery?.isLoading ?? true) {
+  if (isLoading ?? true) {
     return (
-      <Paper
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
+      <Paper className={styles.loadingState}>
         <Loader />
       </Paper>
     );
   }
 
-  const userData = usersQuery?.data?.data() ?? null;
-  const userExists = usersQuery?.data?.exists() ?? false;
-
   return (
     <div className={styles.wrapper}>
       {userExists && (
         <h2 className={styles.userName}>
-          Hey {userData.firstName} {userData.lastName}
+          Hey {userAccount.firstName} {userAccount.lastName}
         </h2>
       )}
 
-      {userExists && (
-        <div className={styles.connectButton}>
-          <TonConnectButton />
-        </div>
-      )}
+      <div className={styles.connectButton}>
+        <TonConnectButton />
+      </div>
+
       <h1>Meet Airy!</h1>
       <img
         alt="airy-helper image"
