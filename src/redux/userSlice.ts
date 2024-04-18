@@ -9,6 +9,7 @@ export interface UserAccount {
   birthday: string;
   threadId: string;
   chatId: string;
+  paymentPending: boolean;
 }
 
 interface UserState {
