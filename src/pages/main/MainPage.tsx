@@ -3,7 +3,11 @@ import styles from "./MainPage.module.scss";
 import airyPicSrc from "./airy-pic.webp";
 import CreateAccountModal from "../../components/CreateAccountModal";
 import { Loader, Paper } from "@mantine/core";
-import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
+import {
+  TonConnectButton,
+  useTonAddress,
+  useTonWallet,
+} from "@tonconnect/ui-react";
 import useUserAccount from "../../hooks/useUserAccount";
 
 export interface IMainPageProps {}
@@ -12,10 +16,11 @@ export interface IMainPageProps {}
  * Main page
  */
 function MainPage(props: IMainPageProps) {
+  const tonWallet = useTonWallet();
   const userAddress = useTonAddress();
   const { userAccount, isLoading, userExists } = useUserAccount();
 
-  console.log({ userAddress });
+  console.log({ userAddress, tonWallet });
 
   if (isLoading ?? true) {
     return (
