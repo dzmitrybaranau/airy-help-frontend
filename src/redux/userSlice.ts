@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import WebApp from "@twa-dev/sdk";
 
+export interface UserGoal {
+  description: string;
+  dateDue?: string;
+}
+
 export interface UserAccount {
   id: string;
   firstName: string;
@@ -10,6 +15,7 @@ export interface UserAccount {
   threadId: string;
   chatId: string;
   paymentPending: boolean;
+  goals: UserGoal[];
 }
 
 interface UserState {
@@ -17,13 +23,15 @@ interface UserState {
   isLoading: boolean;
   userTmaInfo: typeof WebApp.initDataUnsafe;
   isSignUpOpen: boolean;
+  isUserInfoOpen: boolean;
 }
 
 const initialState: UserState = {
   userAccount: null,
   isLoading: true,
   userTmaInfo: null,
-  isSignUpOpen: false,
+  isSignUpOpen: true,
+  isUserInfoOpen: true,
 };
 
 export const userSlice = createSlice({
@@ -45,6 +53,9 @@ export const userSlice = createSlice({
     setIsSignUpOpen: (state, action: PayloadAction<boolean>) => {
       state.isSignUpOpen = action.payload;
     },
+    setIsUserInfoOpen: (state, action: PayloadAction<boolean>) => {
+      state.isUserInfoOpen = action.payload;
+    },
   },
 });
 
@@ -53,6 +64,7 @@ export const {
   setUserTmaInfo,
   setUserAccount,
   setIsUserAccountLoading,
+  setIsUserInfoOpen,
 } = userSlice.actions;
 
 export default userSlice.reducer;

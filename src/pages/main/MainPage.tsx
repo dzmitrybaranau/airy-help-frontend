@@ -3,11 +3,7 @@ import styles from "./MainPage.module.scss";
 import airyPicSrc from "./airy-pic.webp";
 import CreateAccountModal from "../../components/CreateAccountModal";
 import { Loader, Paper } from "@mantine/core";
-import {
-  TonConnectButton,
-  useTonAddress,
-  useTonWallet,
-} from "@tonconnect/ui-react";
+import { TonConnectButton } from "@tonconnect/ui-react";
 import useUserAccount from "../../hooks/useUserAccount";
 
 export interface IMainPageProps {}
@@ -16,11 +12,7 @@ export interface IMainPageProps {}
  * Main page
  */
 function MainPage(props: IMainPageProps) {
-  const tonWallet = useTonWallet();
-  const userAddress = useTonAddress();
   const { userAccount, isLoading, userExists } = useUserAccount();
-
-  console.log({ userAddress, tonWallet });
 
   if (isLoading ?? true) {
     return (
@@ -49,10 +41,10 @@ function MainPage(props: IMainPageProps) {
         className={styles.airyPic}
       />
       <p className={styles.description}>
-        Airy is a delightful fairy who is always there for those in need. With
-        her gentle and understanding nature, she provides a comforting presence
-        for people dealing with mental health issues. Always ready to listen and
-        support, Airy is a beacon of hope and a true friend to all.
+        Hi! I'm Airy, a wise friend here to help you reach your dreams. Whether
+        it's learning, growing, or winning, I'll guide and cheer you on. Your
+        secrets are safe with me. Got a question? Just ask, and let’s make your
+        dreams come true together!
       </p>
       {!userExists && <CreateAccountModal isOpen={!userExists} />}
     </div>

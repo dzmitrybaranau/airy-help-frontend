@@ -27,8 +27,9 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
-root.render(
-  <React.StrictMode>
+
+const AppProviders = ({ children }) => {
+  return (
     <TonConnectUIProvider
       manifestUrl={
         process.env.NODE_ENV === "development"
@@ -42,13 +43,19 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
           <MantineProvider theme={theme}>
-            <TypographyStylesProvider>
-              <App />
-            </TypographyStylesProvider>
+            <TypographyStylesProvider>{children}</TypographyStylesProvider>
           </MantineProvider>
         </Provider>
       </QueryClientProvider>
     </TonConnectUIProvider>
+  );
+};
+
+root.render(
+  <React.StrictMode>
+    <AppProviders>
+      <App />
+    </AppProviders>
   </React.StrictMode>,
 );
 

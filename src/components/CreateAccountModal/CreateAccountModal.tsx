@@ -1,5 +1,12 @@
 import React from "react";
-import { Button, Input, Modal, ModalBody, SimpleGrid } from "@mantine/core";
+import {
+  Button,
+  Group,
+  Input,
+  Modal,
+  ModalBody,
+  SimpleGrid,
+} from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { useCreateUserAccount } from "../../hooks/useCreateUserAccount";
 
@@ -10,13 +17,16 @@ export interface ICreateAccountFormProps {
 /**
  *  Create account form
  */
-function CreateAccountModal({ isOpen }: ICreateAccountFormProps) {
+function CreateAccountModal() {
   const {
     form,
     handleSignInClose,
     isSignUpOpen,
     handleSignInOpen,
     handleCreateAccount,
+    setGoal,
+    addGoal,
+    removeGoal,
   } = useCreateUserAccount();
 
   return (
@@ -42,7 +52,7 @@ function CreateAccountModal({ isOpen }: ICreateAccountFormProps) {
               <Input.Wrapper required label="Email">
                 <Input {...form.getInputProps("email")} type="email" />
               </Input.Wrapper>
-              <Input.Wrapper label="Birthday" required>
+              <Input.Wrapper label="Birthday" required mb="12px">
                 <DateInput
                   {...form.getInputProps("birthday")}
                   valueFormat="YYYY/MM/DD"
@@ -50,7 +60,37 @@ function CreateAccountModal({ isOpen }: ICreateAccountFormProps) {
                   clearable
                 />
               </Input.Wrapper>
-              <Button mt={12} type="submit">
+              <Input.Wrapper label="Goals (try to be concrete)" required>
+                {form.getValues().goals.map((goal, index) => (
+                  <Group key={index} mb={8} mt={4}>
+                    <Input
+                      style={{ flex: 1 }}
+                      placeholder="Enter goal description"
+                      value={goal.description}
+                      onChange={(event) =>
+                        setGoal(index, event.currentTarget.value)
+                      }
+                    />
+                    <Button color="red" onClick={() => removeGoal(index)}>
+                      Remove
+                    </Button>
+                  </Group>
+                ))}
+              </Input.Wrapper>
+              <Button
+                mt={-10}
+                variant="outline"
+                onClick={addGoal}
+                disabled={Boolean(
+                  form
+                    .getValues()
+                    .goals.find((goal) => goal.description === ""),
+                )}
+              >
+                Add Goal
+              </Button>
+
+              <Button mt={12} type="submit" variant="gradient">
                 Create Account
               </Button>
             </SimpleGrid>

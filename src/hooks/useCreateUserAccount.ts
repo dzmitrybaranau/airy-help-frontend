@@ -1,5 +1,9 @@
 import { useForm } from "@mantine/form";
-import { setIsSignUpOpen, setUserAccount } from "../redux/userSlice";
+import {
+  setIsSignUpOpen,
+  setUserAccount,
+  UserAccount,
+} from "../redux/userSlice";
 import WebApp from "@twa-dev/sdk";
 import { collection, doc, setDoc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
@@ -13,15 +17,46 @@ export const useCreateUserAccount = () => {
   );
   const userTmaInfo = useSelector((state: RootState) => state.user.userTmaInfo);
 
-  const form = useForm({
+  const form = useForm<Partial<UserAccount>>({
     mode: "uncontrolled",
     initialValues: {
       email: "",
       firstName: "",
       lastName: "",
       birthday: "",
+      goals: [
+        {
+          description: "",
+        },
+      ],
     },
   });
+
+  const addGoal = () => {
+    const goals = form.getValues().goals;
+    const newGoals = [...goals, { description: "" }];
+    if (newGoals.length > 3) {
+      WebApp.showAlert("You can only have 3 goals.");
+      return;
+    }
+    form.setFieldValue("goals", newGoals);
+  };
+
+  const setGoal = (index, value) => {
+    const goals = form.getValues().goals.slice();
+    goals[index].description = value;
+    form.setFieldValue("goals", goals);
+  };
+
+  const removeGoal = (index) => {
+    const goals = form.getValues().goals.slice();
+    if (goals.length === 1) {
+      WebApp.showAlert("You must have at least one goal.");
+      return;
+    }
+    goals.splice(index, 1);
+    form.setFieldValue("goals", goals);
+  };
 
   const handleSignInOpen = () => {
     dispatch(setIsSignUpOpen(true));
@@ -59,5 +94,8 @@ export const useCreateUserAccount = () => {
     handleSignInOpen,
     handleCreateAccount,
     handleSignInClose,
+    addGoal,
+    setGoal,
+    removeGoal,
   };
 };
