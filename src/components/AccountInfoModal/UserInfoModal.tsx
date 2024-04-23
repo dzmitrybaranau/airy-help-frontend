@@ -9,11 +9,17 @@ export interface IAccountInfoModalProps {}
  * Account info modal
  */
 function UserInfoModal(props: IAccountInfoModalProps) {
-  const { form, isOpen, handleUserInfoClose, handleChangeUserInfo } =
-    useChangeUserInfo();
+  const {
+    form,
+    isOpen,
+    handleUserInfoClose,
+    handleChangeUserInfo,
+    handleUserIndoOpen,
+  } = useChangeUserInfo();
 
   return (
     <>
+      <Button onClick={handleUserIndoOpen}>Edit Info (in dev)</Button>
       <Modal
         size="sm"
         title={<div>Edit Info</div>}
@@ -41,7 +47,7 @@ function UserInfoModal(props: IAccountInfoModalProps) {
                 />
               </Input.Wrapper>
               <Button mt={12} type="submit">
-                Create Account
+                Update
               </Button>
             </SimpleGrid>
           </form>

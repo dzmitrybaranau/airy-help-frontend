@@ -5,6 +5,7 @@ import CreateAccountModal from "../../components/CreateAccountModal";
 import { Loader, Paper } from "@mantine/core";
 import { TonConnectButton } from "@tonconnect/ui-react";
 import useUserAccount from "../../hooks/useUserAccount";
+import UserInfoModal from "../../components/AccountInfoModal";
 
 export interface IMainPageProps {}
 
@@ -47,6 +48,7 @@ function MainPage(props: IMainPageProps) {
         dreams come true together!
       </p>
       {!userExists && <CreateAccountModal />}
+      {userExists && <UserInfoModal />}
     </div>
   );
 }
