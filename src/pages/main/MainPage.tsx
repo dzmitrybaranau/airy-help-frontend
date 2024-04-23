@@ -26,7 +26,7 @@ function MainPage(props: IMainPageProps) {
 
   return (
     <div className={styles.wrapper}>
-      {!userExists && <CreateAccountModal />}
+      <CreateAccountModal />
 
       {userExists && (
         <h2 className={styles.userName}>
