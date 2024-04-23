@@ -22,8 +22,12 @@ function MainPage(props: IMainPageProps) {
     );
   }
 
+  console.log({ userExists, userAccount });
+
   return (
     <div className={styles.wrapper}>
+      {!userExists && <CreateAccountModal />}
+
       {userExists && (
         <h2 className={styles.userName}>
           Hey {userAccount.firstName} {userAccount.lastName}
@@ -46,7 +50,6 @@ function MainPage(props: IMainPageProps) {
         secrets are safe with me. Got a question? Just ask, and let’s make your
         dreams come true together!
       </p>
-      {!userExists && <CreateAccountModal />}
     </div>
   );
 }
