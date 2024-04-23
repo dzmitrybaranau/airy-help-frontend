@@ -46,7 +46,7 @@ function MainPage(props: IMainPageProps) {
         secrets are safe with me. Got a question? Just ask, and let’s make your
         dreams come true together!
       </p>
-      {!userExists && <CreateAccountModal isOpen={!userExists} />}
+      {!userExists && <CreateAccountModal />}
     </div>
   );
 }
