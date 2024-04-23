@@ -30,8 +30,6 @@ function CreateAccountModal() {
     userExists,
   } = useCreateUserAccount();
 
-  console.log({ userExists });
-
   return (
     <>
       <Button mt={8} onClick={handleSignInOpen}>

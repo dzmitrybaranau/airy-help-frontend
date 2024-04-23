@@ -42,7 +42,7 @@ const useUserAccount = () => {
   return {
     userAccount,
     isLoading,
-    userExists: Boolean(userAccount?.id),
+    userExists: Boolean(userAccount?.chatId),
   };
 };
 

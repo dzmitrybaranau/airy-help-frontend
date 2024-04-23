@@ -7,7 +7,6 @@ export interface UserGoal {
 }
 
 export interface UserAccount {
-  id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -27,7 +26,6 @@ interface UserState {
 
 const initialState: UserState = {
   userAccount: {
-    id: "",
     firstName: "",
     lastName: "",
     email: "",
