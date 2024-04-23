@@ -9,28 +9,38 @@ import { collection, doc, setDoc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import useUserAccount from "./useUserAccount";
+import { useEffect } from "react";
 
+interface UserForm extends Omit<UserAccount, "birthday"> {
+  birthday: Date;
+}
 export const useCreateUserAccount = () => {
   const dispatch = useDispatch();
   const isSignUpOpen = useSelector(
     (state: RootState) => state.user.isSignUpOpen,
   );
+  const { userAccount, userExists } = useUserAccount();
   const userTmaInfo = useSelector((state: RootState) => state.user.userTmaInfo);
 
-  const form = useForm<Partial<UserAccount>>({
-    mode: "uncontrolled",
+  const form = useForm<UserForm>({
+    mode: "controlled",
     initialValues: {
-      email: "",
-      firstName: "",
-      lastName: "",
-      birthday: "",
-      goals: [
-        {
-          description: "",
-        },
-      ],
+      ...userAccount,
+      birthday: userAccount.birthday
+        ? new Date(userAccount.birthday)
+        : new Date(),
     },
   });
+
+  useEffect(() => {
+    form.setValues({
+      ...userAccount,
+      birthday: userAccount.birthday
+        ? new Date(userAccount.birthday)
+        : new Date(),
+    });
+  }, [userAccount]);
 
   const addGoal = () => {
     const goals = form.getValues().goals;
@@ -69,7 +79,7 @@ export const useCreateUserAccount = () => {
   const handleCreateAccount = async (values) => {
     // Add the user to Firestore
     try {
-      const { id: chatId } = userTmaInfo.user;
+      const chatId = userTmaInfo?.user?.id;
       if (!chatId) {
         WebApp.showAlert("Problems receiving chat ID");
         return;
@@ -97,5 +107,6 @@ export const useCreateUserAccount = () => {
     addGoal,
     setGoal,
     removeGoal,
+    userExists,
   };
 };

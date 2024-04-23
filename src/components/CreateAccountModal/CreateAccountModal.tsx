@@ -27,16 +27,19 @@ function CreateAccountModal() {
     setGoal,
     addGoal,
     removeGoal,
+    userExists,
   } = useCreateUserAccount();
+
+  console.log({ userExists });
 
   return (
     <>
       <Button mt={8} onClick={handleSignInOpen}>
-        Create Account
+        {userExists ? "Edit Account" : "Create Account"}
       </Button>
       <Modal
         size="sm"
-        title={<div>Create Account</div>}
+        title={userExists ? <div>Edit Account</div> : <div>Create Account</div>}
         opened={isSignUpOpen}
         onClose={handleSignInClose}
       >
@@ -91,7 +94,7 @@ function CreateAccountModal() {
               </Button>
 
               <Button mt={12} type="submit" variant="gradient">
-                Create Account
+                {userExists ? "Edit Account" : "Create Account"}
               </Button>
             </SimpleGrid>
           </form>

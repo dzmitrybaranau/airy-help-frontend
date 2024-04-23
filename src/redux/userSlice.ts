@@ -19,26 +19,34 @@ export interface UserAccount {
 }
 
 interface UserState {
-  userAccount: UserAccount | null;
+  userAccount: UserAccount;
   isLoading: boolean;
-  userTmaInfo: typeof WebApp.initDataUnsafe;
+  userTmaInfo: typeof WebApp.initDataUnsafe | null;
   isSignUpOpen: boolean;
-  isUserInfoOpen: boolean;
 }
 
 const initialState: UserState = {
-  userAccount: null,
+  userAccount: {
+    id: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    birthday: "",
+    threadId: "",
+    chatId: "",
+    paymentPending: false,
+    goals: [],
+  },
   isLoading: true,
   userTmaInfo: null,
-  isSignUpOpen: true,
-  isUserInfoOpen: true,
+  isSignUpOpen: false,
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUserAccount: (state, action: PayloadAction<UserAccount | null>) => {
+    setUserAccount: (state, action: PayloadAction<UserAccount>) => {
       state.userAccount = action.payload;
     },
     setIsUserAccountLoading: (state, action: PayloadAction<boolean>) => {
@@ -53,9 +61,6 @@ export const userSlice = createSlice({
     setIsSignUpOpen: (state, action: PayloadAction<boolean>) => {
       state.isSignUpOpen = action.payload;
     },
-    setIsUserInfoOpen: (state, action: PayloadAction<boolean>) => {
-      state.isUserInfoOpen = action.payload;
-    },
   },
 });
 
@@ -64,7 +69,6 @@ export const {
   setUserTmaInfo,
   setUserAccount,
   setIsUserAccountLoading,
-  setIsUserInfoOpen,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,6 +1,6 @@
 import WebApp from "@twa-dev/sdk";
 
-export const getTmaUserInfo = (): { id: string } => {
+export const getTmaUserInfo = (): { id: string | null } => {
   try {
     const params = new URLSearchParams(WebApp.initData);
     const userJSON = params.get("user");
