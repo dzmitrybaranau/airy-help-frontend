@@ -16,15 +16,16 @@ function App() {
       </div>
     );
   }
-  // if (!userExists) {
-  //   return (
-  //     <div className={styles.root}>
-  //       <div className={styles.pageWrapper}>
-  //         <AccountPage />
-  //       </div>
-  //     </div>
-  //   );
-  // }
+
+  if (!userExists) {
+    return (
+      <div className={styles.root}>
+        <div className={styles.pageWrapper}>
+          <AccountPage />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.root}>

@@ -20,7 +20,6 @@ function NavMenu(props: INavMenuProps) {
         onClick={toggle}
         aria-label="Toggle navigation"
         className={styles.burger}
-        color="var(--tg-theme-text-color)"
       />
       <Drawer
         opened={opened}
@@ -29,11 +28,6 @@ function NavMenu(props: INavMenuProps) {
         size={265}
         overlayProps={{ backgroundOpacity: 0.5, blur: 1 }}
         className={styles.drawer}
-        closeButtonProps={{
-          style: {
-            color: "var(--tg-theme-text-color)",
-          },
-        }}
       >
         <Box className={styles.drawerWrapper}>
           <NavLink to="/">Home</NavLink>
