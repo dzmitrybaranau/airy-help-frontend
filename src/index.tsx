@@ -25,7 +25,16 @@ eruda.init();
 WebApp.ready();
 WebApp.expand();
 
-const theme = createTheme({});
+const theme = createTheme({
+  components: {
+    Link: {
+      styles: {
+        color: "#24A1DE",
+        textDecoration: "none",
+      },
+    },
+  },
+});
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(

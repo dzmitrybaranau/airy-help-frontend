@@ -3,7 +3,7 @@ import { Box, Burger, Drawer } from "@mantine/core";
 import styles from "./NavMenu.module.scss";
 import { useDisclosure } from "@mantine/hooks";
 import { NavLink } from "react-router-dom";
-import useUserAccount from "../../hooks/useUserAccount";
+
 export interface INavMenuProps {}
 
 /**
@@ -11,7 +11,6 @@ export interface INavMenuProps {}
  */
 function NavMenu(props: INavMenuProps) {
   const [opened, { toggle, close }] = useDisclosure();
-  const { userExists } = useUserAccount();
 
   return (
     <div className={styles.root}>
