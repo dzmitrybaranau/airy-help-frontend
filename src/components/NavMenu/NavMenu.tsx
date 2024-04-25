@@ -20,6 +20,7 @@ function NavMenu(props: INavMenuProps) {
         onClick={toggle}
         aria-label="Toggle navigation"
         className={styles.burger}
+        color="var(--tg-theme-text-color)"
       />
       <Drawer
         opened={opened}
