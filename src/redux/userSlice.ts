@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import WebApp from "@twa-dev/sdk";
 
 export interface UserGoal {
+  id?: string;
   description: string;
   dateDue?: string;
 }

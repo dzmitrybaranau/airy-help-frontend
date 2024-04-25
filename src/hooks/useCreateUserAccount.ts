@@ -13,7 +13,7 @@ import useUserAccount from "./useUserAccount";
 import { useEffect } from "react";
 
 interface UserForm extends Omit<UserAccount, "birthday"> {
-  birthday: Date;
+  birthday?: Date;
 }
 export const useCreateUserAccount = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ export const useCreateUserAccount = () => {
       ...userAccount,
       birthday: userAccount.birthday
         ? new Date(userAccount.birthday)
-        : new Date(),
+        : undefined,
     },
   });
 
@@ -38,7 +38,7 @@ export const useCreateUserAccount = () => {
       ...userAccount,
       birthday: userAccount.birthday
         ? new Date(userAccount.birthday)
-        : new Date(),
+        : undefined,
     });
   }, [userAccount]);
 
@@ -89,6 +89,10 @@ export const useCreateUserAccount = () => {
         ...values,
         birthday: values.birthday ? values.birthday.toISOString() : null,
         chatId,
+        goals: values.goals.map((goal) => ({
+          id: Math.random().toString(36).substr(2) + Date.now().toString(36),
+          ...goal,
+        })),
       };
       await setDoc(userDocRef, newUserAcc);
       dispatch(setIsSignUpOpen(false));

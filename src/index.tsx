@@ -16,6 +16,10 @@ import store from "./redux/store";
 import { QueryClient, QueryClientProvider } from "react-query";
 import eruda from "eruda";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import MainPage from "./pages/main/MainPage";
+import MeetAiry from "./pages/meet-airy";
+import AccountPage from "./pages/account";
 
 eruda.init();
 WebApp.ready();
@@ -27,6 +31,30 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <MainPage />,
+      },
+      {
+        path: "/account",
+        element: <AccountPage />,
+      },
+      {
+        path: "/meet-airy",
+        element: <MeetAiry />,
+      },
+    ],
+  },
+]);
+const AppRouter = () => {
+  return <RouterProvider router={router} />;
+};
 
 const AppProviders = ({ children }) => {
   return (
@@ -54,7 +82,7 @@ const AppProviders = ({ children }) => {
 root.render(
   <React.StrictMode>
     <AppProviders>
-      <App />
+      <AppRouter />
     </AppProviders>
   </React.StrictMode>,
 );

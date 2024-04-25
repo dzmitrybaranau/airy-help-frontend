@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.airyPic {
+  width: 90%;
+  height: 100%;
+  max-width: 200px !important;
+  max-height: 200px !important;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.description {
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+  opacity: 0.57;
+  margin-bottom: 12px;
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--tg-theme-text-color);
+}

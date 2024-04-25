@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CreateAccountModal from "./CreateAccountModal";
+import AccountPage from "./AccountPage";
 import { AppProviders } from "../../stories/StorybookProviders";
 
 const meta = {
@@ -11,13 +11,13 @@ const meta = {
     ),
   ],
   title: "Example/CreateAccountModal",
-  component: CreateAccountModal,
+  component: AccountPage,
   parameters: {},
   argTypes: {
     isOpen: { control: "boolean" },
   },
   args: {},
-} satisfies Meta<typeof CreateAccountModal>;
+} satisfies Meta<typeof AccountPage>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

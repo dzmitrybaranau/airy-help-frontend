@@ -1,8 +1,6 @@
 import { useLayoutEffect } from "react";
-import { collection, doc, DocumentSnapshot, getDoc } from "@firebase/firestore";
+import { collection, doc, getDoc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
-import { getTmaUserInfo } from "../utils/getTmaUserInfo";
-import { UseQueryResult } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import {
@@ -20,7 +18,7 @@ const useUserAccount = () => {
   const userTmaInfo = useSelector((state: RootState) => state.user.userTmaInfo);
 
   useLayoutEffect(() => {
-    dispatch(setUserTmaInfo(WebApp.initDataUnsafe));
+    dispatch(setUserTmaInfo(WebApp?.initDataUnsafe));
   }, [dispatch]);
 
   useLayoutEffect(() => {
