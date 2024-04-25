@@ -97,6 +97,7 @@ export const useCreateUserAccount = () => {
       await setDoc(userDocRef, newUserAcc);
       dispatch(setIsSignUpOpen(false));
       dispatch(setUserAccount({ ...newUserAcc, id: chatId }));
+      WebApp.showAlert(userExists ? "Account updated" : "Account created");
     } catch (e) {
       WebApp.showAlert("Error creating account.", e.toString());
     }

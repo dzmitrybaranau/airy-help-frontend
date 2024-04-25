@@ -16,7 +16,7 @@ function App() {
       </div>
     );
   }
-  if (!userExists && !isLoading) {
+  if (!userExists) {
     return (
       <div className={styles.root}>
         <div className={styles.pageWrapper}>
