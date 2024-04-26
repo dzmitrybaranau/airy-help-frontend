@@ -42,32 +42,6 @@ export const useCreateUserAccount = () => {
     });
   }, [userAccount]);
 
-  const addGoal = () => {
-    const goals = form.getValues().goals;
-    const newGoals = [...goals, { description: "" }];
-    if (newGoals.length > 3) {
-      WebApp.showAlert("You can only have 3 goals.");
-      return;
-    }
-    form.setFieldValue("goals", newGoals);
-  };
-
-  const setGoal = (index, value) => {
-    const goals = form.getValues().goals.slice();
-    goals[index].description = value;
-    form.setFieldValue("goals", goals);
-  };
-
-  const removeGoal = (index) => {
-    const goals = form.getValues().goals.slice();
-    if (goals.length === 1) {
-      WebApp.showAlert("You must have at least one goal.");
-      return;
-    }
-    goals.splice(index, 1);
-    form.setFieldValue("goals", goals);
-  };
-
   const handleSignInOpen = () => {
     dispatch(setIsSignUpOpen(true));
   };
@@ -109,9 +83,6 @@ export const useCreateUserAccount = () => {
     handleSignInOpen,
     handleCreateAccount,
     handleSignInClose,
-    addGoal,
-    setGoal,
-    removeGoal,
     userExists,
   };
 };

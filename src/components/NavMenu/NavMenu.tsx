@@ -2,7 +2,8 @@ import React from "react";
 import { Box, Burger, Drawer } from "@mantine/core";
 import styles from "./NavMenu.module.scss";
 import { useDisclosure } from "@mantine/hooks";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import useUserAccount from "../../hooks/useUserAccount";
 
 export interface INavMenuProps {}
 
@@ -11,15 +12,36 @@ export interface INavMenuProps {}
  */
 function NavMenu(props: INavMenuProps) {
   const [opened, { toggle, close }] = useDisclosure();
+  const { userExists } = useUserAccount();
+  const location = useLocation();
+
+  let title;
+  switch (location.pathname) {
+    case "/":
+      title = "My Goals";
+      break;
+    case "/account":
+      title = userExists ? "Account Details" : "Create Account";
+      break;
+    case "/meet-airy":
+      title = "Meet Airy!";
+      break;
+    default:
+      title = "";
+  }
 
   return (
     <div className={styles.root}>
-      <Burger
-        opened={opened}
-        onClick={toggle}
-        aria-label="Toggle navigation"
-        className={styles.burger}
-      />
+      <div className={styles.pageName}>{title}</div>
+      {userExists && (
+        <Burger
+          opened={opened}
+          onClick={toggle}
+          aria-label="Toggle navigation"
+          className={styles.burger}
+          color="#24a1de"
+        />
+      )}
       <Drawer
         opened={opened}
         onClose={close}
@@ -29,9 +51,15 @@ function NavMenu(props: INavMenuProps) {
         className={styles.drawer}
       >
         <Box className={styles.drawerWrapper}>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/account">Account Details</NavLink>
-          <NavLink to="/meet-airy">About Airy</NavLink>
+          <NavLink onClick={close} to="/">
+            Home
+          </NavLink>
+          <NavLink onClick={close} to="/account">
+            Account Details
+          </NavLink>
+          <NavLink onClick={close} to="/meet-airy">
+            About Airy
+          </NavLink>
         </Box>
       </Drawer>
     </div>

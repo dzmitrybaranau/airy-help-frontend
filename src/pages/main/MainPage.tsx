@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./MainPage.module.scss";
-import { Loader, Paper } from "@mantine/core";
 import useUserAccount from "../../hooks/useUserAccount";
 import { UserGoal } from "../../redux/userSlice";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import DevsMotivationalMessage from "../../components/DevsMotivationalMessage/DevsMotivationalMessage";
+import { Space } from "@mantine/core";
+import CreateGoal from "../../components/CreateGoal";
 
 export interface IMainPageProps {}
 
@@ -11,19 +14,21 @@ export interface IMainPageProps {}
  * Main page
  */
 function MainPage(props: IMainPageProps) {
-  const { userAccount, isLoading, userExists } = useUserAccount();
-
-  if (isLoading ?? true) {
-    return (
-      <Paper className={styles.loadingState}>
-        <Loader />
-      </Paper>
-    );
-  }
+  const { userAccount, userExists } = useUserAccount();
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.yourGoals}>Your Goals:</h1>
+      <Helmet>
+        <title>My Goals</title>
+      </Helmet>
+      {userExists && (
+        <>
+          <DevsMotivationalMessage
+            message={`At the start of the journey, progress may seem invisible, but on the scale, you can already see it`}
+          />
+          <Space h="xs" />
+        </>
+      )}
       {userAccount?.goals?.length > 0 ? (
         userAccount?.goals?.map((goal: UserGoal) => {
           return (
@@ -33,7 +38,7 @@ function MainPage(props: IMainPageProps) {
           );
         })
       ) : (
-        <Link to="/account">Add Goals</Link>
+        <CreateGoal />
       )}
     </div>
   );

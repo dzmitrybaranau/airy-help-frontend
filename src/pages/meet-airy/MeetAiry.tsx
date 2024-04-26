@@ -10,7 +10,6 @@ function MeetAiry(props: IMeetAiryProps) {
   const {} = props;
   return (
     <div className={styles.wrapper}>
-      <h1>Meet Airy!</h1>
       <img
         alt="airy-helper image"
         src={airyPicSrc}

@@ -25,13 +25,14 @@ const useUserAccount = () => {
     const fetchUserAccount = async () => {
       const id = userTmaInfo?.user?.id?.toString();
       if (id) {
+        dispatch(setIsUserAccountLoading(true));
         const userDocRef = doc(collection(firestore, "users"), id);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
           dispatch(setUserAccount(userDoc.data() as UserAccount));
         }
+        dispatch(setIsUserAccountLoading(false));
       }
-      dispatch(setIsUserAccountLoading(false));
     };
 
     fetchUserAccount();

@@ -1,8 +1,9 @@
 import React from "react";
-import { Button, Group, Input, SimpleGrid } from "@mantine/core";
+import { Button, Input, SimpleGrid } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { useCreateUserAccount } from "../../hooks/useCreateUserAccount";
 import styles from "./AccountPage.module.scss";
+
 export interface ICreateAccountFormProps {
   isOpen?: boolean;
 }
@@ -11,14 +12,7 @@ export interface ICreateAccountFormProps {
  *  Create account form
  */
 function AccountPage() {
-  const {
-    form,
-    handleCreateAccount,
-    setGoal,
-    addGoal,
-    removeGoal,
-    userExists,
-  } = useCreateUserAccount();
+  const { form, handleCreateAccount, userExists } = useCreateUserAccount();
 
   const { birthday, email, firstName, goals } = form.getValues();
   const isCreateAccountDisabled =
@@ -30,7 +24,6 @@ function AccountPage() {
 
   return (
     <div className={styles.wrapper}>
-      <h1>{userExists ? "Edit Account Details" : "Create Account"}</h1>
       <form onSubmit={form.onSubmit(handleCreateAccount)}>
         <SimpleGrid cols={1} verticalSpacing="xs">
           <Input.Wrapper required label="First Name">
@@ -50,34 +43,6 @@ function AccountPage() {
               clearable
             />
           </Input.Wrapper>
-          <Input.Wrapper label="Goals (try to be concrete)" required>
-            {form.getValues().goals.map((goal, index) => (
-              <Group key={index} mb={8} mt={4}>
-                <Input
-                  style={{ flex: 1 }}
-                  placeholder="Enter goal description"
-                  value={goal.description}
-                  onChange={(event) =>
-                    setGoal(index, event.currentTarget.value)
-                  }
-                />
-                <Button color="red" onClick={() => removeGoal(index)}>
-                  Remove
-                </Button>
-              </Group>
-            ))}
-          </Input.Wrapper>
-          <Button
-            mt={-10}
-            variant="outline"
-            onClick={addGoal}
-            disabled={Boolean(
-              form.getValues().goals.find((goal) => goal.description === ""),
-            )}
-          >
-            Add Goal
-          </Button>
-
           <Button
             mt={12}
             type="submit"

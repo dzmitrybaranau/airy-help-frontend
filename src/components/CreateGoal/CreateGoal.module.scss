@@ -1,0 +1,22 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.title {
+  opacity: 0.9;
+}
+
+.createGoalHint {
+  display: flex;
+  align-items: center;
+
+  p {
+    font-weight: 300;
+    opacity: 0.4;
+  }
+}

@@ -1,28 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavMenu from "../NavMenu/NavMenu";
 import styles from "./App.module.scss";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import useUserAccount from "../../hooks/useUserAccount";
 import { Loader } from "@mantine/core";
-import AccountPage from "../../pages/account";
 
 function App() {
   const { isLoading, userExists } = useUserAccount();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoading && !userExists) {
+      navigate("/account");
+    }
+  }, [isLoading, userExists]);
 
   if (isLoading) {
     return (
       <div className={styles.root}>
         <Loader />
-      </div>
-    );
-  }
-
-  if (!userExists) {
-    return (
-      <div className={styles.root}>
-        <div className={styles.pageWrapper}>
-          <AccountPage />
-        </div>
       </div>
     );
   }
