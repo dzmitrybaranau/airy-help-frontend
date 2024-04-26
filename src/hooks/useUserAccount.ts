@@ -18,12 +18,13 @@ const useUserAccount = () => {
   const userTmaInfo = useSelector((state: RootState) => state.user.userTmaInfo);
 
   useLayoutEffect(() => {
-    dispatch(setUserTmaInfo(WebApp?.initDataUnsafe));
+    dispatch(setUserTmaInfo(WebApp?.initDataUnsafe ?? null));
   }, [dispatch]);
 
   useLayoutEffect(() => {
     const fetchUserAccount = async () => {
       const id = userTmaInfo?.user?.id?.toString();
+      console.log({ userTmaInfo });
       if (id) {
         dispatch(setIsUserAccountLoading(true));
         const userDocRef = doc(collection(firestore, "users"), id);
@@ -31,8 +32,8 @@ const useUserAccount = () => {
         if (userDoc.exists()) {
           dispatch(setUserAccount(userDoc.data() as UserAccount));
         }
-        dispatch(setIsUserAccountLoading(false));
       }
+      dispatch(setIsUserAccountLoading(false));
     };
 
     fetchUserAccount();
