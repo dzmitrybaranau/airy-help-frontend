@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import NavMenu from "../NavMenu/NavMenu";
 import styles from "./App.module.scss";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -9,12 +9,16 @@ function App() {
   const { isLoading, userExists } = useUserAccount();
   const navigate = useNavigate();
 
+  const shouldNavigate = useMemo(
+    () => !isLoading && !userExists,
+    [isLoading, userExists],
+  );
+
   useEffect(() => {
-    console.log({ isLoading, userExists });
-    if (!isLoading && !userExists) {
+    if (shouldNavigate) {
       navigate("/account");
     }
-  }, [isLoading, userExists, navigate]);
+  }, [shouldNavigate, navigate]);
 
   if (isLoading) {
     return (
