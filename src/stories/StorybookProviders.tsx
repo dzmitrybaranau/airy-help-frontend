@@ -29,7 +29,9 @@ export const AppProviders = ({ children }) => {
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
           <MantineProvider theme={theme}>
-            <TypographyStylesProvider>{children}</TypographyStylesProvider>
+            <TypographyStylesProvider>
+              <div style={{ width: 375 }}>{children}</div>
+            </TypographyStylesProvider>
           </MantineProvider>
         </Provider>
       </QueryClientProvider>

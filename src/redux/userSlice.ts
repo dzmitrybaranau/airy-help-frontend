@@ -65,6 +65,9 @@ export const userSlice = createSlice({
     setIsSignUpOpen: (state, action: PayloadAction<boolean>) => {
       state.isSignUpOpen = action.payload;
     },
+    addUserGoal: (state, action: PayloadAction<UserGoal>) => {
+      state.userAccount.goals.push(action.payload);
+    },
   },
 });
 
@@ -74,6 +77,7 @@ export const {
   setUserAccount,
   setIsUserAccountLoading,
   setIsTmaInfoLoading,
+  addUserGoal,
 } = userSlice.actions;
 
 export default userSlice.reducer;

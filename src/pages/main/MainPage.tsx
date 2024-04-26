@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet";
 import DevsMotivationalMessage from "../../components/DevsMotivationalMessage/DevsMotivationalMessage";
 import { Space } from "@mantine/core";
 import CreateGoal from "../../components/CreateGoal";
+import Goal from "../../components/Goal";
 
 export interface IMainPageProps {}
 
@@ -32,9 +33,10 @@ function MainPage(props: IMainPageProps) {
       {userAccount?.goals?.length > 0 ? (
         userAccount?.goals?.map((goal: UserGoal) => {
           return (
-            <div key={goal.id}>
-              <h2>{goal.description}</h2>
-            </div>
+            <Goal
+              description={goal.description}
+              key={goal?.id || goal.description}
+            />
           );
         })
       ) : (

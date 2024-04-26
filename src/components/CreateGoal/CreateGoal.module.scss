@@ -9,14 +9,18 @@
 
 .title {
   opacity: 0.9;
+  margin-bottom: 4px !important;
 }
 
 .createGoalHint {
   display: flex;
   align-items: center;
+  margin-bottom: 4px;
 
   p {
     font-weight: 300;
     opacity: 0.4;
+    font-size: 14px;
+    line-height: 16px;
   }
 }
