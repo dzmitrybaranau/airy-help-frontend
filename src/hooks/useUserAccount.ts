@@ -30,7 +30,7 @@ const useUserAccount = () => {
 
   useLayoutEffect(() => {
     const fetchUserAccount = async () => {
-      if (!isTmaInfoLoading) {
+      if (!isTmaInfoLoading && userTmaInfo?.user?.id) {
         const id = userTmaInfo?.user?.id?.toString();
         const userDocRef = doc(collection(firestore, "users"), id);
         const userDoc = await getDoc(userDocRef);
