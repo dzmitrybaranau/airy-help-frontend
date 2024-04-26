@@ -49,7 +49,8 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary: Story = {
   args: {
-    description: "Learn React",
+    description:
+      "Make best AI bot that will help people achieve their dreams and goals",
     timeEstimates: "1 month",
     successPrediction: "High",
     progressEstimation: 40,
