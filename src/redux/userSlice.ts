@@ -20,7 +20,8 @@ export interface UserAccount {
 
 interface UserState {
   userAccount: UserAccount;
-  isLoading: boolean;
+  isTmaInfoLoading: boolean;
+  isUserLoading: boolean;
   userTmaInfo: typeof WebApp.initDataUnsafe | null;
   isSignUpOpen: boolean;
 }
@@ -36,7 +37,8 @@ const initialState: UserState = {
     paymentPending: false,
     goals: [],
   },
-  isLoading: true,
+  isUserLoading: true,
+  isTmaInfoLoading: true,
   userTmaInfo: null,
   isSignUpOpen: false,
 };
@@ -49,11 +51,14 @@ export const userSlice = createSlice({
       state.userAccount = action.payload;
     },
     setIsUserAccountLoading: (state, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
+      state.isUserLoading = action.payload;
+    },
+    setIsTmaInfoLoading: (state, action: PayloadAction<boolean>) => {
+      state.isTmaInfoLoading = action.payload;
     },
     setUserTmaInfo: (
       state,
-      action: PayloadAction<typeof WebApp.initDataUnsafe>,
+      action: PayloadAction<typeof WebApp.initDataUnsafe | null>,
     ) => {
       state.userTmaInfo = action.payload;
     },
@@ -68,6 +73,7 @@ export const {
   setUserTmaInfo,
   setUserAccount,
   setIsUserAccountLoading,
+  setIsTmaInfoLoading,
 } = userSlice.actions;
 
 export default userSlice.reducer;
