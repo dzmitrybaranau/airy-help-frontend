@@ -40,7 +40,7 @@ function MainPage(props: IMainPageProps) {
           );
         })
       ) : (
-        <CreateGoal />
+        <CreateGoal userId={userAccount?.chatId} />
       )}
     </div>
   );
