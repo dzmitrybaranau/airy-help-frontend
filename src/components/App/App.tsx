@@ -1,29 +1,30 @@
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import NavMenu from "../NavMenu/NavMenu";
 import styles from "./App.module.scss";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import useUserAccount from "../../hooks/useUserAccount";
 import { Loader } from "@mantine/core";
+import AccountPage from "../../pages/account";
 
 function App() {
   const { isLoading, userExists } = useUserAccount();
-  const navigate = useNavigate();
-
-  const shouldNavigate = useMemo(
-    () => !isLoading && !userExists,
-    [isLoading, userExists],
-  );
-
-  useEffect(() => {
-    if (shouldNavigate) {
-      navigate("/account");
-    }
-  }, [shouldNavigate, navigate]);
 
   if (isLoading) {
     return (
       <div className={styles.root}>
         <Loader />
+      </div>
+    );
+  }
+
+  // TODO: Make proper redirect
+  if (!userExists) {
+    return (
+      <div className={styles.root}>
+        <NavMenu />
+        <div className={styles.pageWrapper}>
+          <AccountPage />
+        </div>
       </div>
     );
   }
