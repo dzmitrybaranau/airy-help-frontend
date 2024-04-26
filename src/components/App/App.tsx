@@ -11,7 +11,15 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className={styles.root}>
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Loader />
       </div>
     );
