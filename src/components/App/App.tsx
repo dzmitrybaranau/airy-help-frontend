@@ -10,10 +10,11 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log({ isLoading, userExists });
     if (!isLoading && !userExists) {
       navigate("/account");
     }
-  }, [isLoading, userExists]);
+  }, [isLoading, userExists, navigate]);
 
   if (isLoading) {
     return (
