@@ -12,8 +12,6 @@ export interface ICreateGoalProps {
  * Create Goals Form
  */
 function CreateGoal({ userId }: ICreateGoalProps) {
-  /* TODO: Let user create goal and after the goal is created - set this goal default and ask
-      if user wants to go to bot to make it more clear */
   const { form, handleSubmit, isCreatingGoal } = useCreateGoal(userId);
   return (
     <div className={styles.root}>

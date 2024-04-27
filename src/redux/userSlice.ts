@@ -11,6 +11,8 @@ export interface UserAccount {
   firstName: string;
   lastName: string;
   email: string;
+  gender?: "M" | "F" | "N/A";
+  favoriteMusicGenre: string;
   birthday: string;
   threadId: string;
   chatId: string;
@@ -34,6 +36,8 @@ const initialState: UserState = {
     birthday: "",
     threadId: "",
     chatId: "",
+    gender: undefined,
+    favoriteMusicGenre: "",
     paymentPending: false,
     goals: [],
   },

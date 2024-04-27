@@ -11,15 +11,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import useUserAccount from "./useUserAccount";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-interface UserForm extends Omit<UserAccount, "birthday"> {
+interface UserForm
+  extends Pick<
+    UserAccount,
+    "firstName" | "lastName" | "email" | "gender" | "favoriteMusicGenre"
+  > {
   birthday?: Date;
 }
-export const useCreateUserAccount = () => {
+export const useUserAccountEdit = () => {
   const dispatch = useDispatch();
   const isSignUpOpen = useSelector(
     (state: RootState) => state.user.isSignUpOpen,
   );
+  const navigate = useNavigate();
   const { userAccount, userExists } = useUserAccount();
   const userTmaInfo = useSelector((state: RootState) => state.user.userTmaInfo);
 
@@ -63,15 +69,12 @@ export const useCreateUserAccount = () => {
         ...values,
         birthday: values.birthday ? values.birthday.toISOString() : null,
         chatId,
-        goals: values.goals.map((goal) => ({
-          id: Math.random().toString(36).substr(2) + Date.now().toString(36),
-          ...goal,
-        })),
       };
       await setDoc(userDocRef, newUserAcc);
       dispatch(setIsSignUpOpen(false));
       dispatch(setUserAccount({ ...newUserAcc, id: chatId }));
       WebApp.showAlert(userExists ? "Account updated" : "Account created");
+      navigate("/");
     } catch (e) {
       WebApp.showAlert("Error creating account.", e.toString());
     }

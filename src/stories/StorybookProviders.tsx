@@ -10,6 +10,7 @@ import {
 import React from "react";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const theme = createTheme({});
 const queryClient = new QueryClient();
@@ -30,7 +31,9 @@ export const AppProviders = ({ children }) => {
         <Provider store={store}>
           <MantineProvider theme={theme}>
             <TypographyStylesProvider>
-              <div style={{ width: 375 }}>{children}</div>
+              <Router>
+                <div style={{ width: 375 }}>{children}</div>
+              </Router>
             </TypographyStylesProvider>
           </MantineProvider>
         </Provider>

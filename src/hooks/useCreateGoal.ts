@@ -43,7 +43,9 @@ export const useCreateGoal = (userId: string) => {
       await setDoc(userDocRef, { goals: [newGoal] }, { merge: true });
       dispatch(addUserGoal(newGoal));
       setIsCreatingGoal(false);
-      WebApp.showAlert("Goal created!");
+      WebApp.showAlert("Goal created! Sending you back to Airy!", () => {
+        WebApp.close();
+      });
     } catch (e) {
       WebApp.showAlert("Error creating goal!", e.toString());
       setIsCreatingGoal(true);

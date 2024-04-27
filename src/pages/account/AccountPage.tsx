@@ -1,39 +1,71 @@
 import React from "react";
-import { Button, Input, SimpleGrid } from "@mantine/core";
+import { Button, Input, Select, SimpleGrid } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
-import { useCreateUserAccount } from "../../hooks/useCreateUserAccount";
+import { useUserAccountEdit } from "../../hooks/useUserAccountEdit";
 import styles from "./AccountPage.module.scss";
 
-export interface ICreateAccountFormProps {
-  isOpen?: boolean;
-}
+export interface ICreateAccountFormProps {}
 
 /**
  *  Create account form
  */
 function AccountPage() {
-  const { form, handleCreateAccount, userExists } = useCreateUserAccount();
+  const { form, handleCreateAccount, userExists } = useUserAccountEdit();
 
-  const { birthday, email, firstName, goals } = form.getValues();
+  const { birthday, email, firstName, lastName, gender, favoriteMusicGenre } =
+    form.getValues();
+
   const isCreateAccountDisabled =
     !birthday ||
     !email ||
     !firstName ||
-    !goals.find((goal) => goal.description) ||
-    !form.isTouched;
+    !lastName ||
+    !gender ||
+    !favoriteMusicGenre;
+
+  console.log({
+    birthday,
+    email,
+    firstName,
+    lastName,
+    gender,
+    favoriteMusicGenre,
+    isCreateAccountDisabled,
+  });
 
   return (
     <div className={styles.wrapper}>
       <form onSubmit={form.onSubmit(handleCreateAccount)}>
         <SimpleGrid cols={1} verticalSpacing="xs">
           <Input.Wrapper required label="First Name">
-            <Input {...form.getInputProps("firstName")} />
+            <Input {...form.getInputProps("firstName")} value={firstName} />
           </Input.Wrapper>
           <Input.Wrapper required label="Last Name">
-            <Input {...form.getInputProps("lastName")} />
+            <Input {...form.getInputProps("lastName")} value={lastName} />
           </Input.Wrapper>
           <Input.Wrapper required label="Email">
-            <Input {...form.getInputProps("email")} type="email" />
+            <Input
+              {...form.getInputProps("email")}
+              type="email"
+              value={email}
+            />
+          </Input.Wrapper>
+          <Input.Wrapper required label="Gender">
+            <Select
+              {...form.getInputProps("gender")}
+              data={[
+                { label: "Male", value: "M" },
+                { label: "Female", value: "F" },
+                { label: "Can't tell", value: "N/A" },
+              ]}
+            />
+          </Input.Wrapper>
+          <Input.Wrapper required label="Favorite Music Genre">
+            <Input
+              {...form.getInputProps("favoriteMusicGenre")}
+              placeholder="Hip-Hop, Rock, Jazz, (type 'none' if you got no preference)"
+              value={favoriteMusicGenre}
+            />
           </Input.Wrapper>
           <Input.Wrapper label="Birthday" required mb="12px">
             <DateInput
@@ -47,7 +79,7 @@ function AccountPage() {
             mt={12}
             type="submit"
             variant="gradient"
-            disabled={isCreateAccountDisabled}
+            disabled={Boolean(isCreateAccountDisabled)}
           >
             {userExists ? "Edit Account" : "Create Account"}
           </Button>
