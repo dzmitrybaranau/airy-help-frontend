@@ -46,6 +46,7 @@ function CreateGoal({ userId }: ICreateGoalProps) {
           size="xs"
           color="Gray"
           disabled={isCreatingGoal}
+          type="submit"
         >
           Create
         </Button>
