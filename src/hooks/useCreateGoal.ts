@@ -44,7 +44,7 @@ export const useCreateGoal = (userId: string) => {
     const newGoal = {
       id: Math.random().toString(36).substr(2) + Date.now().toString(36),
       description: goalDescription,
-      createdAt: Timestamp.now(),
+      createdAt: new Date().toString(),
     };
 
     console.log({ newGoal });
@@ -70,7 +70,11 @@ export const useCreateGoal = (userId: string) => {
   const handleSubmit = async () => {
     const { description } = form.getValues();
     console.log("SUBMIT", { userId });
-    await createGoalForUser({ userId, goalDescription: description });
+    await createGoalForUser({ userId, goalDescription: description }).catch(
+      (e) => {
+        console.error("Error creating goal!", e);
+      },
+    );
   };
 
   return {
