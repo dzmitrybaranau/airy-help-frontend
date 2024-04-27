@@ -4,6 +4,7 @@ import {
   arrayUnion,
   collection,
   doc,
+  getDoc,
   setDoc,
   Timestamp,
 } from "@firebase/firestore";
@@ -39,14 +40,23 @@ export const useCreateGoal = (userId: string) => {
     setIsCreatingGoal(true);
     const userDocRef = doc(collection(firestore, "users"), userId);
 
+    console.log({ userDocRef });
+
     const newGoal = {
       id: Math.random().toString(36).substr(2) + Date.now().toString(36),
       description: goalDescription,
       createdAt: Timestamp.now(),
     };
 
+    console.log({ newGoal });
+
     try {
-      await setDoc(userDocRef, { goals: arrayUnion(newGoal) }, { merge: true });
+      const currentUserData = await getDoc(userDocRef);
+      await setDoc(userDocRef, {
+        ...currentUserData?.data(),
+        goals: [...currentUserData?.data()?.goals, newGoal],
+      });
+      console.log("Goal created!");
       dispatch(addUserGoal(newGoal));
       setIsCreatingGoal(false);
       WebApp.showAlert("Goal created! Sending you back to Airy!", () => {
