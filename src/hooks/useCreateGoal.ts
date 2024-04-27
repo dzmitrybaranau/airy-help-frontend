@@ -38,7 +38,7 @@ export const useCreateGoal = (userId: string) => {
   }) => {
     setIsCreatingGoal(true);
     console.log({ userId, goalDescription });
-    const userDocRef = doc(collection(firestore, "users"), userId);
+    const userDocRef = doc(collection(firestore, "users"), userId.toString());
 
     const newGoal = {
       id: Math.random().toString(36).substr(2) + Date.now().toString(36),

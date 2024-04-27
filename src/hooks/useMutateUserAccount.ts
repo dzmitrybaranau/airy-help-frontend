@@ -99,20 +99,20 @@ export const useMutateUserAccount = () => {
         return;
       }
       const userDocRef = doc(collection(firestore, "users"), chatId.toString());
-      const newUserAcc = {
+      const newUserAcc: UserAccount = {
         ...values,
         birthday: {
           year: values.birthdayYear,
           month: values.birthdayMonth,
           day: values.birthdayDay,
         },
-        chatId,
+        chatId: chatId.toString(),
       };
       await setDoc(userDocRef, newUserAcc);
       form.reset();
       setIsSubmitting(false);
       dispatch(setIsSignUpOpen(false));
-      dispatch(setUserAccount({ ...newUserAcc, id: chatId }));
+      dispatch(setUserAccount({ ...newUserAcc }));
       WebApp.showAlert(userExists ? "Account updated" : "Account created");
       navigate("/");
     } catch (e) {
