@@ -1,7 +1,6 @@
 import { useForm } from "@mantine/form";
 import { addUserGoal, UserGoal } from "../redux/userSlice";
 import {
-  arrayUnion,
   collection,
   doc,
   getDoc,
@@ -70,6 +69,7 @@ export const useCreateGoal = (userId: string) => {
 
   const handleSubmit = async () => {
     const { description } = form.getValues();
+    console.log("SUBMIT", { userId });
     await createGoalForUser({ userId, goalDescription: description });
   };
 
