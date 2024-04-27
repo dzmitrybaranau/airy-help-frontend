@@ -22,7 +22,7 @@ function MainPage(props: IMainPageProps) {
       <Helmet>
         <title>My Goals</title>
       </Helmet>
-      {userExists && (
+      {userExists && userAccount?.goals?.length > 0 && (
         <>
           <DevsMotivationalMessage
             message={`At the start of the journey, progress may seem invisible, but on the scale, you can already see it`}
