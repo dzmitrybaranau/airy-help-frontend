@@ -16,10 +16,15 @@ import { useNavigate } from "react-router-dom";
 interface UserForm
   extends Pick<
     UserAccount,
-    "firstName" | "lastName" | "email" | "gender" | "favoriteMusicGenre"
-  > {
-  birthday?: Date;
-}
+    | "firstName"
+    | "lastName"
+    | "email"
+    | "gender"
+    | "favoriteMusicGenre"
+    | "birthdayYear"
+    | "birthdayMonth"
+    | "birthdayDay"
+  > {}
 export const useMutateUserAccount = () => {
   const dispatch = useDispatch();
   const isSignUpOpen = useSelector(
@@ -34,18 +39,40 @@ export const useMutateUserAccount = () => {
     mode: "controlled",
     initialValues: {
       ...userAccount,
-      birthday: userAccount.birthday
-        ? new Date(userAccount.birthday)
-        : undefined,
+    },
+    validate: {
+      birthdayYear: (value) => {
+        if (!value) {
+          return "Year is required";
+        }
+        return false;
+      },
+      birthdayMonth: (value) => {
+        if (!value) {
+          return "Month is required";
+        }
+        return false;
+      },
+      birthdayDay: (value) => {
+        if (!value) {
+          return "Day is required";
+        }
+        const { birthdayYear, birthdayMonth } = form.getValues();
+        if (birthdayYear && birthdayMonth) {
+          const date = new Date(birthdayYear, birthdayMonth, value);
+          if (date.getDate() !== value) {
+            return "Invalid date";
+          }
+        }
+
+        return false;
+      },
     },
   });
 
   useEffect(() => {
     form.setValues({
       ...userAccount,
-      birthday: userAccount.birthday
-        ? new Date(userAccount.birthday)
-        : undefined,
     });
   }, [userAccount]);
 
@@ -69,7 +96,11 @@ export const useMutateUserAccount = () => {
       const userDocRef = doc(collection(firestore, "users"), chatId.toString());
       const newUserAcc = {
         ...values,
-        birthday: values.birthday ? values.birthday.toISOString() : null,
+        birthday: {
+          year: values.birthdayYear,
+          month: values.birthdayMonth,
+          day: values.birthdayDay,
+        },
         chatId,
       };
       await setDoc(userDocRef, newUserAcc);
