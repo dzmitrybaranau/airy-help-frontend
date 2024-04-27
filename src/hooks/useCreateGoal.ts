@@ -1,6 +1,12 @@
 import { useForm } from "@mantine/form";
 import { addUserGoal, UserGoal } from "../redux/userSlice";
-import { collection, doc, setDoc, Timestamp } from "@firebase/firestore";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  setDoc,
+  Timestamp,
+} from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
 import WebApp from "@twa-dev/sdk";
 import { useDispatch } from "react-redux";
@@ -40,7 +46,7 @@ export const useCreateGoal = (userId: string) => {
     };
 
     try {
-      await setDoc(userDocRef, { goals: [newGoal] }, { merge: true });
+      await setDoc(userDocRef, { goals: arrayUnion(newGoal) }, { merge: true });
       dispatch(addUserGoal(newGoal));
       setIsCreatingGoal(false);
       WebApp.showAlert("Goal created! Sending you back to Airy!", () => {
