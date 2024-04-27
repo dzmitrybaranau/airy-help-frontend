@@ -59,8 +59,13 @@ export const useMutateUserAccount = () => {
         }
         const { birthdayYear, birthdayMonth } = form.getValues();
         if (birthdayYear && birthdayMonth) {
-          const date = new Date(birthdayYear, birthdayMonth, value);
-          if (date.getDate() !== value) {
+          const date = new Date(
+            Number(birthdayYear),
+            Number(birthdayMonth),
+            Number(value),
+          );
+
+          if (date.getDate().toString() !== value) {
             return "Invalid date";
           }
         }

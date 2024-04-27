@@ -13,9 +13,9 @@ export interface UserAccount {
   email: string;
   gender?: "M" | "F" | "N/A";
   favoriteMusicGenre: string;
-  birthdayYear?: number;
-  birthdayMonth?: number;
-  birthdayDay?: number;
+  birthdayYear?: string;
+  birthdayMonth?: string;
+  birthdayDay?: string;
   threadId: string;
   chatId: string;
   paymentPending: boolean;

@@ -174,6 +174,7 @@ function AccountPage() {
                 placeholder="Year"
                 disabled={isSubmitting}
                 onKeyDown={(event) => handleKeyDown(event, birthdayMonthRef)}
+                ref={birthdayYearRef}
               />
               {errors.birthdayYear && (
                 <Text color="red" size="sm">
@@ -187,6 +188,7 @@ function AccountPage() {
                 placeholder="Month"
                 disabled={isSubmitting}
                 onKeyDown={(event) => handleKeyDown(event, birthdayDateRef)}
+                ref={birthdayMonthRef}
               />
               {errors.birthdayMonth && (
                 <Text color="red" size="sm">
@@ -199,6 +201,7 @@ function AccountPage() {
                 data={days}
                 placeholder="Day"
                 disabled={isSubmitting}
+                ref={birthdayDateRef}
               />
               {errors.birthdayDay && (
                 <Text color="red" size="sm">

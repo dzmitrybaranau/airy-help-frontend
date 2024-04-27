@@ -18,7 +18,7 @@ function NavMenu(props: INavMenuProps) {
   let title;
   switch (location.pathname) {
     case "/":
-      title = "My Goals";
+      title = userExists ? "My Goals" : "Create Account";
       break;
     case "/account":
       title = userExists ? "Account Details" : "Create Account";
