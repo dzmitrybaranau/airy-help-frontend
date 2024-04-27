@@ -10,7 +10,7 @@ import { firestore } from "../firebase/firebase-config";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import useUserAccount from "./useUserAccount";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface UserForm
@@ -20,7 +20,7 @@ interface UserForm
   > {
   birthday?: Date;
 }
-export const useUserAccountEdit = () => {
+export const useMutateUserAccount = () => {
   const dispatch = useDispatch();
   const isSignUpOpen = useSelector(
     (state: RootState) => state.user.isSignUpOpen,
@@ -28,6 +28,7 @@ export const useUserAccountEdit = () => {
   const navigate = useNavigate();
   const { userAccount, userExists } = useUserAccount();
   const userTmaInfo = useSelector((state: RootState) => state.user.userTmaInfo);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<UserForm>({
     mode: "controlled",
@@ -59,6 +60,7 @@ export const useUserAccountEdit = () => {
   const handleCreateAccount = async (values) => {
     // Add the user to Firestore
     try {
+      setIsSubmitting(true);
       const chatId = userTmaInfo?.user?.id;
       if (!chatId) {
         WebApp.showAlert("Problems receiving chat ID");
@@ -71,11 +73,14 @@ export const useUserAccountEdit = () => {
         chatId,
       };
       await setDoc(userDocRef, newUserAcc);
+      form.reset();
+      setIsSubmitting(false);
       dispatch(setIsSignUpOpen(false));
       dispatch(setUserAccount({ ...newUserAcc, id: chatId }));
       WebApp.showAlert(userExists ? "Account updated" : "Account created");
       navigate("/");
     } catch (e) {
+      setIsSubmitting(false);
       WebApp.showAlert("Error creating account.", e.toString());
     }
   };
@@ -87,5 +92,7 @@ export const useUserAccountEdit = () => {
     handleCreateAccount,
     handleSignInClose,
     userExists,
+    setIsSubmitting,
+    isSubmitting,
   };
 };
