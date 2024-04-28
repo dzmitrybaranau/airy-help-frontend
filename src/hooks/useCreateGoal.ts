@@ -11,6 +11,7 @@ import { firestore } from "../firebase/firebase-config";
 import WebApp from "@twa-dev/sdk";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import dayjs from "dayjs";
 
 export const useCreateGoal = (userId: string) => {
   const [isCreatingGoal, setIsCreatingGoal] = useState(false);
@@ -37,22 +38,18 @@ export const useCreateGoal = (userId: string) => {
     goalDescription: string;
   }) => {
     setIsCreatingGoal(true);
-    console.log({ userId, goalDescription });
     const userDocRef = doc(collection(firestore, "users"), userId.toString());
 
-    const newGoal = {
+    const newGoal: UserGoal = {
       id: Math.random().toString(36).substr(2) + Date.now().toString(36),
       description: goalDescription,
-      createdAt: new Date().toString(),
     };
-
-    console.log({ newGoal });
 
     try {
       const currentUserData = await getDoc(userDocRef);
       await setDoc(userDocRef, {
         ...currentUserData?.data(),
-        goals: [...currentUserData?.data()?.goals, newGoal],
+        goals: [...(currentUserData?.data()?.goals ?? []), newGoal],
       });
       console.log("Goal created!");
       dispatch(addUserGoal(newGoal));
