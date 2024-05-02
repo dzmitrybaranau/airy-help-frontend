@@ -1,26 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import WebApp from "@twa-dev/sdk";
-
-export interface UserGoal {
-  id?: string;
-  description: string;
-  dateDue?: string;
-}
-
-export interface UserAccount {
-  firstName: string;
-  lastName: string;
-  email: string;
-  gender?: "M" | "F" | "N/A";
-  favoriteMusicGenre: string;
-  birthdayYear?: string;
-  birthdayMonth?: string;
-  birthdayDay?: string;
-  threadId: string;
-  chatId: string;
-  paymentPending: boolean;
-  goals: UserGoal[];
-}
+import { UserAccount, UserGoal } from "../types/user.type";
 
 interface UserState {
   userAccount: UserAccount;
@@ -44,6 +24,7 @@ const initialState: UserState = {
     favoriteMusicGenre: "",
     paymentPending: false,
     goals: [],
+    onboarded: false,
   },
   isUserLoading: true,
   isTmaInfoLoading: true,

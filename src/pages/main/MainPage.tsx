@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./MainPage.module.scss";
 import useUserAccount from "../../hooks/useUserAccount";
-import { UserGoal } from "../../redux/userSlice";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import DevsMotivationalMessage from "../../components/DevsMotivationalMessage/DevsMotivationalMessage";
 import { Space } from "@mantine/core";
@@ -31,7 +29,7 @@ function MainPage(props: IMainPageProps) {
         </>
       )}
       {userAccount?.goals?.length > 0 ? (
-        userAccount?.goals?.map((goal: UserGoal) => {
+        userAccount?.goals?.map((goal) => {
           return (
             <Goal
               description={goal.description}

@@ -1,19 +1,15 @@
 import { useForm } from "@mantine/form";
-import { addUserGoal, UserGoal } from "../redux/userSlice";
-import {
-  collection,
-  doc,
-  getDoc,
-  setDoc,
-  Timestamp,
-} from "@firebase/firestore";
+import { addUserGoal } from "../redux/userSlice";
+import { collection, doc, getDoc, setDoc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
 import WebApp from "@twa-dev/sdk";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import dayjs from "dayjs";
+import { UserGoal } from "../types/user.type";
+import { useStartOnboarding } from "./useStartOnboarding";
 
 export const useCreateGoal = (userId: string) => {
+  const { handleStartOnboarding } = useStartOnboarding();
   const [isCreatingGoal, setIsCreatingGoal] = useState(false);
   const dispatch = useDispatch();
   const form = useForm<UserGoal>({
@@ -54,6 +50,7 @@ export const useCreateGoal = (userId: string) => {
       console.log("Goal created!");
       dispatch(addUserGoal(newGoal));
       setIsCreatingGoal(false);
+      await handleStartOnboarding();
       WebApp.showAlert("Goal created! Sending you back to Airy!", () => {
         WebApp.close();
       });

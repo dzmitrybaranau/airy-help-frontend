@@ -8,9 +8,9 @@ import {
   setIsUserAccountLoading,
   setUserAccount,
   setUserTmaInfo,
-  UserAccount,
 } from "../redux/userSlice";
 import WebApp from "@twa-dev/sdk";
+import { UserAccount } from "../types/user.type";
 
 const useUserAccount = () => {
   const dispatch = useDispatch();
@@ -40,7 +40,6 @@ const useUserAccount = () => {
         dispatch(setIsUserAccountLoading(false));
       }
     };
-
     fetchUserAccount();
   }, [dispatch, isTmaInfoLoading]);
 

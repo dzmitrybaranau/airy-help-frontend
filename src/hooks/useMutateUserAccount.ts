@@ -1,9 +1,5 @@
 import { useForm } from "@mantine/form";
-import {
-  setIsSignUpOpen,
-  setUserAccount,
-  UserAccount,
-} from "../redux/userSlice";
+import { setIsSignUpOpen, setUserAccount } from "../redux/userSlice";
 import WebApp from "@twa-dev/sdk";
 import { collection, doc, setDoc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
@@ -12,6 +8,7 @@ import { RootState } from "../redux/store";
 import useUserAccount from "./useUserAccount";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserAccount } from "../types/user.type";
 
 interface UserForm
   extends Pick<
