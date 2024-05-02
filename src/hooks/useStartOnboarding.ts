@@ -7,8 +7,12 @@ export const useStartOnboarding = () => {
 
   const handleStartOnboarding = async () => {
     if (userAccount.chatId) {
-      console.log("Starting onboarding for user", userAccount.chatId);
-      await axios.post(`${process.env.API_ENDPOINT}/start-onboarding`, {
+      console.log(
+        "Starting onboarding for user",
+        process.env.REACT_APP_API_ENDPOINT,
+        userAccount.chatId,
+      );
+      await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/start-onboarding`, {
         chatId: userAccount.chatId,
       });
     }
