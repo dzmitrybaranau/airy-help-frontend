@@ -53,9 +53,7 @@ export const useCreateGoal = (userId: string) => {
       await handleStartOnboarding().catch((e) => {
         console.error("Error starting onboarding!", e);
       });
-      WebApp.showAlert("Goal created! Sending you back to Airy!", () => {
-        WebApp.close();
-      });
+      WebApp.showAlert("Goal created! Sending you back to Airy!");
     } catch (e) {
       WebApp.showAlert("Error creating goal!", e.toString());
       setIsCreatingGoal(false);
