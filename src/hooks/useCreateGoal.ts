@@ -50,7 +50,9 @@ export const useCreateGoal = (userId: string) => {
       console.log("Goal created!");
       dispatch(addUserGoal(newGoal));
       setIsCreatingGoal(false);
-      await handleStartOnboarding();
+      await handleStartOnboarding().catch((e) => {
+        console.error("Error starting onboarding!", e);
+      });
       WebApp.showAlert("Goal created! Sending you back to Airy!", () => {
         WebApp.close();
       });
