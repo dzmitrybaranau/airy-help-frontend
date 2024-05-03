@@ -48,12 +48,12 @@ export const useCreateGoal = (userId: string) => {
         goals: [...(currentUserData?.data()?.goals ?? []), newGoal],
       });
       console.log("Goal created!");
-      dispatch(addUserGoal(newGoal));
-      setIsCreatingGoal(false);
       await handleStartOnboarding().catch((e) => {
         console.error("Error starting onboarding!", e);
         WebApp.showAlert(`Error creating goal! ${e.toString()}`);
       });
+      dispatch(addUserGoal(newGoal));
+      setIsCreatingGoal(false);
       WebApp.showAlert("Goal created! Sending you back to Airy!", () => {
         WebApp.close();
       });

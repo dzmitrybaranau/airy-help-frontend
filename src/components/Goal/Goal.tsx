@@ -4,9 +4,14 @@ import { Button, Progress } from "@mantine/core";
 
 export interface IGoalProps {
   description: string;
-  timeEstimates?: string;
-  successPrediction?: string;
-  progressEstimation?: number;
+  estimationRationale?: string;
+  estimatedSuccessRate?: number;
+  recommendedActions?: string[];
+  moreQuestionsToAsk?: {
+    question: string;
+    reasonToAsk: string;
+    importanceForSuccess: number;
+  }[];
 }
 
 /**
@@ -14,22 +19,22 @@ export interface IGoalProps {
  */
 function Goal({
   description,
-  progressEstimation = 20,
-  timeEstimates,
-  successPrediction,
+  estimatedSuccessRate,
+  estimationRationale,
+  recommendedActions,
+  moreQuestionsToAsk,
 }: IGoalProps) {
   return (
     <div className={styles.root}>
       <h3 className={styles.heading}>{description}</h3>
-      {timeEstimates && (
+      {estimationRationale && (
         <div className={styles.estimationWrapper}>
-          <p className={styles.estimation}>Time prediction: {timeEstimates}</p>
           <p className={styles.estimation}>
-            Success prediction: {successPrediction}
+            Success prediction: {estimationRationale}
           </p>
         </div>
       )}
-      {progressEstimation && (
+      {estimatedSuccessRate && (
         <div className={styles.progressWrapper}>
           <Progress
             style={{
@@ -37,7 +42,7 @@ function Goal({
               width: "100%",
             }}
             title="Estimated Progress"
-            value={progressEstimation}
+            value={Number(estimatedSuccessRate)}
           />
         </div>
       )}
