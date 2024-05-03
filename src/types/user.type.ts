@@ -49,7 +49,7 @@ export const openAIReplyOnboardingQuestionsExample = {
 export interface UserGoal {
   id?: string;
   description: string;
-  prediction: typeof openAIGoalSuccessEstimationResponse;
+  prediction?: typeof openAIGoalSuccessEstimationResponse;
 }
 
 export interface UserAccount {

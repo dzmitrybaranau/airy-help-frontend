@@ -19,27 +19,9 @@ const meta = {
         type: "text",
       },
     },
-    timeEstimates: {
-      control: {
-        type: "text",
-      },
-    },
-    successPrediction: {
-      control: {
-        type: "text",
-      },
-    },
-    progressEstimation: {
-      control: {
-        type: "number",
-      },
-    },
   },
   args: {
     description: "Learn React",
-    timeEstimates: "1 month",
-    successPrediction: "High",
-    progressEstimation: 40,
   },
 } satisfies Meta<typeof Goal>;
 
@@ -51,8 +33,5 @@ export const Primary: Story = {
   args: {
     description:
       "Make best AI bot that will help people achieve their dreams and goals",
-    timeEstimates: "1 month",
-    successPrediction: "High",
-    progressEstimation: 40,
   },
 };
