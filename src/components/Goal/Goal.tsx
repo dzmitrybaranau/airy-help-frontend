@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Goal.module.scss";
-import {
-  Button,
-  List,
-  ListItem,
-  Modal,
-  ModalHeader,
-  Progress,
-} from "@mantine/core";
+import { Button, List, ListItem, Modal, Progress } from "@mantine/core";
 import { useGoalSuccessPrediction } from "../../hooks/useGoalSuccessPrediction";
 
 export interface IGoalProps {

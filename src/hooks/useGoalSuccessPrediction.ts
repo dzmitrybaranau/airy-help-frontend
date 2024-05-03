@@ -23,6 +23,7 @@ export const useGoalSuccessPrediction = () => {
             setIsLoadingPrediction(false);
           });
         const data = res?.data as typeof openAIGoalSuccessEstimationResponse;
+        console.log({ data });
         setIsLoadingPrediction(false);
         dispatch(
           setGoalSuccessEstimation({
