@@ -1,16 +1,17 @@
 import React from "react";
 import styles from "./Goal.module.scss";
 import { Button, Progress } from "@mantine/core";
+import { useGoalSuccessPrediction } from "../../hooks/useGoalSuccessPrediction";
 
 export interface IGoalProps {
   description: string;
   estimationRationale?: string;
-  estimatedSuccessRate?: number;
+  estimatedSuccessRate?: string;
   recommendedActions?: string[];
   moreQuestionsToAsk?: {
     question: string;
     reasonToAsk: string;
-    importanceForSuccess: number;
+    importanceForSuccess: string;
   }[];
 }
 
@@ -24,14 +25,13 @@ function Goal({
   recommendedActions,
   moreQuestionsToAsk,
 }: IGoalProps) {
+  useGoalSuccessPrediction();
   return (
     <div className={styles.root}>
       <h3 className={styles.heading}>{description}</h3>
       {estimationRationale && (
         <div className={styles.estimationWrapper}>
-          <p className={styles.estimation}>
-            Success prediction: {estimationRationale}
-          </p>
+          <p className={styles.estimation}>{estimationRationale}</p>
         </div>
       )}
       {estimatedSuccessRate && (

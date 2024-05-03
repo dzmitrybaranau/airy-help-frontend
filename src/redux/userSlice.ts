@@ -57,6 +57,11 @@ export const userSlice = createSlice({
     addUserGoal: (state, action: PayloadAction<UserGoal>) => {
       state.userAccount.goals.push(action.payload);
     },
+    setGoalSuccessEstimation: (state, action: PayloadAction<UserGoal>) => {
+      state.userAccount.goals.find(
+        (goal) => goal.id === action.payload.id,
+      )!.prediction = action.payload.prediction;
+    },
   },
 });
 
@@ -67,6 +72,7 @@ export const {
   setIsUserAccountLoading,
   setIsTmaInfoLoading,
   addUserGoal,
+  setGoalSuccessEstimation,
 } = userSlice.actions;
 
 export default userSlice.reducer;
