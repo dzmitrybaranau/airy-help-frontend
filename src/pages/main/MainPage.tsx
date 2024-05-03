@@ -23,7 +23,7 @@ function MainPage(props: IMainPageProps) {
       {userExists && userAccount?.goals?.length > 0 && (
         <>
           <DevsMotivationalMessage
-            message={`At the start of the journey, progress may seem invisible, but on the scale, you can already see it`}
+            message={`At the start of the journey, progress may seem invisible, but you can see at the prediction estimation`}
           />
           <Space h="xs" />
         </>

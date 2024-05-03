@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CreateGoal.module.scss";
 import { IconInfoCircle } from "@tabler/icons-react";
-import { Button, Input } from "@mantine/core";
+import { Button, Input, Loader } from "@mantine/core";
 import { useCreateGoal } from "../../hooks/useCreateGoal";
 
 export interface ICreateGoalProps {
@@ -47,6 +47,7 @@ function CreateGoal({ userId }: ICreateGoalProps) {
           color="Gray"
           disabled={isCreatingGoal}
           type="submit"
+          loading={isCreatingGoal}
         >
           Create
         </Button>

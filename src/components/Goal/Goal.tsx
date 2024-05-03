@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Goal.module.scss";
-import { Button, Progress } from "@mantine/core";
+import { Button, Modal, Progress } from "@mantine/core";
 import { useGoalSuccessPrediction } from "../../hooks/useGoalSuccessPrediction";
 
 export interface IGoalProps {
@@ -25,7 +25,8 @@ function Goal({
   recommendedActions,
   moreQuestionsToAsk,
 }: IGoalProps) {
-  useGoalSuccessPrediction();
+  const { isLoadingPrediction } = useGoalSuccessPrediction();
+  const [isModalOpen, setIsModalOpen] = useState(true);
   return (
     <div className={styles.root}>
       <h3 className={styles.heading}>{description}</h3>
@@ -55,9 +56,22 @@ function Goal({
           color: "#000",
           fontWeight: 400,
         }}
+        disabled={
+          isLoadingPrediction || !recommendedActions || !moreQuestionsToAsk
+        }
+        loading={isLoadingPrediction}
+        onClick={() => setIsModalOpen(true)}
       >
-        Check Detailed Plan
+        Check Recommended Actions
       </Button>
+      <Modal opened={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <Modal.Title>Recommended Actions</Modal.Title>
+        <Modal.Body>
+          {recommendedActions?.map((action, index) => (
+            <p key={index}>{action}</p>
+          ))}
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
