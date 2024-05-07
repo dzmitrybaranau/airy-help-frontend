@@ -27,6 +27,13 @@ function Goal({
 }: IGoalProps) {
   const { isLoadingPrediction } = useGoalSuccessPrediction();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  if (isLoadingPrediction) {
+    return (
+      <div>
+        While under development goal estimation happens slowly, please wait 🙏🏼
+      </div>
+    );
+  }
   return (
     <div className={styles.root}>
       <h3 className={styles.heading}>{description}</h3>
