@@ -15,9 +15,15 @@ export const useGoalSuccessPrediction = () => {
       if (userAccount.onboarded) {
         setIsLoadingPrediction(true);
         const res = await axios
-          .post(`${process.env.REACT_APP_API_ENDPOINT}/goal-success`, {
-            chatId: userAccount.chatId,
-          })
+          .post(
+            `${process.env.REACT_APP_API_ENDPOINT}/goal-success`,
+            {
+              chatId: userAccount.chatId,
+            },
+            {
+              timeout: 999999999,
+            },
+          )
           .catch((e) => {
             console.error("Error getting goal success prediction", e);
             setIsLoadingPrediction(false);

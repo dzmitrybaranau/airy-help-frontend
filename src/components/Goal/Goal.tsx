@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Goal.module.scss";
-import { Button, List, ListItem, Modal, Progress } from "@mantine/core";
+import { Button, List, ListItem, Loader, Modal, Progress } from "@mantine/core";
 import { useGoalSuccessPrediction } from "../../hooks/useGoalSuccessPrediction";
 
 export interface IGoalProps {
@@ -27,16 +27,15 @@ function Goal({
 }: IGoalProps) {
   const { isLoadingPrediction } = useGoalSuccessPrediction();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  if (isLoadingPrediction) {
-    return (
-      <div>
-        While under development goal estimation happens slowly, please wait 🙏🏼
-      </div>
-    );
-  }
   return (
     <div className={styles.root}>
       <h3 className={styles.heading}>{description}</h3>
+      {isLoadingPrediction && (
+        <div>
+          While under development goal estimation happens slowly, please wait 🙏🏼{" "}
+          <Loader />
+        </div>
+      )}
       {estimationRationale && (
         <div className={styles.estimationWrapper}>
           <p className={styles.estimation}>{estimationRationale}</p>
