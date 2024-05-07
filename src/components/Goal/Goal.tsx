@@ -31,9 +31,8 @@ function Goal({
     <div className={styles.root}>
       <h3 className={styles.heading}>{description}</h3>
       {isLoadingPrediction && (
-        <div>
-          While under development goal estimation happens slowly, please wait 🙏🏼{" "}
-          <Loader />
+        <div className={styles.estimation}>
+          While under development goal estimation happens slowly, please wait 🙏
         </div>
       )}
       {estimationRationale && (
