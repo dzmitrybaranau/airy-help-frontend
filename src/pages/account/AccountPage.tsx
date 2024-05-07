@@ -9,6 +9,7 @@ import {
 } from "@mantine/core";
 import { useMutateUserAccount } from "../../hooks/useMutateUserAccount";
 import styles from "./AccountPage.module.scss";
+import { UserGender } from "../../types/user.type";
 
 export interface ICreateAccountFormProps {}
 
@@ -19,9 +20,7 @@ function AccountPage() {
   const { form, isSubmitting, handleCreateAccount, userExists } =
     useMutateUserAccount();
   const lastNameRef = useRef(null);
-  const emailRef = useRef(null);
   const genderRef = useRef(null);
-  const favoriteMusicGenreRef = useRef(null);
   const birthdayYearRef = useRef(null);
   const birthdayMonthRef = useRef(null);
   const birthdayDateRef = useRef(null);
@@ -32,22 +31,18 @@ function AccountPage() {
     birthdayYear,
     birthdayMonth,
     birthdayDay,
-    email,
     firstName,
     lastName,
     gender,
-    favoriteMusicGenre,
   } = form.getValues();
 
   const isCreateAccountDisabled =
     !birthdayYear ||
     !birthdayMonth ||
     !birthdayDay ||
-    !email ||
     !firstName ||
     !lastName ||
-    !gender ||
-    !favoriteMusicGenre;
+    !gender;
 
   const handleKeyDown = (event, nextInput) => {
     if (event.key === "Enter") {
@@ -105,26 +100,11 @@ function AccountPage() {
               disabled={isSubmitting}
               value={lastName}
               ref={lastNameRef}
-              onKeyDown={(event) => handleKeyDown(event, emailRef)}
+              onKeyDown={(event) => handleKeyDown(event, genderRef)}
             />
             {errors.lastName && (
               <Text color="red" size="sm">
                 {errors.lastName}
-              </Text>
-            )}
-          </Input.Wrapper>
-          <Input.Wrapper required label="Email">
-            <Input
-              {...form.getInputProps("email")}
-              disabled={isSubmitting}
-              type="email"
-              value={email}
-              ref={emailRef}
-              onKeyDown={(event) => handleKeyDown(event, genderRef)}
-            />
-            {errors.email && (
-              <Text color="red" size="sm">
-                {errors.email}
               </Text>
             )}
           </Input.Wrapper>
@@ -133,31 +113,15 @@ function AccountPage() {
               {...form.getInputProps("gender")}
               disabled={isSubmitting}
               data={[
-                { label: "Male", value: "M" },
-                { label: "Female", value: "F" },
-                { label: "Can't tell", value: "N/A" },
+                { label: UserGender.MALE, value: UserGender.MALE },
+                { label: UserGender.FEMALE, value: UserGender.FEMALE },
               ]}
               ref={genderRef}
-              onKeyDown={(event) => handleKeyDown(event, favoriteMusicGenreRef)}
+              onKeyDown={(event) => handleKeyDown(event, birthdayYearRef)}
             />
             {errors.gender && (
               <Text color="red" size="sm">
                 {errors.gender}
-              </Text>
-            )}
-          </Input.Wrapper>
-          <Input.Wrapper required label="Favorite Music Genre">
-            <Input
-              {...form.getInputProps("favoriteMusicGenre")}
-              disabled={isSubmitting}
-              placeholder="Hip-Hop, Rock, Jazz, (type 'none' if you got no preference)"
-              value={favoriteMusicGenre}
-              ref={favoriteMusicGenreRef}
-              onKeyDown={(event) => handleKeyDown(event, birthdayYearRef)}
-            />
-            {errors.favoriteMusicGenre && (
-              <Text color="red" size="sm">
-                {errors.favoriteMusicGenre}
               </Text>
             )}
           </Input.Wrapper>

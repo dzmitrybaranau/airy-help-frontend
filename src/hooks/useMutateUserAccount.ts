@@ -15,9 +15,7 @@ interface UserForm
     UserAccount,
     | "firstName"
     | "lastName"
-    | "email"
     | "gender"
-    | "favoriteMusicGenre"
     | "birthdayYear"
     | "birthdayMonth"
     | "birthdayDay"

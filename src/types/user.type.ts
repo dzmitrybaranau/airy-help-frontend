@@ -52,11 +52,15 @@ export interface UserGoal {
   prediction?: typeof openAIGoalSuccessEstimationResponse;
 }
 
+export enum UserGender {
+  MALE = "Male",
+  FEMALE = "Female",
+}
 export interface UserAccount {
   firstName: string;
   lastName: string;
   email: string;
-  gender?: "M" | "F" | "N/A";
+  gender?: UserGender;
   favoriteMusicGenre: string;
   birthdayYear?: string;
   birthdayMonth?: string;
