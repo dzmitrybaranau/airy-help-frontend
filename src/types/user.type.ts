@@ -1,10 +1,11 @@
 export const openAIGoalSuccessEstimationResponse = {
-  estimatedSuccessRate: "brutal estimation for user as number from 0 to 100",
-  estimationRationale: "brutal explanation of estimation",
+  estimatedSuccessRate:
+    "Percentage of meeting goal in reality, number from 0 to 100",
+  estimationRationale: "Explanation what goes right and what goes wrong.",
   realityVsGoalAnalysis:
-    "give brutal feedback about what in reality and desired goal is not matching up",
+    "Feedback about what in reality and desired goal is not matching up.",
   recommendedActions: [
-    "Give brutal realistic action steps to make to achieve goals, it should be string in array",
+    "Realistic action steps to make to achieve goals, it should be string in array. at least 7 actions",
   ],
   moreQuestionsToAsk: [
     {

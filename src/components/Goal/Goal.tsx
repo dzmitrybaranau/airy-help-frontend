@@ -8,6 +8,7 @@ export interface IGoalProps {
   estimationRationale?: string;
   estimatedSuccessRate?: string;
   recommendedActions?: string[];
+  realityVsGoalAnalysis?: string;
   moreQuestionsToAsk?: {
     question: string;
     reasonToAsk: string;
@@ -24,6 +25,7 @@ function Goal({
   estimationRationale,
   recommendedActions,
   moreQuestionsToAsk,
+  realityVsGoalAnalysis,
 }: IGoalProps) {
   const { isLoadingPrediction } = useGoalSuccessPrediction();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,6 +44,11 @@ function Goal({
       {estimationRationale && (
         <div className={styles.estimationWrapper}>
           <p className={styles.estimation}>{estimationRationale}</p>
+        </div>
+      )}
+      {realityVsGoalAnalysis && (
+        <div className={styles.estimationWrapper}>
+          <p className={styles.estimation}>{realityVsGoalAnalysis}</p>
         </div>
       )}
       {estimatedSuccessRate && (
