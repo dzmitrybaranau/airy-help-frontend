@@ -38,6 +38,7 @@ function MainPage(props: IMainPageProps) {
               estimationRationale={goal?.prediction?.estimationRationale}
               recommendedActions={goal?.prediction?.recommendedActions}
               moreQuestionsToAsk={goal?.prediction?.moreQuestionsToAsk}
+              realityVsGoalAnalysis={goal?.prediction?.realityVsGoalAnalysis}
             />
           );
         })
