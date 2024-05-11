@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import WebApp from "@twa-dev/sdk";
-import { UserAccount, UserGoal } from "../types/user.type";
+import {
+  openAIGoalSuccessEstimationResponse,
+  UserAccount,
+  UserGoal,
+} from "../types/user.type";
 
 interface UserState {
   userAccount: UserAccount;
@@ -25,6 +29,10 @@ const initialState: UserState = {
     paymentPending: false,
     goals: [],
     onboarded: false,
+    goalSuccess: {
+      prediction: null,
+      estimationDate: null,
+    },
   },
   isUserLoading: true,
   isTmaInfoLoading: true,
@@ -57,10 +65,13 @@ export const userSlice = createSlice({
     addUserGoal: (state, action: PayloadAction<UserGoal>) => {
       state.userAccount.goals.push(action.payload);
     },
-    setGoalSuccessEstimation: (state, action: PayloadAction<UserGoal>) => {
-      state.userAccount.goals.find(
-        (goal) => goal.id === action.payload.id,
-      )!.prediction = action.payload.prediction;
+    setGoalSuccessEstimation: (
+      state,
+      action: PayloadAction<{
+        prediction: typeof openAIGoalSuccessEstimationResponse;
+      }>,
+    ) => {
+      state.userAccount.goalSuccess.prediction = action.payload.prediction;
     },
   },
 });

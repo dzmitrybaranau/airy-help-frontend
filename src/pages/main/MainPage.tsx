@@ -34,11 +34,21 @@ function MainPage(props: IMainPageProps) {
             <Goal
               description={goal.description}
               key={goal?.id || goal.description}
-              estimatedSuccessRate={goal?.prediction?.estimatedSuccessRate}
-              estimationRationale={goal?.prediction?.estimationRationale}
-              recommendedActions={goal?.prediction?.recommendedActions}
-              moreQuestionsToAsk={goal?.prediction?.moreQuestionsToAsk}
-              realityVsGoalAnalysis={goal?.prediction?.realityVsGoalAnalysis}
+              estimatedSuccessRate={
+                userAccount?.goalSuccess?.prediction?.estimatedSuccessRate
+              }
+              estimationRationale={
+                userAccount?.goalSuccess?.prediction?.estimationRationale
+              }
+              recommendedActions={
+                userAccount?.goalSuccess?.prediction?.recommendedActions
+              }
+              moreQuestionsToAsk={
+                userAccount?.goalSuccess?.prediction?.moreQuestionsToAsk
+              }
+              realityVsGoalAnalysis={
+                userAccount?.goalSuccess?.prediction?.realityVsGoalAnalysis
+              }
             />
           );
         })

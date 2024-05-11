@@ -1,3 +1,10 @@
+export const openAINotificationsJson = {
+  responseInitiation: `1. Greets the me personally in a friendly way, you can simplify name if possible.
+    2. Remind what goal I'm working on and give your evaluation.
+    3. Encourages me to share today's progress.`,
+  insightInformation: "4. Provides a professional insight related to my goal.",
+};
+
 export const openAIGoalSuccessEstimationResponse = {
   estimatedSuccessRate:
     "Percentage of meeting goal in reality, number from 0 to 100",
@@ -22,7 +29,8 @@ export const openAIReplyOnboardingQuestionsExample = {
   questions: {
     userRelated: [
       {
-        question: "string",
+        question:
+          "Question about user that is related to the goal and from mentor standpoint is very important for success",
         reasonToAsk: "string",
         importanceForSuccess: "number from 0 to 100",
         userReply: "",
@@ -30,7 +38,8 @@ export const openAIReplyOnboardingQuestionsExample = {
     ],
     goalRelated: [
       {
-        question: "string",
+        question:
+          "Question about goal from mentor standpoint is very important for success",
         reasonToAsk: "string",
         importanceForSuccess: "number from 0 to 100",
         userReply: "",
@@ -38,7 +47,8 @@ export const openAIReplyOnboardingQuestionsExample = {
     ],
     userEnvironmentRelated: [
       {
-        question: "string",
+        question:
+          "Question about user environment factors from mentor standpoint is very important for success",
         reasonToAsk: "string",
         importanceForSuccess: "number from 0 to 100",
         userReply: "",
@@ -50,13 +60,19 @@ export const openAIReplyOnboardingQuestionsExample = {
 export interface UserGoal {
   id?: string;
   description: string;
-  prediction?: typeof openAIGoalSuccessEstimationResponse;
+  createdAt?: string;
+}
+
+export interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
 }
 
 export enum UserGender {
   MALE = "Male",
   FEMALE = "Female",
 }
+
 export interface UserAccount {
   firstName: string;
   lastName: string;
@@ -72,4 +88,9 @@ export interface UserAccount {
   goals: UserGoal[];
   onboarded: boolean;
   onboardingQuestions?: typeof openAIReplyOnboardingQuestionsExample;
+  chatHistory?: ChatMessage[];
+  goalSuccess: {
+    estimationDate: string | null;
+    prediction: typeof openAIGoalSuccessEstimationResponse | null;
+  };
 }

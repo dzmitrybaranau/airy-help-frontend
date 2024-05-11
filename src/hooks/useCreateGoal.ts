@@ -15,6 +15,7 @@ export const useCreateGoal = (userId: string) => {
   const form = useForm<UserGoal>({
     initialValues: {
       description: "",
+      createdAt: "",
     },
     validate: {
       description: (value) => {
@@ -39,6 +40,7 @@ export const useCreateGoal = (userId: string) => {
     const newGoal: UserGoal = {
       id: Math.random().toString(36).substr(2) + Date.now().toString(36),
       description: goalDescription,
+      createdAt: new Date().toISOString(),
     };
 
     try {

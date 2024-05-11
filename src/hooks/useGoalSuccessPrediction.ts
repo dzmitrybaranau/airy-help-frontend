@@ -12,7 +12,7 @@ export const useGoalSuccessPrediction = () => {
 
   useEffect(() => {
     const getPrediction = async () => {
-      if (userAccount.onboarded) {
+      if (userAccount.onboarded && !userAccount.goalSuccess.prediction) {
         setIsLoadingPrediction(true);
         const res = await axios
           .post(
@@ -32,7 +32,6 @@ export const useGoalSuccessPrediction = () => {
         setIsLoadingPrediction(false);
         dispatch(
           setGoalSuccessEstimation({
-            ...userAccount.goals[0],
             prediction: data,
           }),
         );
