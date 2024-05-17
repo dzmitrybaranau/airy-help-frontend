@@ -36,8 +36,8 @@ export const AppProviders = ({ children }) => {
                 <div
                   className={appStyles.root}
                   style={{
-                    height: "450px",
-                    minHeight: "450px",
+                    // height: "450px",
+                    // minHeight: "450px",
                   }}
                 >
                   <div className={appStyles.pageWrapper}>{children}</div>
