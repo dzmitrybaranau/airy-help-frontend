@@ -70,7 +70,7 @@ const GatesScreen = () => {
                 : breaths % 2 === 0
                   ? "Inhale "
                   : "Exhale "}
-              ({breaths})
+              {breaths !== BREATH_AMOUNT && `(${breaths})`}
             </span>
           </div>
         </>
