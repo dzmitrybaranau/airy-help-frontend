@@ -36,7 +36,7 @@ function NavMenu(props: INavMenuProps) {
   return (
     <div className={styles.root}>
       <div className={styles.pageName}>{title}</div>
-      {userExists && (
+      {userExists && location.pathname !== "/" && (
         <Burger
           opened={opened}
           onClick={toggle}
