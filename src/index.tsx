@@ -20,6 +20,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainPage from "./pages/main/MainPage";
 import MeetAiry from "./pages/meet-airy";
 import AccountPage from "./pages/account";
+import GatesPage from "./pages/gates";
 
 eruda.init();
 WebApp.ready();
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <GatesPage />,
+      },
+      {
+        path: "/goals",
         element: <MainPage />,
       },
       {

@@ -11,6 +11,7 @@ import React from "react";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import { BrowserRouter as Router } from "react-router-dom";
+import appStyles from "../components/App/App.module.scss";
 
 const theme = createTheme({});
 const queryClient = new QueryClient();
@@ -32,7 +33,15 @@ export const AppProviders = ({ children }) => {
           <MantineProvider theme={theme}>
             <TypographyStylesProvider>
               <Router>
-                <div style={{ width: 375 }}>{children}</div>
+                <div
+                  className={appStyles.root}
+                  style={{
+                    height: "450px",
+                    minHeight: "450px",
+                  }}
+                >
+                  <div className={appStyles.pageWrapper}>{children}</div>
+                </div>
               </Router>
             </TypographyStylesProvider>
           </MantineProvider>
