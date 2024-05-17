@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, Checkbox, Stack, Text } from "@mantine/core";
+import { Button, Checkbox, Text } from "@mantine/core";
 import styles from "./GatesPage.module.scss";
 import { useNavigate } from "react-router-dom";
 
 const GatesScreen = () => {
   const navigate = useNavigate();
   const [started, setStarted] = useState(false);
-  const [breaths, setBreaths] = useState(2);
+  const [breaths, setBreaths] = useState(15);
   const [checked, setChecked] = useState({
     noDistractions: false,
     goodIntentions: false,
@@ -62,17 +62,23 @@ const GatesScreen = () => {
           <div
             className={`${styles.breathCircle} ${breaths % 2 === 0 ? styles.inhale : styles.exhale}`}
           >
-            {breaths % 2 === 0 ? "Inhale" : "Exhale"}
+            <span>
+              {breaths === 15
+                ? "Prepare to inhale"
+                : breaths % 2 === 0
+                  ? "Inhale"
+                  : "Exhale"}
+            </span>
           </div>
         </div>
       )}
       {!started && breaths === 0 && (
         <>
-          <Text className={styles.welcome}>Let's Start</Text>
+          <Text className={styles.welcome}>Great job!</Text>
           <Text className={styles.welcomeIntro}>
-            Now your goals are much closer to becoming real. Let’s ensure you
-            are in the right environment and state of mind. Remember, achieving
-            results takes time and patience.
+            Now your goals are much closer to becoming real. Lastly I want to check if you
+            are in the right environment. Remember, achieving results takes time
+            and patience.
           </Text>
           <div>
             <Checkbox
