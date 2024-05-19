@@ -1,5 +1,5 @@
 import { DocumentReference, setDoc } from "@firebase/firestore";
-import { UserAccount } from "../../types/user.type";
+import {UserAccount} from "airy-help-utils";
 
 export const setUserData = async ({
   userRef,

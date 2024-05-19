@@ -5,9 +5,9 @@ import { firestore } from "../firebase/firebase-config";
 import WebApp from "@twa-dev/sdk";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { UserGoal } from "../types/user.type";
 import { useStartOnboarding } from "./useStartOnboarding";
 import { RootState } from "../redux/store";
+import {UserGoal} from "airy-help-utils";
 
 export enum CREATE_GOAL_STEPS {
   INITIAL = "INITIAL",

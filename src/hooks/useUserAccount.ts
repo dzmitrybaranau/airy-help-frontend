@@ -10,7 +10,7 @@ import {
   setUserTmaInfo,
 } from "../redux/userSlice";
 import WebApp from "@twa-dev/sdk";
-import { UserAccount } from "../types/user.type";
+import {UserAccount} from "airy-help-utils";
 
 const useUserAccount = () => {
   const dispatch = useDispatch();

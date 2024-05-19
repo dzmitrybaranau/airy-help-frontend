@@ -8,7 +8,7 @@ import { RootState } from "../redux/store";
 import useUserAccount from "./useUserAccount";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserAccount } from "../types/user.type";
+import {UserAccount} from "airy-help-utils";
 
 interface UserForm
   extends Pick<

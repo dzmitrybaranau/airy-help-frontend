@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { openAIGoalSuccessEstimationResponse } from "../types/user.type";
 import { setGoalSuccessEstimation } from "../redux/userSlice";
+import {openAIGoalSuccessEstimationResponse} from "airy-help-utils";
 
 export const useGoalSuccessPrediction = () => {
   const [isLoadingPrediction, setIsLoadingPrediction] = useState(false);

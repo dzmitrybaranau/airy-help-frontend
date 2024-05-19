@@ -1,10 +1,7 @@
 import { doc, getDoc } from "@firebase/firestore";
-import {
-  openAIReplyOnboardingQuestionsExample,
-  UserAccount,
-} from "../../types/user.type";
 import { firestore } from "../../firebase/firebase-config";
 import {setUserData} from "./setUserData";
+import {openAIReplyOnboardingQuestionsExample, UserAccount} from "airy-help-utils";
 
 export const saveOnboardingQuestions = async ({
   chatId,

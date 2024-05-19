@@ -1,6 +1,6 @@
 import { DocumentReference } from "@firebase/firestore";
-import { UserAccount } from "../../types/user.type";
 import { setUserData } from "./setUserData";
+import {UserAccount} from "airy-help-utils";
 
 export const saveOnboardingQuestionAnswer = async ({
   category,

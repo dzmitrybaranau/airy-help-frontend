@@ -1,6 +1,6 @@
 import { doc, getDoc } from "@firebase/firestore";
-import { UserAccount } from "../../types/user.type";
 import { firestore } from "../../firebase/firebase-config";
+import {UserAccount} from "airy-help-utils";
 
 // function should do something about not having information, or function should only throw an error and it should be handled whithin a function that calls this one?
 export const getUserGoal = async ({

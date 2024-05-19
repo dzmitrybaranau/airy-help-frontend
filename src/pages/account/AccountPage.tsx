@@ -9,7 +9,7 @@ import {
 } from "@mantine/core";
 import { useMutateUserAccount } from "../../hooks/useMutateUserAccount";
 import styles from "./AccountPage.module.scss";
-import { UserGender } from "../../types/user.type";
+import {UserGender} from "airy-help-utils";
 
 export interface ICreateAccountFormProps {}
 

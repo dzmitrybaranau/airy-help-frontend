@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import WebApp from "@twa-dev/sdk";
-import {
-  openAIGoalSuccessEstimationResponse,
-  UserAccount,
-  UserGoal,
-} from "../types/user.type";
+import {openAIGoalSuccessEstimationResponse, UserAccount, UserGoal} from "airy-help-utils";
 
 interface UserState {
   userAccount: UserAccount;
