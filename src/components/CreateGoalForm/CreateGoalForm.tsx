@@ -1,18 +1,16 @@
 import React from "react";
-import styles from "./CreateGoal.module.scss";
+import styles from "./CreateGoalForm.module.scss";
 import { IconInfoCircle } from "@tabler/icons-react";
-import { Button, Input, Loader } from "@mantine/core";
+import { Button, Input } from "@mantine/core";
 import { useCreateGoal } from "../../hooks/useCreateGoal";
 
-export interface ICreateGoalProps {
-  userId: string;
-}
+export interface ICreateGoalProps {}
 
 /**
  * Create Goals Form
  */
-function CreateGoal({ userId }: ICreateGoalProps) {
-  const { form, handleSubmit, isCreatingGoal } = useCreateGoal(userId);
+function CreateGoalForm() {
+  const { form, handleSubmit, isCreatingGoal } = useCreateGoal();
   return (
     <div className={styles.root}>
       <h2 className={styles.title}>Let’s create your first goals 🙌🏼</h2>
@@ -56,4 +54,4 @@ function CreateGoal({ userId }: ICreateGoalProps) {
   );
 }
 
-export default CreateGoal;
+export default CreateGoalForm;

@@ -17,7 +17,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import eruda from "eruda";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import MainPage from "./pages/main/MainPage";
+import GoalPage from "./pages/goal/GoalPage";
 import MeetAiry from "./pages/meet-airy";
 import AccountPage from "./pages/account";
 import GatesPage from "./pages/gates";
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/goals",
-        element: <MainPage />,
+        element: <GoalPage />,
       },
       {
         path: "/account",

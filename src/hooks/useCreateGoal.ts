@@ -3,19 +3,34 @@ import { addUserGoal } from "../redux/userSlice";
 import { collection, doc, getDoc, setDoc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
 import WebApp from "@twa-dev/sdk";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { UserGoal } from "../types/user.type";
 import { useStartOnboarding } from "./useStartOnboarding";
+import { RootState } from "../redux/store";
 
-export const useCreateGoal = (userId: string) => {
+export enum CREATE_GOAL_STEPS {
+  INITIAL = "INITIAL",
+  WHY = "WHY",
+}
+
+export const useCreateGoal = () => {
+  const [createGoalFormStep, setCreateGoalFormStep] =
+    useState<CREATE_GOAL_STEPS>(CREATE_GOAL_STEPS.INITIAL);
+
+  const handleStepChange = (step: CREATE_GOAL_STEPS) => {
+    setCreateGoalFormStep(step);
+  };
+
   const { handleStartOnboarding } = useStartOnboarding();
   const [isCreatingGoal, setIsCreatingGoal] = useState(false);
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
   const form = useForm<UserGoal>({
     initialValues: {
       description: "",
       createdAt: "",
+      why: "",
     },
     validate: {
       description: (value) => {
@@ -30,9 +45,11 @@ export const useCreateGoal = (userId: string) => {
   const createGoalForUser = async ({
     goalDescription,
     userId,
+    why,
   }: {
     userId: string;
     goalDescription: string;
+    why?: string;
   }) => {
     setIsCreatingGoal(true);
     const userDocRef = doc(collection(firestore, "users"), userId.toString());
@@ -41,6 +58,7 @@ export const useCreateGoal = (userId: string) => {
       id: Math.random().toString(36).substr(2) + Date.now().toString(36),
       description: goalDescription,
       createdAt: new Date().toISOString(),
+      why,
     };
 
     try {
@@ -66,7 +84,8 @@ export const useCreateGoal = (userId: string) => {
   };
 
   const handleSubmit = async () => {
-    const { description } = form.getValues();
+    const { description, why } = form.getValues();
+    const userId = user.userAccount.chatId;
     console.log("SUBMIT", { userId });
     await createGoalForUser({ userId, goalDescription: description }).catch(
       (e) => {
@@ -79,5 +98,7 @@ export const useCreateGoal = (userId: string) => {
     form,
     handleSubmit,
     isCreatingGoal,
+    createGoalFormStep,
+    handleStepChange,
   };
 };

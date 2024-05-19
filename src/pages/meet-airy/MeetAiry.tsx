@@ -1,5 +1,5 @@
 import React from "react";
-import airyPicSrc from "../../pages/main/airy-pic.webp";
+import airyPicSrc from "../goal/airy-pic.webp";
 import styles from "./MeetAiry.module.scss";
 export interface IMeetAiryProps {}
 

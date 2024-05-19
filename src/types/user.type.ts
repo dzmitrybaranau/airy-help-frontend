@@ -61,6 +61,7 @@ export interface UserGoal {
   id?: string;
   description: string;
   createdAt?: string;
+  why?: string;
 }
 
 export interface ChatMessage {

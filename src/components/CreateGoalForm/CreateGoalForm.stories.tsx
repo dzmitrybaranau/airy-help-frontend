@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CreateGoal from "./CreateGoal";
+import CreateGoalForm from "./CreateGoalForm";
 import { AppProviders } from "../../stories/StorybookProviders";
 
 const meta = {
@@ -10,12 +10,12 @@ const meta = {
       </AppProviders>
     ),
   ],
-  title: "Example/CreateGoal",
-  component: CreateGoal,
+  title: "Example/CreateGoalForm",
+  component: CreateGoalForm,
   parameters: {},
   argTypes: {},
   args: {},
-} satisfies Meta<typeof CreateGoal>;
+} satisfies Meta<typeof CreateGoalForm>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
