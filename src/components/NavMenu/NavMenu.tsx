@@ -36,7 +36,7 @@ function NavMenu(props: INavMenuProps) {
   return (
     <div className={styles.root}>
       <div className={styles.pageName}>{title}</div>
-      {userAccount && location.pathname !== "/" && (
+      {userAccount && (
         <Burger
           opened={opened}
           onClick={toggle}
@@ -54,7 +54,7 @@ function NavMenu(props: INavMenuProps) {
         className={styles.drawer}
       >
         <Box className={styles.drawerWrapper}>
-          <NavLink onClick={close} to="/">
+          <NavLink onClick={close} to="/goals">
             Home
           </NavLink>
           <NavLink onClick={close} to="/account">
