@@ -2,8 +2,6 @@ import { useForm } from "@mantine/form";
 import WebApp from "@twa-dev/sdk";
 import { collection, doc, setDoc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserAccount } from "airy-help-utils";
@@ -11,8 +9,7 @@ import { useUserStore } from "../store";
 
 export const useMutateUserAccount = () => {
   const navigate = useNavigate();
-  const { userAccount, setUserAccount } = useUserStore();
-  const userTmaInfo = useSelector((state: RootState) => state.user.userTmaInfo);
+  const { userAccount, setUserAccount, userTmaInfo } = useUserStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<

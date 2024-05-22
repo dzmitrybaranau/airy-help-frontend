@@ -11,8 +11,6 @@ import {
   MantineProvider,
   TypographyStylesProvider,
 } from "@mantine/core";
-import { Provider } from "react-redux";
-import store from "./redux/store";
 import { QueryClient, QueryClientProvider } from "react-query";
 import eruda from "eruda";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
@@ -83,11 +81,9 @@ const AppProviders = ({ children }) => {
       }}
     >
       <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <MantineProvider theme={theme}>
-            <TypographyStylesProvider>{children}</TypographyStylesProvider>
-          </MantineProvider>
-        </Provider>
+        <MantineProvider theme={theme}>
+          <TypographyStylesProvider>{children}</TypographyStylesProvider>
+        </MantineProvider>
       </QueryClientProvider>
     </TonConnectUIProvider>
   );

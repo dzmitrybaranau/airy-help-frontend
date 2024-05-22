@@ -1,7 +1,5 @@
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Provider } from "react-redux";
-import store from "../redux/store";
 import {
   createTheme,
   MantineProvider,
@@ -29,23 +27,23 @@ export const AppProviders = ({ children }) => {
       }}
     >
       <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <MantineProvider theme={theme}>
-            <TypographyStylesProvider>
-              <Router>
-                <div
-                  className={appStyles.root}
-                  style={{
+        <MantineProvider theme={theme}>
+          <TypographyStylesProvider>
+            <Router>
+              <div
+                className={appStyles.root}
+                style={
+                  {
                     // height: "450px",
                     // minHeight: "450px",
-                  }}
-                >
-                  <div className={appStyles.pageWrapper}>{children}</div>
-                </div>
-              </Router>
-            </TypographyStylesProvider>
-          </MantineProvider>
-        </Provider>
+                  }
+                }
+              >
+                <div className={appStyles.pageWrapper}>{children}</div>
+              </div>
+            </Router>
+          </TypographyStylesProvider>
+        </MantineProvider>
       </QueryClientProvider>
     </TonConnectUIProvider>
   );
