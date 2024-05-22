@@ -2,9 +2,9 @@ import React from "react";
 import styles from "./CreateGoalForm.module.scss";
 import { IconInfoCircle } from "@tabler/icons-react";
 import { Button, Input } from "@mantine/core";
-import { CREATE_GOAL_STEPS, useCreateGoal } from "../../hooks/useCreateGoal";
-import { UseFormReturnType } from "@mantine/form";
-import { UserGoal } from "airy-help-utils";
+import { useCreateGoal } from "../../hooks/useCreateGoal";
+import { useCreateGoalStore } from "../../store";
+import { CREATE_GOAL_STEPS } from "../../store/useCreateGoalStore";
 
 export interface ICreateGoalProps {}
 
@@ -45,13 +45,7 @@ const Step1 = ({ form, isCreatingGoal, handleStepChange }) => {
   );
 };
 
-const Step2 = ({
-  form,
-  handleSubmit,
-}: {
-  form: UseFormReturnType<UserGoal>;
-  handleSubmit: () => void;
-}) => {
+const Step2 = ({ form, handleSubmit }) => {
   return (
     <>
       <h2 className={styles.title}>
@@ -109,22 +103,17 @@ const Step2 = ({
  * Create Goals Form
  */
 function CreateGoalForm() {
-  const {
-    form,
-    handleSubmit,
-    isCreatingGoal,
-    createGoalFormStep,
-    handleStepChange,
-  } = useCreateGoal();
+  const { form, handleSubmit } = useCreateGoal();
+  const { isCreatingGoal, setCurrentStep, currentStep } = useCreateGoalStore();
 
   const renderStep = () => {
-    switch (createGoalFormStep) {
+    switch (currentStep) {
       case CREATE_GOAL_STEPS.INITIAL:
         return (
           <Step1
             form={form}
             isCreatingGoal={isCreatingGoal}
-            handleStepChange={handleStepChange}
+            handleStepChange={setCurrentStep}
           />
         );
       case CREATE_GOAL_STEPS.WHY:
@@ -134,7 +123,7 @@ function CreateGoalForm() {
           <Step1
             form={form}
             isCreatingGoal={isCreatingGoal}
-            handleStepChange={handleStepChange}
+            handleStepChange={setCurrentStep}
           />
         );
     }

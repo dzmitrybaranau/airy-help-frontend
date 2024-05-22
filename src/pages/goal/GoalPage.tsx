@@ -41,19 +41,19 @@ function GoalPage(props: IMainPageProps) {
             description={goal.description}
             key={goal?.id || goal.description}
             estimatedSuccessRate={
-              userAccount?.goalSuccess?.prediction?.estimatedSuccessRate
+              userAccount?.goalSuccessPrediction?.estimatedSuccessRate
             }
             estimationRationale={
-              userAccount?.goalSuccess?.prediction?.estimationRationale
+              userAccount?.goalSuccessPrediction?.estimationRationale
             }
             recommendedActions={
-              userAccount?.goalSuccess?.prediction?.recommendedActions
+              userAccount?.goalSuccessPrediction?.recommendedActions
             }
             moreQuestionsToAsk={
-              userAccount?.goalSuccess?.prediction?.moreQuestionsToAsk
+              userAccount?.goalSuccessPrediction?.moreQuestionsToAsk
             }
             realityVsGoalAnalysis={
-              userAccount?.goalSuccess?.prediction?.realityVsGoalAnalysis
+              userAccount?.goalSuccessPrediction?.realityVsGoalAnalysis
             }
           />
         );

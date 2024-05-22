@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import WebApp from "@twa-dev/sdk";
-import {openAIGoalSuccessEstimationResponse, UserAccount, UserGoal} from "airy-help-utils";
+import {
+  openAIGoalSuccessEstimationResponse,
+  UserAccount,
+  UserGoal,
+} from "airy-help-utils";
 
 interface UserState {
   userAccount: UserAccount;
@@ -14,21 +18,15 @@ const initialState: UserState = {
   userAccount: {
     firstName: "",
     lastName: "",
-    email: "",
     birthdayYear: undefined,
     birthdayMonth: undefined,
     birthdayDay: undefined,
     threadId: "",
     chatId: "",
-    gender: undefined,
-    favoriteMusicGenre: "",
     paymentPending: false,
     goals: [],
     onboarded: false,
-    goalSuccess: {
-      prediction: null,
-      estimationDate: null,
-    },
+    goalSuccessPrediction: undefined,
   },
   isUserLoading: true,
   isTmaInfoLoading: true,
@@ -67,7 +65,7 @@ export const userSlice = createSlice({
         prediction: typeof openAIGoalSuccessEstimationResponse;
       }>,
     ) => {
-      state.userAccount.goalSuccess.prediction = action.payload.prediction;
+      state.userAccount.goalSuccessPrediction = action.payload.prediction;
     },
   },
 });

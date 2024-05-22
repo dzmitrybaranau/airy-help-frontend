@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Goal.module.scss";
-import { Button, List, ListItem, Loader, Modal, Progress } from "@mantine/core";
-import { useGoalSuccessPrediction } from "../../hooks/useGoalSuccessPrediction";
+import { Button, List, ListItem, Modal, Progress } from "@mantine/core";
 
 export interface IGoalProps {
   description: string;
@@ -27,18 +26,16 @@ function Goal({
   moreQuestionsToAsk,
   realityVsGoalAnalysis,
 }: IGoalProps) {
-  const { isLoadingPrediction } = useGoalSuccessPrediction();
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className={styles.root}>
       <h3 className={styles.heading}>{description}</h3>
-      {isLoadingPrediction && (
+      {!recommendedActions && (
         <div
           className={styles.estimation}
           style={{ marginBottom: "4px !important" }}
         >
-          Creating goal estimations rationalizing with your replies. While under
-          development goal estimation happens slowly, please wait 🙏
+          While under development goal success prediction is done once a day
         </div>
       )}
       {estimationRationale && (
@@ -72,10 +69,7 @@ function Goal({
           color: "#000",
           fontWeight: 400,
         }}
-        disabled={
-          isLoadingPrediction || !recommendedActions || !moreQuestionsToAsk
-        }
-        loading={isLoadingPrediction}
+        disabled={!recommendedActions || !moreQuestionsToAsk}
         onClick={() => setIsModalOpen(true)}
       >
         Check Recommended Actions

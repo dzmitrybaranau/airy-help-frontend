@@ -1,36 +1,22 @@
 import { useForm } from "@mantine/form";
-import { addUserGoal } from "../redux/userSlice";
 import { collection, doc, getDoc, setDoc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
 import WebApp from "@twa-dev/sdk";
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import { useStartOnboarding } from "./useStartOnboarding";
-import { RootState } from "../redux/store";
 import { UserGoal } from "airy-help-utils";
-
-export enum CREATE_GOAL_STEPS {
-  INITIAL = "INITIAL",
-  WHY = "WHY",
-}
+import { useCreateGoalStore, useUserStore } from "../store";
 
 export const useCreateGoal = () => {
-  const [createGoalFormStep, setCreateGoalFormStep] =
-    useState<CREATE_GOAL_STEPS>(CREATE_GOAL_STEPS.WHY);
-
-  const handleStepChange = (step: CREATE_GOAL_STEPS) => {
-    setCreateGoalFormStep(step);
-  };
-
   const { handleStartOnboarding } = useStartOnboarding();
-  const [isCreatingGoal, setIsCreatingGoal] = useState(false);
-  const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.user);
+  const { setIsCreatingGoal } = useCreateGoalStore();
+  const { addUserGoal, userAccount } = useUserStore();
+
   const form = useForm<UserGoal>({
     initialValues: {
       description: "",
       createdAt: "",
       why: "",
+      id: "",
     },
     validate: {
       description: (value) => {
@@ -42,14 +28,14 @@ export const useCreateGoal = () => {
     },
   });
 
-  const createGoalForUser = async ({
+  const createUserGoal = async ({
     goalDescription,
     userId,
     why,
   }: {
     userId: string;
     goalDescription: string;
-    why?: string;
+    why: string;
   }) => {
     setIsCreatingGoal(true);
     const userDocRef = doc(collection(firestore, "users"), userId.toString());
@@ -72,8 +58,9 @@ export const useCreateGoal = () => {
         console.error("Error starting onboarding!", e);
         WebApp.showAlert(`Error creating goal! ${e.toString()}`);
       });
-      dispatch(addUserGoal(newGoal));
+      addUserGoal(newGoal);
       setIsCreatingGoal(false);
+
       WebApp.showAlert("Goal created! Sending you back to Airy!", () => {
         WebApp.close();
       });
@@ -85,9 +72,9 @@ export const useCreateGoal = () => {
 
   const handleSubmit = async () => {
     const { description, why } = form.getValues();
-    const userId = user.userAccount.chatId;
+    const userId = userAccount?.chatId as string;
     console.log("SUBMIT", { userId });
-    await createGoalForUser({ userId, goalDescription: description }).catch(
+    await createUserGoal({ userId, goalDescription: description, why }).catch(
       (e) => {
         console.error("Error creating goal!", e);
       },
@@ -97,8 +84,5 @@ export const useCreateGoal = () => {
   return {
     form,
     handleSubmit,
-    isCreatingGoal,
-    createGoalFormStep,
-    handleStepChange,
   };
 };

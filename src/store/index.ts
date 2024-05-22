@@ -1,2 +1,2 @@
-export { createGoalStore } from "./createGoalStore";
+export { useCreateGoalStore } from "./useCreateGoalStore";
 export { useUserStore } from "./useUserStore";

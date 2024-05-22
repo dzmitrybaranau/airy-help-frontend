@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { UserAccount } from "airy-help-utils";
+import { UserAccount, UserGoal } from "airy-help-utils";
 import WebApp from "@twa-dev/sdk";
 import { getUser } from "../utils/user/getUser";
 
@@ -11,6 +11,7 @@ interface UserStore {
   fetchUserAccount: (chatId: string) => Promise<void>;
   setUserTmaInfo: (userTmaInfo: typeof WebApp.initDataUnsafe) => void;
   setUserAccount: (userAccount: UserAccount) => void;
+  addUserGoal: (goal: UserGoal) => void;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -30,5 +31,13 @@ export const useUserStore = create<UserStore>((set) => ({
   },
   setUserTmaInfo: (userTmaInfo: typeof WebApp.initDataUnsafe) => {
     set({ userTmaInfo, isTmaInfoLoading: false });
+  },
+  addUserGoal: (goal: UserGoal) => {
+    set((state) => ({
+      userAccount: {
+        ...state.userAccount!,
+        goals: [...(state.userAccount?.goals ?? []), goal],
+      },
+    }));
   },
 }));
