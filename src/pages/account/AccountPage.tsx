@@ -9,7 +9,7 @@ import {
 } from "@mantine/core";
 import { useMutateUserAccount } from "../../hooks/useMutateUserAccount";
 import styles from "./AccountPage.module.scss";
-import {UserGender} from "airy-help-utils";
+import { useUserStore } from "../../store";
 
 export interface ICreateAccountFormProps {}
 
@@ -17,8 +17,8 @@ export interface ICreateAccountFormProps {}
  *  Create account form
  */
 function AccountPage() {
-  const { form, isSubmitting, handleCreateAccount, userExists } =
-    useMutateUserAccount();
+  const userExists = useUserStore((state) => state.userAccount);
+  const { form, isSubmitting, handleCreateAccount } = useMutateUserAccount();
   const lastNameRef = useRef(null);
   const genderRef = useRef(null);
   const birthdayYearRef = useRef(null);
@@ -27,22 +27,11 @@ function AccountPage() {
 
   const errors = form.errors;
 
-  const {
-    birthdayYear,
-    birthdayMonth,
-    birthdayDay,
-    firstName,
-    lastName,
-    gender,
-  } = form.getValues();
+  const { birthdayYear, birthdayMonth, birthdayDay, firstName, lastName } =
+    form.getValues();
 
   const isCreateAccountDisabled =
-    !birthdayYear ||
-    !birthdayMonth ||
-    !birthdayDay ||
-    !firstName ||
-    !lastName ||
-    !gender;
+    !birthdayYear || !birthdayMonth || !birthdayDay || !firstName || !lastName;
 
   const handleKeyDown = (event, nextInput) => {
     if (event.key === "Enter") {
@@ -105,23 +94,6 @@ function AccountPage() {
             {errors.lastName && (
               <Text color="red" size="sm">
                 {errors.lastName}
-              </Text>
-            )}
-          </Input.Wrapper>
-          <Input.Wrapper required label="Gender">
-            <Select
-              {...form.getInputProps("gender")}
-              disabled={isSubmitting}
-              data={[
-                { label: UserGender.MALE, value: UserGender.MALE },
-                { label: UserGender.FEMALE, value: UserGender.FEMALE },
-              ]}
-              ref={genderRef}
-              onKeyDown={(event) => handleKeyDown(event, birthdayYearRef)}
-            />
-            {errors.gender && (
-              <Text color="red" size="sm">
-                {errors.gender}
               </Text>
             )}
           </Input.Wrapper>

@@ -3,7 +3,7 @@ import { Box, Burger, Drawer } from "@mantine/core";
 import styles from "./NavMenu.module.scss";
 import { useDisclosure } from "@mantine/hooks";
 import { NavLink, useLocation } from "react-router-dom";
-import useUserAccount from "../../hooks/useUserAccount";
+import { useUserStore } from "../../store";
 
 export interface INavMenuProps {}
 
@@ -12,7 +12,7 @@ export interface INavMenuProps {}
  */
 function NavMenu(props: INavMenuProps) {
   const [opened, { toggle, close }] = useDisclosure();
-  const { userExists } = useUserAccount();
+  const userAccount = useUserStore((state) => state.userAccount);
   const location = useLocation();
 
   let title;
@@ -21,10 +21,10 @@ function NavMenu(props: INavMenuProps) {
       title = "";
       break;
     case "/goals":
-      title = userExists ? "My Goals" : "Create Account";
+      title = userAccount ? "My Goals" : "Create Account";
       break;
     case "/account":
-      title = userExists ? "Account Details" : "Create Account";
+      title = userAccount ? "Account Details" : "Create Account";
       break;
     case "/meet-airy":
       title = "Meet Airy!";
@@ -36,7 +36,7 @@ function NavMenu(props: INavMenuProps) {
   return (
     <div className={styles.root}>
       <div className={styles.pageName}>{title}</div>
-      {userExists && location.pathname !== "/" && (
+      {userAccount && location.pathname !== "/" && (
         <Burger
           opened={opened}
           onClick={toggle}

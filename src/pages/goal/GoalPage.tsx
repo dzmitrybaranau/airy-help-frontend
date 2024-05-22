@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import styles from "./GoalPage.module.scss";
-import useUserAccount from "../../hooks/useUserAccount";
 import { Helmet } from "react-helmet";
 import DevsMotivationalMessage from "../../components/DevsMotivationalMessage/DevsMotivationalMessage";
 import { Space } from "@mantine/core";
-import CreateGoalForm from "../../components/CreateGoalForm";
 import Goal from "../../components/Goal";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../../store";
 
 export interface IMainPageProps {}
 
@@ -15,20 +14,20 @@ export interface IMainPageProps {}
  */
 function GoalPage(props: IMainPageProps) {
   const navigate = useNavigate();
-  const { userAccount, userExists, isLoading } = useUserAccount();
+  const { userAccount, isUserLoading } = useUserStore();
 
   useEffect(() => {
-    if (!isLoading && userAccount?.goals?.length === 0) {
+    if (!isUserLoading && userAccount?.goals?.length === 0) {
       navigate("/create-goal");
     }
-  }, [navigate, isLoading, userAccount]);
+  }, [navigate, isUserLoading, userAccount]);
 
   return (
     <div className={styles.wrapper}>
       <Helmet>
         <title>My Goals</title>
       </Helmet>
-      {userExists && userAccount?.goals?.length > 0 && (
+      {userAccount && userAccount?.goals?.length > 0 && (
         <>
           <DevsMotivationalMessage
             message={`At the start of the journey, progress may seem invisible, but you can see at the prediction estimation`}

@@ -1,39 +1,37 @@
 import { useForm } from "@mantine/form";
-import { setIsSignUpOpen, setUserAccount } from "../redux/userSlice";
 import WebApp from "@twa-dev/sdk";
 import { collection, doc, setDoc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import useUserAccount from "./useUserAccount";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {UserAccount} from "airy-help-utils";
+import { UserAccount } from "airy-help-utils";
+import { useUserStore } from "../store";
 
-interface UserForm
-  extends Pick<
-    UserAccount,
-    | "firstName"
-    | "lastName"
-    | "gender"
-    | "birthdayYear"
-    | "birthdayMonth"
-    | "birthdayDay"
-  > {}
 export const useMutateUserAccount = () => {
-  const dispatch = useDispatch();
-  const isSignUpOpen = useSelector(
-    (state: RootState) => state.user.isSignUpOpen,
-  );
   const navigate = useNavigate();
-  const { userAccount, userExists } = useUserAccount();
+  const { userAccount, setUserAccount } = useUserStore();
   const userTmaInfo = useSelector((state: RootState) => state.user.userTmaInfo);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<UserForm>({
+  const form = useForm<
+    Pick<
+      UserAccount,
+      | "birthdayMonth"
+      | "birthdayDay"
+      | "birthdayYear"
+      | "firstName"
+      | "lastName"
+    >
+  >({
     mode: "controlled",
     initialValues: {
-      ...userAccount,
+      birthdayYear: "",
+      birthdayMonth: "",
+      birthdayDay: "",
+      firstName: "",
+      lastName: "",
     },
     validate: {
       birthdayYear: (value) => {
@@ -76,14 +74,6 @@ export const useMutateUserAccount = () => {
     });
   }, [userAccount]);
 
-  const handleSignInOpen = () => {
-    dispatch(setIsSignUpOpen(true));
-  };
-
-  const handleSignInClose = () => {
-    dispatch(setIsSignUpOpen(false));
-  };
-
   const handleCreateAccount = async (values) => {
     // Add the user to Firestore
     try {
@@ -106,9 +96,8 @@ export const useMutateUserAccount = () => {
       await setDoc(userDocRef, newUserAcc);
       form.reset();
       setIsSubmitting(false);
-      dispatch(setIsSignUpOpen(false));
-      dispatch(setUserAccount({ ...newUserAcc }));
-      WebApp.showAlert(userExists ? "Account updated" : "Account created");
+      setUserAccount(newUserAcc);
+      WebApp.showAlert(userAccount ? "Account updated" : "Account created");
       navigate("/");
     } catch (e) {
       setIsSubmitting(false);
@@ -118,11 +107,7 @@ export const useMutateUserAccount = () => {
 
   return {
     form,
-    isSignUpOpen,
-    handleSignInOpen,
     handleCreateAccount,
-    handleSignInClose,
-    userExists,
     setIsSubmitting,
     isSubmitting,
   };

@@ -2,14 +2,16 @@ import React from "react";
 import NavMenu from "../NavMenu/NavMenu";
 import styles from "./App.module.scss";
 import { Outlet } from "react-router-dom";
-import useUserAccount from "../../hooks/useUserAccount";
+import useLoadUserAccount from "../../hooks/useLoadUserAccount";
 import { Loader } from "@mantine/core";
 import AccountPage from "../../pages/account";
+import { useUserStore } from "../../store";
 
 function App() {
-  const { isLoading, userExists } = useUserAccount();
+  const { isUserLoading, userAccount } = useUserStore();
+  useLoadUserAccount();
 
-  if (isLoading) {
+  if (isUserLoading) {
     return (
       <div
         style={{
@@ -26,7 +28,7 @@ function App() {
   }
 
   // TODO: Make proper redirect
-  if (!userExists) {
+  if (!userAccount) {
     return (
       <div className={styles.root}>
         <NavMenu />

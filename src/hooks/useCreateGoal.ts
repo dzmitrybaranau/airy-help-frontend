@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useStartOnboarding } from "./useStartOnboarding";
 import { RootState } from "../redux/store";
-import {UserGoal} from "airy-help-utils";
+import { UserGoal } from "airy-help-utils";
 
 export enum CREATE_GOAL_STEPS {
   INITIAL = "INITIAL",
@@ -16,7 +16,7 @@ export enum CREATE_GOAL_STEPS {
 
 export const useCreateGoal = () => {
   const [createGoalFormStep, setCreateGoalFormStep] =
-    useState<CREATE_GOAL_STEPS>(CREATE_GOAL_STEPS.INITIAL);
+    useState<CREATE_GOAL_STEPS>(CREATE_GOAL_STEPS.WHY);
 
   const handleStepChange = (step: CREATE_GOAL_STEPS) => {
     setCreateGoalFormStep(step);
