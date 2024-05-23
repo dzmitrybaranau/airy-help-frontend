@@ -46,7 +46,7 @@ function AccountPage() {
   const years: ComboboxData = Array.from(
     { length: new Date().getFullYear() - 1920 + 1 },
     (_, i) => ({ label: `${1920 + i}`, value: `${1920 + i}` }),
-  );
+  ).reverse();
   const months: ComboboxData = [
     { label: "January", value: "0" },
     { label: "February", value: "1" },

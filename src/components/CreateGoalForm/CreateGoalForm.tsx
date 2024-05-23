@@ -22,7 +22,10 @@ const Step1 = ({ form, isCreatingGoal, handleStepChange }) => {
           concrete.
         </p>
       </div>
-      <form onSubmit={form.onSubmit(handleStepChange)}>
+      <form
+        onSubmit={form.onSubmit(handleStepChange)}
+        style={{ width: "100%" }}
+      >
         <Input.Wrapper
           required
           label="Your goal description"
@@ -37,7 +40,13 @@ const Step1 = ({ form, isCreatingGoal, handleStepChange }) => {
             size="xs"
           />
         </Input.Wrapper>
-        <Button variant="light" size="xs" color="blue" type="submit">
+        <Button
+          disabled={Array.from(form.getValues().description).length < 5}
+          variant="light"
+          size="xs"
+          color="blue"
+          type="submit"
+        >
           Continue
         </Button>
       </form>
@@ -45,12 +54,10 @@ const Step1 = ({ form, isCreatingGoal, handleStepChange }) => {
   );
 };
 
-const Step2 = ({ form, handleSubmit }) => {
+const Step2 = ({ form, handleSubmit, handleStepChange, isCreatingGoal }) => {
   return (
     <>
-      <h2 className={styles.title}>
-        Your goal: {form.getValues().description}
-      </h2>
+      <h2 className={styles.title}>"{form.getValues().description}"</h2>
       <div className={styles.createGoalHint}>
         <IconInfoCircle
           color="#24a1de"
@@ -61,8 +68,8 @@ const Step2 = ({ form, handleSubmit }) => {
       <div className={styles.createGoalHint}>
         <p>
           To get best support from Airy you need to tell <b>WHY</b> do you want
-          to achieve this goal. Think of how it’ll make you feel once we make it
-          real.
+          to achieve this goal. Think of how it’ll make you feel, or what
+          outcomes do you want to achieve with it once we make it real.
         </p>
       </div>
       <form onSubmit={form.onSubmit(handleSubmit)} style={{ width: "100%" }}>
@@ -77,12 +84,21 @@ const Step2 = ({ form, handleSubmit }) => {
             {...form.getInputProps("why")}
             placeholder="Losing weight will help me feel more attractive..."
             size="xs"
+            disabled={isCreatingGoal}
             style={{
               width: "100%",
             }}
           />
         </Input.Wrapper>
-        <Button variant="light" size="xs" color="blue" type="submit" mb="lg">
+        <Button
+          disabled={Array.from(form.getValues().why).length < 5}
+          variant="light"
+          size="xs"
+          color="blue"
+          type="submit"
+          mb="lg"
+          loading={isCreatingGoal}
+        >
           Continue
         </Button>
       </form>
@@ -92,7 +108,14 @@ const Step2 = ({ form, handleSubmit }) => {
           free to do so 😉
         </p>
       </div>
-      <Button variant="light" size="xs" color="blue" type="submit">
+      <Button
+        onClick={handleStepChange}
+        variant="light"
+        size="xs"
+        color="indigo"
+        type="submit"
+        disabled={isCreatingGoal}
+      >
         Update Goal
       </Button>
     </>
@@ -113,11 +136,18 @@ function CreateGoalForm() {
           <Step1
             form={form}
             isCreatingGoal={isCreatingGoal}
-            handleStepChange={setCurrentStep}
+            handleStepChange={() => setCurrentStep(CREATE_GOAL_STEPS.WHY)}
           />
         );
       case CREATE_GOAL_STEPS.WHY:
-        return <Step2 form={form} handleSubmit={handleSubmit} />;
+        return (
+          <Step2
+            handleStepChange={() => setCurrentStep(CREATE_GOAL_STEPS.INITIAL)}
+            isCreatingGoal={isCreatingGoal}
+            form={form}
+            handleSubmit={handleSubmit}
+          />
+        );
       default:
         return (
           <Step1
