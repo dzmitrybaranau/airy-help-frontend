@@ -19,8 +19,7 @@ function GoalPage(props: IMainPageProps) {
   useEffect(() => {
     console.log({ isUserLoading, userAccount });
     if (
-      !isUserLoading &&
-      userAccount?.goals &&
+      (!isUserLoading && !userAccount?.goals) ||
       userAccount?.goals?.length === 0
     ) {
       console.log("Create Goal!");
