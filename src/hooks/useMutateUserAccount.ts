@@ -94,7 +94,9 @@ export const useMutateUserAccount = () => {
       form.reset();
       setIsSubmitting(false);
       setUserAccount(newUserAcc);
-      WebApp.showAlert(userAccount ? "Account updated" : "Account created");
+      if (userAccount) {
+        WebApp.showAlert("Account updated");
+      }
       navigate("/");
     } catch (e) {
       setIsSubmitting(false);

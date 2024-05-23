@@ -17,6 +17,7 @@ function GoalPage(props: IMainPageProps) {
   const { userAccount, isUserLoading } = useUserStore();
 
   useEffect(() => {
+    console.log({ isUserLoading, userAccount });
     if (
       !isUserLoading &&
       userAccount?.goals &&
