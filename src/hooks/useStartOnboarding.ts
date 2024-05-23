@@ -16,6 +16,9 @@ export const useStartOnboarding = () => {
         {
           chatId: userAccount.chatId,
         },
+        {
+          timeout: 999999999,
+        },
       );
     }
   };
