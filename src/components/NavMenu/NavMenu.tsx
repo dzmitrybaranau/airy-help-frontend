@@ -23,6 +23,9 @@ function NavMenu(props: INavMenuProps) {
     case "/goals":
       title = userAccount ? "My Goals" : "Create Account";
       break;
+    case "/create-goal":
+      title = "Create Goal";
+      break;
     case "/account":
       title = userAccount ? "Account Details" : "Create Account";
       break;
