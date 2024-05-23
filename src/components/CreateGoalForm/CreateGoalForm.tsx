@@ -57,7 +57,9 @@ const Step1 = ({ form, isCreatingGoal, handleStepChange }) => {
 const Step2 = ({ form, handleSubmit, handleStepChange, isCreatingGoal }) => {
   return (
     <>
-      <h2 className={styles.title}>"{form.getValues().description}"</h2>
+      <h2 className={styles.title}>
+        <span>Goal: </span>"{form.getValues().description}"
+      </h2>
       <div className={styles.createGoalHint}>
         <IconInfoCircle
           color="#24a1de"

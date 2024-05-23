@@ -10,8 +10,7 @@
 .title {
   margin-bottom: 4px !important;
   color: #0c0c0c;
-  &::before {
-    content: "Goal: ";
+  span {
     font-size: 14px;
     font-weight: 400;
     color: #373e42;
@@ -30,7 +29,7 @@
     line-height: 16px;
 
     b {
-        font-weight: 800;
+      font-weight: 800;
       color: #5e6162;
     }
   }
