@@ -19,7 +19,8 @@ import GoalPage from "./pages/goal/GoalPage";
 import MeetAiry from "./pages/meet-airy";
 import AccountPage from "./pages/account";
 import GatesPage from "./pages/gates";
-import CreateGoalPage from "./pages/create-goal/CreateGoalPage";
+import CreateGoalPage from "./pages/create-goal";
+import OnboardingPage from "./pages/onboarding";
 
 eruda.init();
 WebApp.ready();
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <GatesPage />,
+      },
+      {
+        path: "/onboarding",
+        element: <OnboardingPage />,
       },
       {
         path: "/goals",

@@ -5,11 +5,13 @@ import WebApp from "@twa-dev/sdk";
 import { useStartOnboarding } from "./useStartOnboarding";
 import { UserGoal } from "airy-help-utils";
 import { useCreateGoalStore, useUserStore } from "../store";
+import { useNavigate } from "react-router-dom";
 
 export const useCreateGoal = () => {
   const { handleStartOnboarding } = useStartOnboarding();
   const { setIsCreatingGoal } = useCreateGoalStore();
-  const { addUserGoal, userAccount } = useUserStore();
+  const { addUserGoal, userAccount, fetchUserAccount } = useUserStore();
+  const navigate = useNavigate();
 
   const form = useForm<UserGoal>({
     initialValues: {
@@ -61,6 +63,12 @@ export const useCreateGoal = () => {
       });
       addUserGoal(newGoal);
       setIsCreatingGoal(false);
+
+      await fetchUserAccount(userAccount?.chatId as string);
+
+      WebApp.showAlert("Goal created!", () => {
+        navigate("/onboarding");
+      });
     } catch (e) {
       WebApp.showAlert("Error creating goal!", e.toString());
       setIsCreatingGoal(false);
