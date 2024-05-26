@@ -81,12 +81,13 @@ export const useMutateUserAccount = () => {
         return;
       }
       const userDocRef = doc(collection(firestore, "users"), chatId.toString());
+      const { birthdayYear, birthdayMonth, birthdayDay, ...rest } = values;
       const newUserAcc: UserAccount = {
-        ...values,
+        ...rest,
         birthday: {
-          year: values.birthdayYear,
-          month: values.birthdayMonth,
-          day: values.birthdayDay,
+          year: birthdayYear,
+          month: birthdayMonth,
+          day: birthdayDay,
         },
         chatId: chatId.toString(),
       };

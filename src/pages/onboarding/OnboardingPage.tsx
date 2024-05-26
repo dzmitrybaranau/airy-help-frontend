@@ -9,7 +9,7 @@ export interface IOnboardingPageProps {}
 function OnboardingPage(props: IOnboardingPageProps) {
   const { userAccount } = useUserStore();
 
-  return <div></div>;
+  return <div>Onboarding Page</div>;
 }
 
 export default OnboardingPage;
