@@ -9,6 +9,7 @@ export interface IOnboardingPageProps {}
 function OnboardingPage(props: IOnboardingPageProps) {
   const { userAccount } = useUserStore();
 
+  console.log({ userAccount });
   return <div>Onboarding Page</div>;
 }
 
