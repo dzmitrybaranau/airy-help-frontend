@@ -55,6 +55,7 @@ export const useCreateGoal = () => {
         ...currentUserData?.data(),
         goals: [...(currentUserData?.data()?.goals ?? []), newGoal],
       });
+      console.log({ currentUserData, userAccount, newGoal });
       console.log("Goal created!");
 
       await handleStartOnboarding().catch((e) => {

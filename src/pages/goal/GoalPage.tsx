@@ -25,6 +25,9 @@ function GoalPage(props: IMainPageProps) {
       console.log("Create Goal!");
       navigate("/create-goal");
     }
+    if (!userAccount?.onboarded) {
+      navigate("/onboarding");
+    }
   }, [navigate, isUserLoading, userAccount]);
 
   return (
