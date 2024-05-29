@@ -17,16 +17,15 @@ function GoalPage(props: IMainPageProps) {
   const { userAccount, isUserLoading } = useUserStore();
 
   useEffect(() => {
-    console.log({ isUserLoading, userAccount });
     if (
       (!isUserLoading && !userAccount?.goals) ||
       userAccount?.goals?.length === 0
     ) {
       console.log("Create Goal!");
-      navigate("/create-goal");
+      return navigate("/create-goal");
     }
     if (!userAccount?.onboarded) {
-      navigate("/onboarding");
+      return navigate("/onboarding");
     }
   }, [navigate, isUserLoading, userAccount]);
 

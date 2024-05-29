@@ -40,5 +40,6 @@ export const Primary: Story = {
       "Establish effective collaboration with team members and seek external support for enhancing your app's competitiveness.",
       "Develop a compelling strategy for presenting and pitching your app to the judges.",
     ],
+    estimatedSuccessRate: "40"
   },
 };

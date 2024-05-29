@@ -6,6 +6,7 @@ import useLoadUserAccount from "../../hooks/useLoadUserAccount";
 import { Loader } from "@mantine/core";
 import AccountPage from "../../pages/account";
 import { useUserStore } from "../../store";
+import Achievement from "../Achievement";
 
 function App() {
   const { isUserLoading, userAccount } = useUserStore();
@@ -45,6 +46,7 @@ function App() {
       <div className={styles.pageWrapper}>
         <Outlet />
       </div>
+      <Achievement />
     </div>
   );
 }

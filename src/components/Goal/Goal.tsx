@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Goal.module.scss";
-import { Button, List, ListItem, Modal, Progress } from "@mantine/core";
+import { Button, List, ListItem, Modal, Progress, Text } from "@mantine/core";
 
 export interface IGoalProps {
   description: string;
@@ -50,6 +50,9 @@ function Goal({
       )}
       {estimatedSuccessRate && (
         <div className={styles.progressWrapper}>
+          <Text color="blue" mb={4} size="sm">
+            Estimated Progress
+          </Text>
           <Progress
             style={{
               height: "10px",
@@ -61,19 +64,25 @@ function Goal({
         </div>
       )}
       <Button
-        color="Gray"
         size="xs"
-        variant="light"
-        style={{
-          background: "#F1F3F5",
-          color: "#000",
-          fontWeight: 400,
-        }}
-        disabled={!recommendedActions || !moreQuestionsToAsk}
+        disabled={!recommendedActions}
+        mb={8}
         onClick={() => setIsModalOpen(true)}
       >
-        Check Recommended Actions
+        Add Daily Reflection
       </Button>
+      {recommendedActions && (
+        <Button
+          size="xs"
+          variant="subtle"
+          style={{
+          }}
+          disabled={!recommendedActions}
+          onClick={() => setIsModalOpen(true)}
+        >
+          Check Recommended Actions
+        </Button>
+      )}
       <Modal
         title={<b>Recommended Actions</b>}
         opened={isModalOpen}

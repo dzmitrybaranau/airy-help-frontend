@@ -32,6 +32,8 @@
 }
 
 .progressWrapper {
+  display: flex;
+  flex-direction: column;
   width: 80%;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }

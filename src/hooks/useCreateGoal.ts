@@ -4,12 +4,21 @@ import { firestore } from "../firebase/firebase-config";
 import WebApp from "@twa-dev/sdk";
 import { useStartOnboarding } from "./useStartOnboarding";
 import { UserGoal } from "airy-help-utils";
-import { useCreateGoalStore, useUserStore } from "../store";
+import {
+  useAchievementsStore,
+  useCreateGoalStore,
+  useUserStore,
+} from "../store";
 import { useNavigate } from "react-router-dom";
+import { create } from "zustand";
+import { ACHIEVEMENTS } from "../components/Achievement/achivements";
 
 export const useCreateGoal = () => {
   const { handleStartOnboarding } = useStartOnboarding();
   const { setIsCreatingGoal } = useCreateGoalStore();
+  const createAchievement = useAchievementsStore(
+    (state) => state.createAchievement,
+  );
   const { addUserGoal, userAccount, fetchUserAccount } = useUserStore();
   const navigate = useNavigate();
 
@@ -68,7 +77,9 @@ export const useCreateGoal = () => {
       await fetchUserAccount(userAccount?.chatId as string);
 
       WebApp.showAlert("Goal created!", () => {
-        navigate("/onboarding");
+        createAchievement(ACHIEVEMENTS.FIRST_STEPS.id);
+
+        navigate("/goals");
       });
     } catch (e) {
       WebApp.showAlert("Error creating goal!", e.toString());
