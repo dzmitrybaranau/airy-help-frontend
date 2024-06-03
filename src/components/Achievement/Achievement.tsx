@@ -10,15 +10,15 @@ export interface IAchievementProps {}
  */
 function Achievement(props: IAchievementProps) {
   const {
-    // userAchievements,
+    userAchievements,
     takeAchievement,
   } = useAchievementsStore();
-  const userAchievements = [
-    {
-      isTaken: false,
-      id: "FIRST_STEPS",
-    },
-  ];
+  // const userAchievements = [
+  //   {
+  //     isTaken: false,
+  //     id: "FIRST_STEPS",
+  //   },
+  // ];
 
   const isModalOpen = Boolean(
     userAchievements.find((achievement) => !achievement.isTaken),
