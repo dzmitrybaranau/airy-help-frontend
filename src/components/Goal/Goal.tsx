@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import styles from "./Goal.module.scss";
-import { Button, List, ListItem, Modal, Progress, Text } from "@mantine/core";
+import {
+  Button,
+  Input,
+  List,
+  ListItem,
+  Modal,
+  Progress,
+  Text,
+} from "@mantine/core";
 
 export interface IGoalProps {
   description: string;
@@ -26,18 +34,13 @@ function Goal({
   moreQuestionsToAsk,
   realityVsGoalAnalysis,
 }: IGoalProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDailyReflectionModalOpen, setIsDailyReflectionModalOpen] =
+    useState(false);
+  const [isRecommendedActionsModalOpen, setIsRecommendedActionsModalOpen] =
+    useState(false);
   return (
     <div className={styles.root}>
       <h3 className={styles.heading}>{description}</h3>
-      {!recommendedActions && (
-        <div
-          className={styles.estimation}
-          style={{ marginBottom: "4px !important" }}
-        >
-          While under development goal success prediction is done once a day
-        </div>
-      )}
       {estimationRationale && (
         <div className={styles.estimationWrapper}>
           <p className={styles.estimation}>{estimationRationale}</p>
@@ -51,7 +54,9 @@ function Goal({
       {estimatedSuccessRate && (
         <div className={styles.progressWrapper}>
           <Text color="blue" mb={4} size="sm">
-            Estimated Progress
+            {estimatedSuccessRate
+              ? "Estimated Progress"
+              : "You need to add 2 daily reflections to see the progress"}
           </Text>
           <Progress
             style={{
@@ -59,7 +64,7 @@ function Goal({
               width: "100%",
             }}
             title="Estimated Progress"
-            value={Number(estimatedSuccessRate)}
+            value={estimatedSuccessRate ? Number(estimatedSuccessRate) : 0}
           />
         </div>
       )}
@@ -67,7 +72,7 @@ function Goal({
         size="xs"
         disabled={!recommendedActions}
         mb={8}
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => setIsDailyReflectionModalOpen(true)}
       >
         Add Daily Reflection
       </Button>
@@ -75,18 +80,41 @@ function Goal({
         <Button
           size="xs"
           variant="subtle"
-          style={{
-          }}
+          style={{}}
           disabled={!recommendedActions}
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => setIsRecommendedActionsModalOpen(true)}
         >
           Check Recommended Actions
         </Button>
       )}
+
+      <Modal
+        title={<b>Daily Reflection</b>}
+        opened={isDailyReflectionModalOpen}
+        onClose={() => setIsDailyReflectionModalOpen(false)}
+      >
+        <form>
+          <Input.Wrapper
+            required
+            label="Tell anything, what you did, your feelings, anything you want"
+            style={{ marginBottom: 12, width: "100%" }}
+            size="xs"
+          >
+            <Input
+              placeholder="I did..."
+              size="xs"
+              style={{
+                width: "100%",
+              }}
+            />
+          </Input.Wrapper>
+        </form>
+      </Modal>
+
       <Modal
         title={<b>Recommended Actions</b>}
-        opened={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        opened={isRecommendedActionsModalOpen}
+        onClose={() => setIsRecommendedActionsModalOpen(false)}
       >
         <List style={{ width: "80%" }}>
           {recommendedActions?.map((action, index) => (

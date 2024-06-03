@@ -32,9 +32,7 @@ function GoalPage(props: IMainPageProps) {
       </Helmet>
       {userAccount && userAccount?.goals?.length > 0 && (
         <>
-          <DevsMotivationalMessage
-            message={`At the start of the journey, progress may seem invisible, but you can see at the prediction estimation`}
-          />
+          <DevsMotivationalMessage />
           <Space h="xs" />
         </>
       )}
