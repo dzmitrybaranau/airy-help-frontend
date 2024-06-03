@@ -36,10 +36,12 @@ function NavMenu(props: INavMenuProps) {
       title = "";
   }
 
+  console.log({ userAccount });
+
   return (
     <div className={styles.root}>
       <div className={styles.pageName}>{title}</div>
-      {userAccount && (
+      {userAccount?.chatId && (
         <Burger
           opened={opened}
           onClick={toggle}
