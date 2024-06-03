@@ -2,7 +2,6 @@ import { useForm } from "@mantine/form";
 import { collection, doc, getDoc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
 import WebApp from "@twa-dev/sdk";
-import { useStartOnboarding } from "./useStartOnboarding";
 import { UserAccount, UserGoal } from "airy-help-utils";
 import {
   useAchievementsStore,
@@ -14,12 +13,11 @@ import { ACHIEVEMENTS } from "../components/Achievement/achivements";
 import { setUserData } from "../utils/user/setUserData";
 
 export const useCreateGoal = () => {
-  const { handleStartOnboarding } = useStartOnboarding();
   const { setIsCreatingGoal } = useCreateGoalStore();
   const createAchievement = useAchievementsStore(
     (state) => state.createAchievement,
   );
-  const { addUserGoal, userAccount, fetchUserAccount } = useUserStore();
+  const { addUserGoal, userAccount } = useUserStore();
   const navigate = useNavigate();
 
   const form = useForm<UserGoal>({
@@ -41,15 +39,16 @@ export const useCreateGoal = () => {
 
   const createUserGoal = async ({
     goalDescription,
-    userId,
     why,
   }: {
-    userId: string;
     goalDescription: string;
     why: string;
   }) => {
     setIsCreatingGoal(true);
-    const userDocRef = doc(collection(firestore, "users"), userId.toString());
+    const userDocRef = doc(
+      collection(firestore, "users"),
+      userAccount?.chatId.toString(),
+    );
 
     const newGoal: UserGoal = {
       id: Math.random().toString(36).substr(2) + Date.now().toString(36),
@@ -89,13 +88,9 @@ export const useCreateGoal = () => {
 
   const handleSubmit = async () => {
     const { description, why } = form.getValues();
-    const userId = userAccount?.chatId as string;
-    console.log("SUBMIT", { userId });
-    await createUserGoal({ userId, goalDescription: description, why }).catch(
-      (e) => {
-        console.error("Error creating goal!", e);
-      },
-    );
+    await createUserGoal({ goalDescription: description, why }).catch((e) => {
+      console.error("Error creating goal!", e);
+    });
   };
 
   return {
