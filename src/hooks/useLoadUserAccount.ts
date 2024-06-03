@@ -15,7 +15,7 @@ const useLoadUserAccount = () => {
   useLayoutEffect(() => {
     console.log({ isTmaInfoLoading, userTmaInfo, fetchUserAccount });
     if (!isTmaInfoLoading && userTmaInfo?.user?.id) {
-      console.log("FETCH");
+      console.log("FETCH", userTmaInfo?.user?.id.toString());
       fetchUserAccount(userTmaInfo?.user?.id.toString());
     }
   }, [isTmaInfoLoading, userTmaInfo, fetchUserAccount]);

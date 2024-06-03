@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavMenu from "../NavMenu/NavMenu";
 import styles from "./App.module.scss";
 import { Outlet } from "react-router-dom";
@@ -6,10 +6,17 @@ import useLoadUserAccount from "../../hooks/useLoadUserAccount";
 import { Loader } from "@mantine/core";
 import { useUserStore } from "../../store";
 import Achievement from "../Achievement";
+import { useMutateUserAccount } from "../../hooks/useMutateUserAccount";
 
 function App() {
-  const { isUserLoading } = useUserStore();
+  const { isUserLoading, userAccount } = useUserStore();
   useLoadUserAccount();
+  const { handleCreateAccount } = useMutateUserAccount();
+  useEffect(() => {
+    if (!isUserLoading && !userAccount?.chatId) {
+      handleCreateAccount();
+    }
+  }, [isUserLoading, handleCreateAccount, userAccount]);
 
   if (isUserLoading) {
     return (
