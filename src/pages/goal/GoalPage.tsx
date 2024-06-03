@@ -21,11 +21,7 @@ function GoalPage(props: IMainPageProps) {
       (!isUserLoading && !userAccount?.goals) ||
       userAccount?.goals?.length === 0
     ) {
-      console.log("Create Goal!");
       return navigate("/create-goal");
-    }
-    if (!userAccount?.onboarded) {
-      return navigate("/onboarding");
     }
   }, [navigate, isUserLoading, userAccount]);
 

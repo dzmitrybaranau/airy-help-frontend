@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { setUserData } from "../utils/user/setUserData";
 
 export const useAchievementsStore = create<{
   userAchievements: {

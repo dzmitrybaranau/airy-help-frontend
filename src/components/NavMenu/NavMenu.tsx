@@ -29,9 +29,6 @@ function NavMenu(props: INavMenuProps) {
     case "/create-goal":
       title = "Create Goal";
       break;
-    case "/account":
-      title = userAccount ? "Account Details" : "Create Account";
-      break;
     case "/meet-airy":
       title = "Meet Airy!";
       break;
@@ -62,9 +59,6 @@ function NavMenu(props: INavMenuProps) {
         <Box className={styles.drawerWrapper}>
           <NavLink onClick={close} to="/goals">
             Home
-          </NavLink>
-          <NavLink onClick={close} to="/account">
-            Account Details
           </NavLink>
           <NavLink onClick={close} to="/meet-airy">
             About Airy

@@ -4,12 +4,11 @@ import styles from "./App.module.scss";
 import { Outlet } from "react-router-dom";
 import useLoadUserAccount from "../../hooks/useLoadUserAccount";
 import { Loader } from "@mantine/core";
-import AccountPage from "../../pages/account";
 import { useUserStore } from "../../store";
 import Achievement from "../Achievement";
 
 function App() {
-  const { isUserLoading, userAccount } = useUserStore();
+  const { isUserLoading } = useUserStore();
   useLoadUserAccount();
 
   if (isUserLoading) {
@@ -24,18 +23,6 @@ function App() {
         }}
       >
         <Loader />
-      </div>
-    );
-  }
-
-  // TODO: Make proper redirect
-  if (!userAccount) {
-    return (
-      <div className={styles.root}>
-        <NavMenu />
-        <div className={styles.pageWrapper}>
-          <AccountPage />
-        </div>
       </div>
     );
   }

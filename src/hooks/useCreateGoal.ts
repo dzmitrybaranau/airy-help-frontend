@@ -1,17 +1,17 @@
 import { useForm } from "@mantine/form";
-import { collection, doc, getDoc, setDoc } from "@firebase/firestore";
+import { collection, doc, getDoc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
 import WebApp from "@twa-dev/sdk";
 import { useStartOnboarding } from "./useStartOnboarding";
-import { UserGoal } from "airy-help-utils";
+import { UserAccount, UserGoal } from "airy-help-utils";
 import {
   useAchievementsStore,
   useCreateGoalStore,
   useUserStore,
 } from "../store";
 import { useNavigate } from "react-router-dom";
-import { create } from "zustand";
 import { ACHIEVEMENTS } from "../components/Achievement/achivements";
+import { setUserData } from "../utils/user/setUserData";
 
 export const useCreateGoal = () => {
   const { handleStartOnboarding } = useStartOnboarding();
@@ -60,27 +60,27 @@ export const useCreateGoal = () => {
 
     try {
       const currentUserData = await getDoc(userDocRef);
-      await setDoc(userDocRef, {
-        ...currentUserData?.data(),
-        goals: [...(currentUserData?.data()?.goals ?? []), newGoal],
-      });
-      console.log({ currentUserData, userAccount, newGoal });
-      console.log("Goal created!");
+      const userAccount = currentUserData.data() as UserAccount;
 
-      await handleStartOnboarding().catch((e) => {
-        console.error("Error starting onboarding!", e);
-        WebApp.showAlert(`Error creating goal! ${e.toString()}`);
+      await setUserData({
+        userRef: userDocRef,
+        newUserData: {
+          ...userAccount,
+          goals: [...(userAccount?.goals ?? []), newGoal],
+          achievementsId: [
+            ...userAccount.achievementsId,
+            ACHIEVEMENTS.FIRST_STEPS.id,
+          ],
+        },
       });
+
       addUserGoal(newGoal);
       setIsCreatingGoal(false);
 
-      await fetchUserAccount(userAccount?.chatId as string);
+      createAchievement(ACHIEVEMENTS.FIRST_STEPS.id);
+      createAchievement(ACHIEVEMENTS.FIRST_BREATH.id);
 
-      WebApp.showAlert("Goal created!", () => {
-        createAchievement(ACHIEVEMENTS.FIRST_STEPS.id);
-
-        navigate("/goals");
-      });
+      navigate("/goals");
     } catch (e) {
       WebApp.showAlert("Error creating goal!", e.toString());
       setIsCreatingGoal(false);

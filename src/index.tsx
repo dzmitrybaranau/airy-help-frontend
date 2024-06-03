@@ -17,7 +17,6 @@ import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import GoalPage from "./pages/goal/GoalPage";
 import MeetAiry from "./pages/meet-airy";
-import AccountPage from "./pages/account";
 import GatesPage from "./pages/gates";
 import CreateGoalPage from "./pages/create-goal";
 import OnboardingPage from "./pages/onboarding";
@@ -60,10 +59,6 @@ const router = createBrowserRouter([
         element: <GoalPage />,
       },
       { path: "/create-goal", element: <CreateGoalPage /> },
-      {
-        path: "/account",
-        element: <AccountPage />,
-      },
       {
         path: "/meet-airy",
         element: <MeetAiry />,
