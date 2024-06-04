@@ -33,6 +33,7 @@ function Achievement(props: IAchievementProps) {
   const isModalOpen =
     Boolean(userAchievements.find((achievement) => !achievement.isTaken)) &&
     !!cardToRender;
+
   return (
     <Modal
       size="xs"

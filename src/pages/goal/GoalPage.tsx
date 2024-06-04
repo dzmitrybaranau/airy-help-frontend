@@ -50,9 +50,6 @@ function GoalPage(props: IMainPageProps) {
             recommendedActions={
               userAccount?.goalSuccessPrediction?.recommendedActions
             }
-            moreQuestionsToAsk={
-              userAccount?.goalSuccessPrediction?.moreQuestionsToAsk
-            }
             realityVsGoalAnalysis={
               userAccount?.goalSuccessPrediction?.realityVsGoalAnalysis
             }
