@@ -28,6 +28,8 @@ function Achievement(props: IAchievementProps) {
 
   const { id } = cardToRender;
 
+  console.log({ cardToRender, userAchievements });
+
   const isModalOpen =
     Boolean(userAchievements.find((achievement) => !achievement.isTaken)) &&
     !!cardToRender;
