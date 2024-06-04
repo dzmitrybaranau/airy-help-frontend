@@ -49,7 +49,7 @@ function Achievement(props: IAchievementProps) {
             mb={12}
             color="rgba(0,0,0,0.8)"
           >
-            {ACHIEVEMENTS[id].name}
+            {ACHIEVEMENTS?.[id]?.name}
           </Text>
           <div
             style={{
@@ -62,19 +62,19 @@ function Achievement(props: IAchievementProps) {
             }}
           >
             <img
-              src={ACHIEVEMENTS[id].image}
+              src={ACHIEVEMENTS?.[id]?.image}
               style={{
                 width: "100%",
                 height: "100%",
                 background: "rgba(0,0,0,0)",
                 objectFit: "contain",
-                ...ACHIEVEMENTS[id].cssStyles,
+                ...ACHIEVEMENTS?.[id]?.cssStyles,
               }}
             />
           </div>
 
           <Text size="sm" mb={12} ta="center" color="gray">
-            {ACHIEVEMENTS[id].description}
+            {ACHIEVEMENTS?.[id]?.description}
           </Text>
           <Button
             w="100%"
