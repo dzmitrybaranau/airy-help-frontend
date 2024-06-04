@@ -21,10 +21,6 @@ function Achievement(props: IAchievementProps) {
   //   },
   // ];
 
-  const isModalOpen = Boolean(
-    userAchievements.find((achievement) => !achievement.isTaken),
-  );
-
   const cardToRender = userAchievements.find(({ isTaken }) => !isTaken);
   if (!cardToRender) {
     return null;
@@ -32,6 +28,9 @@ function Achievement(props: IAchievementProps) {
 
   const { id } = cardToRender;
 
+  const isModalOpen =
+    Boolean(userAchievements.find((achievement) => !achievement.isTaken)) &&
+    !!cardToRender;
   return (
     <Modal
       size="xs"
