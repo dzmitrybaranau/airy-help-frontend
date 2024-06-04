@@ -1,4 +1,3 @@
-import firstSteps from "./icons/firstSteps.webp";
 import firstSteps2 from "./icons/firstSteps2.jpg";
 import firstBreath from "./icons/firstBreath2.webp";
 import { CSSProperties } from "react";
@@ -26,7 +25,7 @@ export const ACHIEVEMENTS: Record<
     },
   },
   FIRST_BREATH: {
-    id: "MINDFUL",
+    id: "FIRST_BREATH",
     name: "First Breath",
     requirements: "Complete your first breathing exercise",
     description:

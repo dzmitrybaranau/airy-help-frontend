@@ -9,8 +9,8 @@ import {
   useUserStore,
 } from "../store";
 import { useNavigate } from "react-router-dom";
-import { ACHIEVEMENTS } from "../components/Achievement/achivements";
 import { setUserData } from "../utils/user/setUserData";
+import { ACHIEVEMENTS } from "../components/Achievement/achivements";
 
 export const useCreateGoal = () => {
   const { setIsCreatingGoal } = useCreateGoalStore();
@@ -69,6 +69,7 @@ export const useCreateGoal = () => {
           achievementsId: [
             ...userAccount.achievementsId,
             ACHIEVEMENTS.FIRST_STEPS.id,
+            ACHIEVEMENTS.FIRST_BREATH.id,
           ],
         },
       });
