@@ -38,6 +38,7 @@ export const useDailyReflection = () => {
           dailyReflection: [...userAccount.dailyReflection, newReflection],
         },
       });
+      form.reset();
       addUserReflection(newReflection);
     } catch (e) {
       console.error("Error adding reflection:", e);
