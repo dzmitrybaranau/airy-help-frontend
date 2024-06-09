@@ -3,7 +3,7 @@ import styles from "./GoalPage.module.scss";
 import { Helmet } from "react-helmet";
 import DevsMotivationalMessage from "../../components/DevsMotivationalMessage/DevsMotivationalMessage";
 import { Space } from "@mantine/core";
-import Goal from "../../components/Goal";
+import GoalsList from "../../components/GoalsList";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store";
 
@@ -36,26 +36,7 @@ function GoalPage(props: IMainPageProps) {
           <Space h="xs" />
         </>
       )}
-      {userAccount?.goals?.map((goal) => {
-        return (
-          <Goal
-            description={goal.description}
-            key={goal?.id || goal.description}
-            estimatedSuccessRate={
-              userAccount?.goalSuccessPrediction?.estimatedSuccessRate
-            }
-            estimationRationale={
-              userAccount?.goalSuccessPrediction?.estimationRationale
-            }
-            recommendedActions={
-              userAccount?.goalSuccessPrediction?.recommendedActions
-            }
-            realityVsGoalAnalysis={
-              userAccount?.goalSuccessPrediction?.realityVsGoalAnalysis
-            }
-          />
-        );
-      })}
+      <GoalsList />
     </div>
   );
 }

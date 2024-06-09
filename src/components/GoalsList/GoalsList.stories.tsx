@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Goal from "./Goal";
+import GoalsList from "./GoalsList";
 import { AppProviders } from "../../stories/StorybookProviders";
 
 const meta = {
@@ -10,20 +10,12 @@ const meta = {
       </AppProviders>
     ),
   ],
-  title: "Example/Goal",
-  component: Goal,
+  title: "Example/GoalList",
+  component: GoalsList,
   parameters: {},
-  argTypes: {
-    description: {
-      control: {
-        type: "text",
-      },
-    },
-  },
-  args: {
-    description: "Learn React",
-  },
-} satisfies Meta<typeof Goal>;
+  argTypes: {},
+  args: {},
+} satisfies Meta<typeof GoalsList>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

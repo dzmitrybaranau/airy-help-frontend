@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./Goal.module.scss";
+import styles from "./GoalsList.module.scss";
 import {
   Button,
   Input,
@@ -9,34 +9,39 @@ import {
   Progress,
   Text,
 } from "@mantine/core";
-
-export interface IGoalProps {
-  description: string;
-  estimationRationale?: string;
-  estimatedSuccessRate?: string;
-  recommendedActions?: string[];
-  realityVsGoalAnalysis?: string;
-}
+import { useUserStore } from "../../store";
 
 /**
  * User Goal
  */
-function Goal({
-  description,
-  estimatedSuccessRate,
-  estimationRationale,
-  realityVsGoalAnalysis,
-  recommendedActions,
-}: IGoalProps) {
+function GoalsList() {
+  const userAccount = useUserStore((state) => state.userAccount);
+
   const [isDailyReflectionModalOpen, setIsDailyReflectionModalOpen] =
     useState(false);
   const [isRecommendedActionsModalOpen, setIsRecommendedActionsModalOpen] =
     useState(false);
 
+  if (!userAccount) {
+    return null;
+  }
+  const userGoal = userAccount?.goals?.[0];
+
+  const description = userGoal?.description;
+  const estimatedSuccessRate =
+    userAccount?.goalSuccessPrediction?.estimatedSuccessRate;
+  const estimationRationale =
+    userAccount?.goalSuccessPrediction?.estimationRationale;
+  const realityVsGoalAnalysis =
+    userAccount?.goalSuccessPrediction?.realityVsGoalAnalysis;
+  const recommendedActions =
+    userAccount?.goalSuccessPrediction?.recommendedActions;
+
   const isRecommendedActionsAvailable =
     recommendedActions?.length && recommendedActions?.length > 0;
   const isEstimationReady =
     estimatedSuccessRate && estimationRationale && realityVsGoalAnalysis;
+
   return (
     <div className={styles.root}>
       <h3 className={styles.heading}>{description}</h3>
@@ -131,4 +136,4 @@ function Goal({
   );
 }
 
-export default Goal;
+export default GoalsList;
