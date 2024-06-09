@@ -12,7 +12,10 @@ interface UserStore {
   setUserTmaInfo: (userTmaInfo: typeof WebApp.initDataUnsafe) => void;
   setUserAccount: (userAccount: UserAccount) => void;
   addUserGoal: (goal: UserGoal) => void;
-  addUserReflection: (reflection: string) => void;
+  addUserReflection: (reflection: {
+    reflection: string;
+    timestamp: string;
+  }) => void;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -41,7 +44,10 @@ export const useUserStore = create<UserStore>((set) => ({
       },
     }));
   },
-  addUserReflection: (reflection: string) => {
+  addUserReflection: (reflection: {
+    reflection: string;
+    timestamp: string;
+  }) => {
     set((state) => ({
       userAccount: {
         ...state.userAccount!,
