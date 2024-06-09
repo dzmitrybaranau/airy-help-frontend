@@ -1,5 +1,5 @@
 import React from "react";
-import {Input, Modal, Button, Text, Textarea} from "@mantine/core";
+import { Input, Modal, Button, Text, Textarea } from "@mantine/core";
 import { useDailyReflection } from "../../hooks/useDailyReflection";
 import { useUserStore } from "../../store";
 
@@ -46,7 +46,7 @@ function DailyReflectionModal({ isOpen, onClose }: IDailyReflectionModalProps) {
       </form>
       <div style={{ marginTop: 20 }}>
         <Text fw={500}>Previous Reflections:</Text>
-        {userAccount?.dailyReflection?.map((reflection, index) => (
+        {userAccount?.dailyReflection?.map(({ reflection }, index) => (
           <Text key={index} size="sm" style={{ marginTop: 8 }}>
             {reflection}
           </Text>

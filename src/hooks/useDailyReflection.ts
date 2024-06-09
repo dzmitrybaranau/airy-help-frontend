@@ -1,7 +1,8 @@
 import { useForm } from "@mantine/form";
-import { doc, updateDoc, collection } from "@firebase/firestore";
+import { collection, doc } from "@firebase/firestore";
 import { firestore } from "../firebase/firebase-config";
 import { useUserStore } from "../store";
+import { setUserData } from "../utils/user/setUserData";
 
 export const useDailyReflection = () => {
   const userAccount = useUserStore((state) => state.userAccount);
@@ -17,7 +18,7 @@ export const useDailyReflection = () => {
     },
   });
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async () => {
     if (!userAccount?.chatId) return;
 
     const userDocRef = doc(
@@ -25,16 +26,17 @@ export const useDailyReflection = () => {
       userAccount.chatId.toString(),
     );
     const newReflection = {
-      reflection: values.reflection,
+      reflection: form.getValues().reflection,
       timestamp: new Date().toISOString(),
     };
 
     try {
-      await updateDoc(userDocRef, {
-        dailyReflection: [
-          ...(userAccount?.dailyReflection ?? []),
-          newReflection,
-        ],
+      await setUserData({
+        userRef: userDocRef,
+        newUserData: {
+          ...userAccount,
+          dailyReflection: [...userAccount.dailyReflection, newReflection],
+        },
       });
       addUserReflection(newReflection.reflection);
     } catch (e) {
