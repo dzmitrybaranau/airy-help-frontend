@@ -10,6 +10,7 @@ import {
   Text,
 } from "@mantine/core";
 import { useUserStore } from "../../store";
+import DailyReflectionModal from "../DailyReflectionModal";
 
 /**
  * User Goal
@@ -91,33 +92,10 @@ function GoalsList() {
           : "Recommended actions will be available tomorrow"}
       </Button>
 
-      <Modal
-        title={<b>Daily Reflection</b>}
-        opened={isDailyReflectionModalOpen}
+      <DailyReflectionModal
+        isOpen={isDailyReflectionModalOpen}
         onClose={() => setIsDailyReflectionModalOpen(false)}
-      >
-        <div style={{ marginBottom: 16 }}>
-          This is the place where you can write down anything related to your
-          goal. What you have done, what your current feelings, what are
-          obstacles you face, what others think about your goal, anything.
-        </div>
-        <form>
-          <Input.Wrapper
-            required
-            label=""
-            style={{ marginBottom: 12, width: "100%" }}
-            size="xs"
-          >
-            <Input
-              placeholder="What's happening?"
-              size="xs"
-              style={{
-                width: "100%",
-              }}
-            />
-          </Input.Wrapper>
-        </form>
-      </Modal>
+      />
 
       <Modal
         title={<b>Recommended Actions</b>}
