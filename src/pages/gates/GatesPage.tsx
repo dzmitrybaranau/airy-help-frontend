@@ -4,7 +4,7 @@ import styles from "./GatesPage.module.scss";
 import { useNavigate } from "react-router-dom";
 
 const GatesScreen = () => {
-  const BREATH_AMOUNT = 21;
+  const BREATH_AMOUNT = 7;
   const navigate = useNavigate();
   const [started, setStarted] = useState(false);
   const [breaths, setBreaths] = useState(BREATH_AMOUNT);

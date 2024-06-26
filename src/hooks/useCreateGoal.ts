@@ -82,7 +82,7 @@ export const useCreateGoal = () => {
 
       navigate("/goals");
     } catch (e) {
-      WebApp.showAlert("Error creating goal!", e.toString());
+      WebApp.showAlert("Error creating goal!", e);
       setIsCreatingGoal(false);
     }
   };

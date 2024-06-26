@@ -1,16 +1,8 @@
 import React, { useState } from "react";
 import styles from "./GoalsList.module.scss";
-import {
-  Button,
-  Input,
-  List,
-  ListItem,
-  Modal,
-  Progress,
-  Text,
-} from "@mantine/core";
+import { Button, List, ListItem, Modal, Progress, Text } from "@mantine/core";
 import { useUserStore } from "../../store";
-import DailyReflectionModal from "../DailyReflectionModal";
+import DailyReflectionModalContainer from "../DailyReflectionModal";
 
 /**
  * User Goal
@@ -92,7 +84,7 @@ function GoalsList() {
           : "Recommended actions will be available tomorrow"}
       </Button>
 
-      <DailyReflectionModal
+      <DailyReflectionModalContainer
         isOpen={isDailyReflectionModalOpen}
         onClose={() => setIsDailyReflectionModalOpen(false)}
       />

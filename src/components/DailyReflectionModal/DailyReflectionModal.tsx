@@ -1,22 +1,26 @@
 import React from "react";
-import { Input, Modal, Button, Text, Textarea } from "@mantine/core";
-import { useDailyReflection } from "../../hooks/useDailyReflection";
-import { useUserStore } from "../../store";
+import { Button, Input, Modal, Text, Textarea } from "@mantine/core";
+import { UseFormReturnType } from "@mantine/form";
+import { UserAccount } from "airy-help-utils";
 
 export interface IDailyReflectionModalProps {
   isOpen: boolean;
   onClose: () => void;
+  form: UseFormReturnType<{ reflection: string }>;
+  onSubmit: () => Promise<void>;
+  userAccount: UserAccount;
 }
 
 /**
  * DailyReflectionModal
  */
-function DailyReflectionModal({ isOpen, onClose }: IDailyReflectionModalProps) {
-  const { form, handleSubmit } = useDailyReflection();
-  const userAccount = useUserStore((state) => state.userAccount);
-
-  if (!userAccount) return null;
-
+function DailyReflectionModal({
+  isOpen,
+  onClose,
+  form,
+  onSubmit,
+  userAccount,
+}: IDailyReflectionModalProps) {
   return (
     <Modal title={<b>Daily Reflection</b>} opened={isOpen} onClose={onClose}>
       <div style={{ marginBottom: 16 }}>
@@ -24,7 +28,7 @@ function DailyReflectionModal({ isOpen, onClose }: IDailyReflectionModalProps) {
         goal. What you have done, what your current feelings, what are obstacles
         you face, what others think about your goal, anything.
       </div>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+      <form onSubmit={form.onSubmit(onSubmit)}>
         <Input.Wrapper
           required
           label="Your Reflection"
@@ -44,14 +48,14 @@ function DailyReflectionModal({ isOpen, onClose }: IDailyReflectionModalProps) {
           Submit
         </Button>
       </form>
-      <div style={{ marginTop: 20 }}>
-        <Text fw={500}>Previous Reflections:</Text>
-        {userAccount?.dailyReflection?.map(({ reflection }, index) => (
+      {userAccount?.dailyReflection?.map(({ reflection }, index) => (
+        <div style={{ marginTop: 20 }}>
+          <Text fw={500}>Previous Reflections:</Text>
           <Text key={index} size="sm" style={{ marginTop: 8 }}>
             {reflection}
           </Text>
-        ))}
-      </div>
+        </div>
+      ))}
     </Modal>
   );
 }

@@ -1,1 +1,2 @@
-export { default } from "./DailyReflectionModal";
+export { default } from "./DailyReflectionModalContainer";
+export { default as DailyReflectionModal } from "./DailyReflectionModal";
