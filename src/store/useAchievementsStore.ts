@@ -1,11 +1,11 @@
 import { create } from "zustand";
-import { setUserData } from "../utils/user/setUserData";
 
+export interface IAchievement {
+  id: string;
+  isTaken: boolean;
+}
 export const useAchievementsStore = create<{
-  userAchievements: {
-    id: string;
-    isTaken: boolean;
-  }[];
+  userAchievements: IAchievement[];
   createAchievement: (id: string) => void;
   takeAchievement: (id: string) => void;
   fetchUserAchievements: (chatId: string) => void;

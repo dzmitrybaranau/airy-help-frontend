@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Achievement from "./Achievement";
 import { AppProviders } from "../../stories/StorybookProviders";
+import { ACHIEVEMENTS } from "./achivements";
 
 const meta = {
   decorators: [
@@ -13,11 +14,7 @@ const meta = {
   title: "Example/Achievement",
   component: Achievement,
   parameters: {},
-  argTypes: {
-    message: {
-      type: "string",
-    },
-  },
+  argTypes: {},
   args: {},
 } satisfies Meta<typeof Achievement>;
 
@@ -27,6 +24,8 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary: Story = {
   args: {
-    message: "Hello, World!",
+    isOpen: true,
+    cardToRender: { id: ACHIEVEMENTS.FIRST_STEPS.id, isTaken: false },
+    takeAchievement: () => {},
   },
 };

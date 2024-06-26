@@ -1,46 +1,26 @@
 import React from "react";
-import { useAchievementsStore } from "../../store";
 import { Button, Modal, Text } from "@mantine/core";
 import { ACHIEVEMENTS } from "./achivements";
+import { IAchievement } from "../../store/useAchievementsStore";
 
-export interface IAchievementProps {}
+export interface IAchievementProps {
+  isOpen: boolean;
+  takeAchievement: (id: string) => void;
+  cardToRender: IAchievement;
+}
 
 /**
  * Achievement
  */
-function Achievement(props: IAchievementProps) {
-  const { userAchievements, takeAchievement } = useAchievementsStore();
-  // const userAchievements = [
-  //   {
-  //     isTaken: true,
-  //     id: "FIRST_BREATH",
-  //   },
-  //   {
-  //     isTaken: false,
-  //     id: "FIRST_STEPS",
-  //   },
-  // ];
-
-  const cardToRender = userAchievements.find(({ isTaken }) => !isTaken);
-  if (!cardToRender) {
-    return null;
-  }
-
+function Achievement({
+  isOpen,
+  takeAchievement,
+  cardToRender,
+}: IAchievementProps) {
   const { id } = cardToRender;
 
-  console.log({ cardToRender, userAchievements });
-
-  const isModalOpen =
-    Boolean(userAchievements.find((achievement) => !achievement.isTaken)) &&
-    !!cardToRender;
-
   return (
-    <Modal
-      size="xs"
-      opened={isModalOpen}
-      withCloseButton={false}
-      onClose={() => {}}
-    >
+    <Modal size="xs" opened={isOpen} withCloseButton={false} onClose={() => {}}>
       <div style={{ padding: "8px 24px 8px", overflow: "hidden" }}>
         <div style={{ width: "100%" }}>
           <Text

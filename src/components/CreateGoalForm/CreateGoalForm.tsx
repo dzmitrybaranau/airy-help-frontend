@@ -128,8 +128,8 @@ const Step2 = ({ form, handleSubmit, handleStepChange, isCreatingGoal }) => {
  * Create Goals Form
  */
 function CreateGoalForm() {
-  const { form, handleSubmit } = useCreateGoal();
-  const { isCreatingGoal, setCurrentStep, currentStep } = useCreateGoalStore();
+  const { form, handleSubmit, isCreatingGoal, setCurrentStep, currentStep } =
+    useCreateGoal();
 
   const renderStep = () => {
     switch (currentStep) {

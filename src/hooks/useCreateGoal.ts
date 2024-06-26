@@ -13,7 +13,9 @@ import { setUserData } from "../utils/user/setUserData";
 import { ACHIEVEMENTS } from "../components/Achievement/achivements";
 
 export const useCreateGoal = () => {
-  const { setIsCreatingGoal } = useCreateGoalStore();
+  const { isCreatingGoal, setCurrentStep, currentStep, setIsCreatingGoal } =
+    useCreateGoalStore();
+
   const createAchievement = useAchievementsStore(
     (state) => state.createAchievement,
   );
@@ -97,5 +99,8 @@ export const useCreateGoal = () => {
   return {
     form,
     handleSubmit,
+    isCreatingGoal,
+    setCurrentStep,
+    currentStep,
   };
 };
