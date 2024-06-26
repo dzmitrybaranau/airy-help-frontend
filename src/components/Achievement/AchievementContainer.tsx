@@ -2,14 +2,12 @@ import React from "react";
 import { useAchievementsStore } from "../../store";
 import Achievement from "./Achievement";
 
-export interface IAchievementContainerProps {
-  isOpen: boolean;
-}
+export interface IAchievementContainerProps {}
 
 /**
  * Achievement
  */
-function AchievementContainer({ isOpen }: IAchievementContainerProps) {
+function AchievementContainer() {
   const { userAchievements, takeAchievement } = useAchievementsStore();
 
   const cardToRender = userAchievements.find(({ isTaken }) => !isTaken);

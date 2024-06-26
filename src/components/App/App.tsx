@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import useLoadUserAccount from "../../hooks/useLoadUserAccount";
 import { Loader } from "@mantine/core";
 import { useUserStore } from "../../store";
-import Achievement from "../Achievement";
+import Achievement, {AchievementContainer} from "../Achievement";
 import { useMutateUserAccount } from "../../hooks/useMutateUserAccount";
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
       <div className={styles.pageWrapper}>
         <Outlet />
       </div>
-      <Achievement />
+      <AchievementContainer />
     </div>
   );
 }
