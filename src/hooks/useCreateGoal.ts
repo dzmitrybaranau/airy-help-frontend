@@ -69,7 +69,7 @@ export const useCreateGoal = () => {
           ...userAccount,
           goals: [...(userAccount?.goals ?? []), newGoal],
           achievementsId: [
-            ...userAccount.achievementsId,
+            ...(userAccount?.achievementsId ?? []),
             ACHIEVEMENTS.FIRST_STEPS.id,
             ACHIEVEMENTS.FIRST_BREATH.id,
           ],
