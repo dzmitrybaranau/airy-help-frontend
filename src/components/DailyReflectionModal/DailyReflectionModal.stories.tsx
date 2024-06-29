@@ -15,22 +15,16 @@ const meta = {
               isOpen: true,
               onClose: () => {},
               onSubmit: handleSubmit,
-              userAccount: {
-                firstName: "Dzmitry",
-                chatId: "1313",
-                lastName: "Baranau",
-                goals: [],
-                dailyReflection: [],
-                onboarded: true,
-                goalSuccessPrediction: {
-                  moreQuestionsToAsk: [],
-                  recommendedActions: [],
-                  realityVsGoalAnalysis: "",
-                  estimatedSuccessRate: "",
-                  estimationRationale: "",
+              dailyReflection: [
+                {
+                  reflection: "I did a small step, that’s it",
+                  timestamp: "2024-06-29T14:45:59.554Z",
                 },
-                achievementsId: [],
-              },
+                {
+                  timestamp: "2024-07-29T14:46:14.146Z",
+                  reflection: "Second Update",
+                },
+              ],
             }}
           />
         </AppProviders>

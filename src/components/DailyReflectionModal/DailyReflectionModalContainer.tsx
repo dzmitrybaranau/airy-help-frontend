@@ -1,7 +1,5 @@
 import React from "react";
-import { Input, Modal, Button, Text, Textarea } from "@mantine/core";
 import { useDailyReflection } from "../../hooks/useDailyReflection";
-import { useUserStore } from "../../store";
 import DailyReflectionModal from "./DailyReflectionModal";
 
 export interface IDailyReflectionModalProps {
@@ -20,12 +18,16 @@ function DailyReflectionModalContainer({
 
   if (!userAccount) return null;
 
+  userAccount?.dailyReflection.sort(
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+  );
+
   return (
     <DailyReflectionModal
       isOpen={isOpen}
       onClose={onClose}
       form={form}
-      userAccount={userAccount}
+      dailyReflection={userAccount?.dailyReflection ?? []}
       onSubmit={handleSubmit}
     />
   );

@@ -3,12 +3,12 @@ import { Button, Input, Modal, Text, Textarea } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 import { UserAccount } from "airy-help-utils";
 
-export interface IDailyReflectionModalProps {
+export interface IDailyReflectionModalProps
+  extends Pick<UserAccount, "dailyReflection"> {
   isOpen: boolean;
   onClose: () => void;
   form: UseFormReturnType<{ reflection: string }>;
   onSubmit: () => Promise<void>;
-  userAccount: UserAccount;
 }
 
 /**
@@ -19,7 +19,7 @@ function DailyReflectionModal({
   onClose,
   form,
   onSubmit,
-  userAccount,
+  dailyReflection,
 }: IDailyReflectionModalProps) {
   return (
     <Modal title={<b>Daily Reflection</b>} opened={isOpen} onClose={onClose}>
@@ -48,7 +48,7 @@ function DailyReflectionModal({
           Submit
         </Button>
       </form>
-      {userAccount?.dailyReflection?.map(({ reflection }, index) => (
+      {dailyReflection?.map(({ reflection }, index) => (
         <div style={{ marginTop: 20 }}>
           <Text fw={500}>Previous Reflections:</Text>
           <Text key={index} size="sm" style={{ marginTop: 8 }}>
