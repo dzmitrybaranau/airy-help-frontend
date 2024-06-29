@@ -19,8 +19,20 @@ function DailyReflectionModalContainer({
   if (!userAccount) return null;
 
   userAccount?.dailyReflection.sort(
-    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime(),
   );
+
+  const sortedDailyReflection = userAccount.dailyReflection
+    .slice()
+    .sort(
+      (a, b) =>
+        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+    );
+
+  console.log({
+    sortedDailyReflection,
+    dailyReflection: userAccount?.dailyReflection,
+  });
 
   return (
     <DailyReflectionModal
