@@ -4,8 +4,6 @@ import { firestore } from "../firebase/firebase-config";
 import { useUserStore } from "../store";
 import { setUserData } from "../utils/user/setUserData";
 
-
-
 export const useDailyReflection = () => {
   const userAccount = useUserStore((state) => state.userAccount);
   const addUserReflection = useUserStore((state) => state.addUserReflection);
@@ -37,7 +35,10 @@ export const useDailyReflection = () => {
         userRef: userDocRef,
         newUserData: {
           ...userAccount,
-          dailyReflection: [...userAccount.dailyReflection, newReflection],
+          dailyReflection: [
+            ...(userAccount?.dailyReflection ?? []),
+            newReflection,
+          ],
         },
       });
       form.reset();
@@ -50,6 +51,6 @@ export const useDailyReflection = () => {
   return {
     form,
     handleSubmit,
-    userAccount
+    userAccount,
   };
 };

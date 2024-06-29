@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./CreateGoalForm.module.scss";
 import { IconInfoCircle } from "@tabler/icons-react";
 import { Button, Input } from "@mantine/core";
 import { useCreateGoal } from "../../hooks/useCreateGoal";
-import { useCreateGoalStore } from "../../store";
 import { CREATE_GOAL_STEPS } from "../../store/useCreateGoalStore";
+import { useOnboardingStep } from "../../context/useOnboardingStep";
 
 export interface ICreateGoalProps {}
 
 const Step1 = ({ form, isCreatingGoal, handleStepChange }) => {
+  const formRef = useRef(null);
+  const { isActive, nextStep, step } = useOnboardingStep(1, formRef);
+
+  useEffect(() => {
+    nextStep();
+  }, []);
+
   return (
     <>
+      {isActive && (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.4)",
+            zIndex: 9999999,
+          }}
+        ></div>
+      )}
       <h2 className={styles.title}>Let’s create your first goals 🙌🏼</h2>
       <div className={styles.createGoalHint}>
         <IconInfoCircle
@@ -23,6 +43,7 @@ const Step1 = ({ form, isCreatingGoal, handleStepChange }) => {
         </p>
       </div>
       <form
+        ref={formRef}
         onSubmit={form.onSubmit(handleStepChange)}
         style={{ width: "100%" }}
       >

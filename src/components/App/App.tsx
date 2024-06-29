@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import useLoadUserAccount from "../../hooks/useLoadUserAccount";
 import { Loader } from "@mantine/core";
 import { useUserStore } from "../../store";
-import Achievement, {AchievementContainer} from "../Achievement";
+import { AchievementContainer } from "../Achievement";
 import { useMutateUserAccount } from "../../hooks/useMutateUserAccount";
 
 function App() {

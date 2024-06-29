@@ -20,6 +20,7 @@ import MeetAiry from "./pages/meet-airy";
 import GatesPage from "./pages/gates";
 import CreateGoalPage from "./pages/create-goal";
 import OnboardingPage from "./pages/onboarding";
+import { OnboardingProvider } from "./context/OnboardingContext";
 
 eruda.init();
 WebApp.ready();
@@ -84,7 +85,32 @@ const AppProviders = ({ children }) => {
     >
       <QueryClientProvider client={queryClient}>
         <MantineProvider theme={theme}>
-          <TypographyStylesProvider>{children}</TypographyStylesProvider>
+          <TypographyStylesProvider>
+            <OnboardingProvider
+              steps={[
+                {
+                  stepNumber: 1,
+                  meta: "Gates Mindfulness",
+                  userInfo:
+                    "Welcome to the Airy app, here you can start your journey to achieve your dreams",
+                },
+                {
+                  stepNumber: 2,
+                  meta: "Create Goal",
+                  userInfo:
+                    "Let's create your first goal, type whatever you want here",
+                },
+                {
+                  stepNumber: 3,
+                  meta: "Why do you want it",
+                  userInfo:
+                    "To make sure that you stay on track, goal need to be aligned with your inner priorities, tell why do you want to achieve with this goal",
+                },
+              ]}
+            >
+              {children}
+            </OnboardingProvider>
+          </TypographyStylesProvider>
         </MantineProvider>
       </QueryClientProvider>
     </TonConnectUIProvider>
