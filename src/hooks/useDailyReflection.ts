@@ -4,9 +4,11 @@ import { firestore } from "../firebase/firebase-config";
 import { useUserStore } from "../store";
 import { setUserData } from "../utils/user/setUserData";
 
-export const useDailyReflection = () => {
+export const useDailyReflection = (goalId: string) => {
   const userAccount = useUserStore((state) => state.userAccount);
-  const addUserReflection = useUserStore((state) => state.addUserReflection);
+  const addJournalReflection = useUserStore(
+    (state) => state.addJournalReflection,
+  );
 
   const form = useForm({
     initialValues: {
@@ -25,24 +27,33 @@ export const useDailyReflection = () => {
       collection(firestore, "users"),
       userAccount.chatId.toString(),
     );
+
     const newReflection = {
       reflection: form.getValues().reflection,
       timestamp: new Date().toISOString(),
+      goalId,
     };
 
     try {
+      const updatedGoals = userAccount.goals.map((goal) => {
+        if (goal.id === newReflection.goalId) {
+          return {
+            ...goal,
+            journal: [newReflection, ...goal.journal],
+          };
+        }
+        return goal;
+      });
+
       await setUserData({
         userRef: userDocRef,
         newUserData: {
           ...userAccount,
-          dailyReflection: [
-            ...(userAccount?.dailyReflection ?? []),
-            newReflection,
-          ],
+          goals: updatedGoals,
         },
       });
       form.reset();
-      addUserReflection(newReflection);
+      addJournalReflection(newReflection);
     } catch (e) {
       console.error("Error adding reflection:", e);
     }

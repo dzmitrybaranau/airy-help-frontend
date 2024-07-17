@@ -8,22 +8,28 @@
   padding-bottom: 48px;
 }
 .welcome {
-  font-size: 24px !important;
-  font-weight: 800 !important;
-  margin-bottom: 8px !important;
-  text-align: center !important;
-  opacity: 0.8 !important;
+  font-weight: 900;
+  text-align: left !important;
+  width: 100%;
+  font-size: 64px !important;
+  line-height: 56px !important;
 }
 
 .welcomeIntro {
-  text-align: center !important;
-  font-size: 14px !important;
-  line-height: 16px !important;
-  opacity: 0.5 !important;
-  span {
-    opacity: 1.2 !important;
-    font-weight: bold !important;
-  }
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  width: 100%;
+}
+.needBox{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  height: 80px;
+  background: #000;
+  border-radius: 8px;
+  color: white;
 }
 
 .startButton {

@@ -22,15 +22,15 @@ export const useCreateGoal = () => {
   const { addUserGoal, userAccount } = useUserStore();
   const navigate = useNavigate();
 
-  const form = useForm<UserGoal>({
+  const form = useForm<Omit<UserGoal, "journal">>({
     initialValues: {
-      description: "",
+      name: "",
       createdAt: "",
-      why: "",
+      reason: "",
       id: "",
     },
     validate: {
-      description: (value) => {
+      name: (value) => {
         if (value.length > 0) {
           return false;
         }
@@ -40,11 +40,11 @@ export const useCreateGoal = () => {
   });
 
   const createUserGoal = async ({
-    goalDescription,
-    why,
+    name,
+    reason,
   }: {
-    goalDescription: string;
-    why: string;
+    name: string;
+    reason: string;
   }) => {
     setIsCreatingGoal(true);
     const userDocRef = doc(
@@ -54,9 +54,10 @@ export const useCreateGoal = () => {
 
     const newGoal: UserGoal = {
       id: Math.random().toString(36).substr(2) + Date.now().toString(36),
-      description: goalDescription,
+      name,
       createdAt: new Date().toISOString(),
-      why,
+      reason,
+      journal: [],
     };
 
     try {
@@ -91,8 +92,8 @@ export const useCreateGoal = () => {
   };
 
   const handleSubmit = async () => {
-    const { description, why } = form.getValues();
-    await createUserGoal({ goalDescription: description, why }).catch((e) => {
+    const { name, reason } = form.getValues();
+    await createUserGoal({ name, reason }).catch((e) => {
       console.error("Error creating goal!", e);
     });
   };

@@ -41,7 +41,6 @@ export const useMutateUserAccount = () => {
           recommendedActions: [],
           moreQuestionsToAsk: [],
         },
-        dailyReflection: [],
       };
 
       await setDoc(userDocRef, newUserAcc);

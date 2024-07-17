@@ -1,10 +1,9 @@
 import React from "react";
 import { Button, Input, Modal, Text, Textarea } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
-import { UserAccount } from "airy-help-utils";
+import { UserAccount, UserGoal } from "airy-help-utils";
 
-export interface IDailyReflectionModalProps
-  extends Pick<UserAccount, "dailyReflection"> {
+export interface IDailyReflectionModalProps extends Pick<UserGoal, "journal"> {
   isOpen: boolean;
   onClose: () => void;
   form: UseFormReturnType<{ reflection: string }>;
@@ -14,12 +13,12 @@ export interface IDailyReflectionModalProps
 /**
  * DailyReflectionModal
  */
-function DailyReflectionModal({
+function GoalJournalModal({
   isOpen,
   onClose,
   form,
   onSubmit,
-  dailyReflection,
+  journal,
 }: IDailyReflectionModalProps) {
   return (
     <Modal title={<b>Daily Reflection</b>} opened={isOpen} onClose={onClose}>
@@ -48,7 +47,7 @@ function DailyReflectionModal({
           Submit
         </Button>
       </form>
-      {dailyReflection?.map(({ reflection }, index) => (
+      {journal?.map(({ reflection }, index) => (
         <div style={{ marginTop: 20 }}>
           <Text fw={500}>Previous Reflections:</Text>
           <Text key={index} size="sm" style={{ marginTop: 8 }}>
@@ -60,4 +59,4 @@ function DailyReflectionModal({
   );
 }
 
-export default DailyReflectionModal;
+export default GoalJournalModal;

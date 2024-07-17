@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import DailyReflectionModal from "./DailyReflectionModal";
+import GoalJournalModal from "./GoalJournalModal";
 import { AppProviders } from "../../stories/StorybookProviders";
 import { useDailyReflection } from "../../hooks/useDailyReflection";
 
 const meta = {
   decorators: [
     (Story) => {
-      const { form, handleSubmit } = useDailyReflection();
+      const { form, handleSubmit } = useDailyReflection("");
       return (
         <AppProviders>
           <Story
@@ -15,7 +15,7 @@ const meta = {
               isOpen: true,
               onClose: () => {},
               onSubmit: handleSubmit,
-              dailyReflection: [
+              journal: [
                 {
                   reflection: "I did a small step, that’s it",
                   timestamp: "2024-06-29T14:45:59.554Z",
@@ -31,12 +31,12 @@ const meta = {
       );
     },
   ],
-  title: "Example/DailyReflectionModal",
-  component: DailyReflectionModal,
+  title: "Component/GoalJournal",
+  component: GoalJournalModal,
   parameters: {},
   argTypes: {},
   args: {},
-} satisfies Meta<typeof DailyReflectionModal>;
+} satisfies Meta<typeof GoalJournalModal>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

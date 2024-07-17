@@ -7,13 +7,27 @@
   width: 100%;
 }
 
-.title {
-  margin-bottom: 4px !important;
-  color: #0c0c0c;
-  span {
-    font-size: 14px;
-    font-weight: 400;
-    color: #373e42;
+.continue {
+  background: #303857;
+  color: #fff;
+  border: 1px solid #39415d !important;
+
+  transition:
+    background 0.25s ease-in-out,
+    color 0.25s ease-in-out,
+    border 0.25s ease-in-out;
+  &:disabled {
+    background: #2c2f3d;
+    color: #9b9b9b;
+    border: 1px solid #353748 !important;
+  }
+}
+
+.input {
+  input {
+    background: #263752;
+    color: #fff;
+    border: 1px solid #35455e;
   }
 }
 
@@ -24,7 +38,7 @@
 
   p {
     font-weight: 300;
-    color: #6e7173;
+    color: #ffffff;
     font-size: 14px;
     line-height: 16px;
 

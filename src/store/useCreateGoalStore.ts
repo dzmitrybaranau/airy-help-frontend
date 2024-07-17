@@ -12,7 +12,10 @@ export const useCreateGoalStore = create<{
   setIsCreatingGoal: (isCreatingGoal: boolean) => void;
 }>((set) => ({
   currentStep: CREATE_GOAL_STEPS.INITIAL,
-  setCurrentStep: (step: CREATE_GOAL_STEPS) => set({ currentStep: step }),
+  setCurrentStep: (step: CREATE_GOAL_STEPS) => {
+    console.log("SET STEP", { step });
+    set({ currentStep: step });
+  },
   isCreatingGoal: false,
   setIsCreatingGoal: (isCreatingGoal: boolean) => set({ isCreatingGoal }),
 }));

@@ -3,9 +3,9 @@ import styles from "./GoalPage.module.scss";
 import { Helmet } from "react-helmet";
 import DevsMotivationalMessage from "../../components/DevsMotivationalMessage/DevsMotivationalMessage";
 import { Space } from "@mantine/core";
-import GoalsList from "../../components/GoalsList";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store";
+import GoalContainer from "../../components/GoalsList/GoalContainer";
 
 export interface IMainPageProps {}
 
@@ -36,7 +36,7 @@ function GoalPage(props: IMainPageProps) {
           <Space h="xs" />
         </>
       )}
-      <GoalsList />
+      <GoalContainer />
     </div>
   );
 }

@@ -3,18 +3,17 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  padding-bottom: 12px;
+  padding: 16px 18px;
+  border-radius: 8px;
+  background: radial-gradient(rgba(56, 85, 121, 0.78), #2a3757);
+  border: 1px solid #3c4665;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   &:not(:last-child) {
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   }
 }
 
 .heading {
-  font-size: 24px;
-  line-height: 26px;
-  font-weight: 800;
-  margin-bottom: 8px !important;
-  opacity: 0.9;
 }
 
 .estimationWrapper {

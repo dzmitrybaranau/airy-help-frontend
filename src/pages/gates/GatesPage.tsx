@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Checkbox, Text } from "@mantine/core";
+import { Button, Checkbox, Text, Title } from "@mantine/core";
 import styles from "./GatesPage.module.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -44,18 +44,33 @@ const GatesScreen = () => {
     <div className={styles.root}>
       {!started && breaths > 0 && (
         <>
-          <Text className={styles.welcome}>Welcome to the Airy Gates!</Text>
-          <Text className={styles.welcomeIntro}>
-            Before we begin, I want you to enter a state of
-            <span> awareness</span>. Let’s do a quick breathing exercise!
+          <Title fz="h1" c="#fff" className={styles.welcome} mb={24}>
+            Achieve. Effectively
+          </Title>
+          <Text c="#fff" fz="h2" lh="24px" fw={700} w="100%" ta="left">
+            What I need from You
           </Text>
+          <div className={styles.welcomeIntro}>
+            <div className={styles.needBox}>
+              <Text>Focus</Text>
+              <div>Icon</div>
+            </div>
+            <div className={styles.needBox}>
+              <Text>Time</Text>
+              <div>15 minutes</div>
+            </div>
+            <div className={styles.needBox}>
+              <Text>Attention</Text>
+              <div>icon</div>
+            </div>
+          </div>
           <Button
             variant="light"
             size="xs"
             onClick={handleStart}
             className={styles.startButton}
           >
-            Start
+            Let's Begin
           </Button>
         </>
       )}
