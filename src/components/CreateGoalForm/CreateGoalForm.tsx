@@ -170,7 +170,7 @@ const Step2 = ({
           words={[`Step 2: Find your "Why"`]}
           loop={1}
           cursor
-          cursorStyle="|"
+          cursorStyle="||"
           typeSpeed={50}
           deleteSpeed={25}
           delaySpeed={3000}
