@@ -5,7 +5,7 @@ const useLoadUserAccount = () => {
   const { userTmaInfo, isTmaInfoLoading, fetchUserAccount } = useUserStore();
 
   useLayoutEffect(() => {
-    console.log("LOAD ACCOUNT");
+    console.log("LOAD ACCOUNT", userTmaInfo);
     if (!isTmaInfoLoading && userTmaInfo?.user?.id) {
       console.log("CREATE ACCOUNT", userTmaInfo?.user?.id.toString());
       fetchUserAccount(userTmaInfo?.user?.id.toString());
